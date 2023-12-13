@@ -44,6 +44,10 @@ const UserSchema = new mongoose.Schema({
       ref: "Category",
     },
   ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const User = mongoose.model("User", UserSchema);
