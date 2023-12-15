@@ -4,7 +4,7 @@ import {
   getUserPosts,
   upVote,
   downVote,
-} from "../controllers/posts.js";
+} from "../controllers/post.js";
 import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -12,7 +12,7 @@ const router = express.Router();
 /*READ*/
 
 router.get("/", verifyToken, getFeedPosts);
-router.get("/username/posts", verifyToken, getUserPosts);
+router.get("/:id/posts", verifyToken, getUserPosts); //! bir ara burayı username olarak değiştireceğim
 
 /*UPDATE*/
 router.patch("/:id/upvote", verifyToken, upVote);
