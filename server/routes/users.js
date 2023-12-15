@@ -3,8 +3,8 @@ import {
   getUser,
   getUserCategories,
   addRemoveCategories,
-} from "../controllers/users.js";
-import { verifyToken } from "../middlewares/auth.js";
+} from "../controllers/user.js";
+import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
