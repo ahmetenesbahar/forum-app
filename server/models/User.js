@@ -29,11 +29,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  location: String,
-  registrationDate: {
-    type: Date,
-    default: Date.now,
-  },
   bio: {
     type: String,
     max: 250,
