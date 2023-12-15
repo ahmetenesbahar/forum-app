@@ -1,5 +1,5 @@
-import Category from "../models/Categories";
-import User from "../models/User";
+import Category from "../models/Categories.js";
+import User from "../models/User.js";
 
 /* READ */
 
