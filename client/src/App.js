@@ -5,6 +5,7 @@ import LoginPage from "views/loginPage";
 import ProfilePage from "views/profilePage";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
+import Navbar from "views/navbar";
 
 const App = () => {
   const mode = useSelector((state) => state.mode);
@@ -29,6 +30,7 @@ const App = () => {
   return (
     <div className={`app ${theme.background} ${theme.text}`}>
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
