@@ -4,16 +4,20 @@ export const getTheme = (mode) => {
       primary: "bg-light-primary",
       secondary: "bg-light-secondary",
       background: "bg-light-background",
-      navBackground: "bg-light-navBackground",
+      secondaryBackground: "bg-light-secondaryBackground",
       text: "text-light-text",
+      logo: "text-black",
+      borderGray: "border-light-borderGray",
     };
   } else {
     return {
       primary: "bg-dark-primary",
       secondary: "bg-dark-secondary",
       background: "bg-dark-background",
-      navBackground: "bg-dark-navBackground",
+      secondaryBackground: "bg-dark-secondaryBackground",
       text: "text-dark-text",
+      logo: "text-white",
+      borderGray: "border-dark-borderGray",
     };
   }
 };
