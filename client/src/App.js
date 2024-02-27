@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
-import HomePage from "views/homePage";
-import LoginPage from "views/loginPage";
-import ProfilePage from "views/profilePage";
+import HomePage from "components/HomePage";
+import LoginPage from "components/LoginPage";
+import ProfilePage from "components/ProfilePage";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import Navbar from "views/navbar";
+import Navbar from "components/Navbar";
 
 const App = () => {
   const mode = useSelector((state) => state.mode);
