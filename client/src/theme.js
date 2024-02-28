@@ -8,6 +8,7 @@ export const getTheme = (mode) => {
       text: "text-light-text",
       logo: "text-black",
       borderGray: "border-light-borderGray",
+      hoverBackground: "hover:bg-light-hoverBackground",
     };
   } else {
     return {
@@ -18,6 +19,7 @@ export const getTheme = (mode) => {
       text: "text-dark-text",
       logo: "text-white",
       borderGray: "border-dark-borderGray",
+      hoverBackground: "hover:bg-dark-hoverBackground",
     };
   }
 };

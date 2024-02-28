@@ -10,6 +10,7 @@ module.exports = {
           background: "#FFFFFF",
           secondaryBackground: "#eaedef",
           borderGray: "#c0c0c0",
+          hoverBackground: "#f5f5f5",
           text: "#333333",
         },
         dark: {
@@ -18,6 +19,7 @@ module.exports = {
           background: "#0b1416",
           secondaryBackground: "#1a282d ",
           borderGray: "#373c3f",
+          hoverBackground: " #2c3e44",
           text: "#FFFFFF",
         },
       },
