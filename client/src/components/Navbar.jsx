@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Switch } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../state/index";
@@ -23,6 +23,14 @@ const Navbar = () => {
   const theme = getTheme(mode);
 
   const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    if (enabled) {
+      dispatch(setMode("dark"));
+    } else {
+      dispatch(setMode("light"));
+    }
+  }, [enabled]);
 
   return (
     <div
