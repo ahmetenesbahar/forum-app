@@ -22,7 +22,7 @@ const Navbar = () => {
   const mode = useSelector((state) => state.mode);
   const theme = getTheme(mode);
 
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useState(mode === "dark" ? true : false);
 
   useEffect(() => {
     if (enabled) {
@@ -62,7 +62,7 @@ const Navbar = () => {
         </div>
       </div>
       <div
-        className={` user-actions-menu min-w-[256px] font-semibold  absolute end-8 top-20  py-2 rounded-md ${theme.background} ${theme.borderGray} ${theme.text} shadow ${theme.text} `}
+        className={` user-actions-menu min-w-[256px] font-semibold  absolute end-8 top-20  py-2 rounded-md ${theme.background} ${theme.borderGray} ${theme.text} shadow-md ${theme.text} `}
       >
         <div
           className={`user-actions-item py-2 pr-6 pl-4 flex items-center gap-3 cursor-pointer ${theme.hoverBackground}`}
