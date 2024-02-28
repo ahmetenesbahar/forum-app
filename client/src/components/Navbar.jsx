@@ -1,12 +1,17 @@
 import React from "react";
+import { useState } from "react";
+import { Switch } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../state/index";
 import { useNavigate } from "react-router-dom";
 import { getTheme } from "theme";
+
 import { FaPlus } from "react-icons/fa6";
 import { FaRegBell } from "react-icons/fa6";
 import { FiSettings } from "react-icons/fi";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import { RiMoonLine } from "react-icons/ri";
+
 import { ReactComponent as Logod20 } from "../assets/Logod20.svg";
 import Searchbar from "./Searchbar";
 
@@ -16,6 +21,9 @@ const Navbar = () => {
   const user = useSelector((state) => state.user);
   const mode = useSelector((state) => state.mode);
   const theme = getTheme(mode);
+
+  const [enabled, setEnabled] = useState(false);
+
   return (
     <div
       className={`justify-between items-center flex px-8 border-b w-full ${theme.borderGray} relative`}
@@ -46,14 +54,15 @@ const Navbar = () => {
         </div>
       </div>
       <div
-        className={` user-actions-menu font-semibold  absolute end-8 top-20  py-2 rounded-md ${theme.background} ${theme.borderGray} ${theme.text} shadow ${theme.text} `}
+        className={` user-actions-menu min-w-[256px] font-semibold  absolute end-8 top-20  py-2 rounded-md ${theme.background} ${theme.borderGray} ${theme.text} shadow ${theme.text} `}
       >
         <div
-          className={`user-actions-item py-2 pr-6 pl-2 flex gap-2 cursor-pointer ${theme.hoverBackground}`}
+          className={`user-actions-item py-2 pr-6 pl-4 flex items-center gap-3 cursor-pointer ${theme.hoverBackground}`}
         >
           <div>
             <div
-              className={`user-avatar cursor-pointer ${theme.hoverBackground} rounded-full p-1`}
+              className={`user-avatar cursor-pointer ${theme.hoverBackground} rounded-full
+              `}
               onClick={""}
             >
               <div
@@ -66,12 +75,35 @@ const Navbar = () => {
             <p className="text-xs">u/Satuhaz</p>
           </div>
         </div>
-        <div className="user-actions-item pl-2 py-2 flex">Dark Mode</div>
-        <div className="user-actions-item pl-2 py-2 flex items-center gap-2">
-          <FiSettings className="w-6 h-6  " />
+        <div className="user-actions-item pl-4 py-2 pr-6 gap-3 flex items-center ">
+          <RiMoonLine className="w-6 h-6 " />
+          <div className="flex items-center gap-8">
+            Dark Mode
+            <Switch
+              checked={enabled}
+              onChange={setEnabled}
+              className={`${
+                enabled ? "bg-blue-600" : `${theme.secondaryBackground}`
+              } relative inline-flex h-8 w-12 items-center rounded-full focus:outline-none`}
+            >
+              <span className="sr-only">Enable notifications</span>
+              <span
+                className={`${
+                  enabled ? "translate-x-6" : "translate-x-1"
+                } inline-block h-6 w-6 transform rounded-full bg-white transition`}
+              />
+            </Switch>
+          </div>
+        </div>
+        <div
+          className={`user-actions-item py-2 pr-6 pl-4 flex gap-3 cursor-pointer ${theme.hoverBackground}`}
+        >
+          <FiSettings className="w-6 h-6 " />
           Settings
         </div>
-        <div className="user-actions-item pl-2 py-2  flex items-center gap-2">
+        <div
+          className={`user-actions-item py-2 pr-6 pl-4 flex gap-3 cursor-pointer ${theme.hoverBackground}`}
+        >
           <RiLogoutBoxLine className="w-6 h-6" />
           Log Out
         </div>
