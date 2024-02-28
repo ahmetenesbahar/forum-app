@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Switch } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../state/index";
@@ -25,6 +25,8 @@ const Navbar = () => {
   const [enabled, setEnabled] = useState(mode === "dark" ? true : false);
   const [showActionMenu, setShowActionMenu] = useState(false);
 
+  const menuRef = useRef(null);
+
   useEffect(() => {
     if (enabled) {
       dispatch(setMode("dark"));
@@ -32,6 +34,27 @@ const Navbar = () => {
       dispatch(setMode("light"));
     }
   }, [enabled]);
+
+  useEffect(() => {
+    console.log(showActionMenu);
+    const handleClickOutside = (event) => {
+      if (
+        showActionMenu &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target)
+      ) {
+        setTimeout(() => {
+          setShowActionMenu(false);
+        }, 10);
+      }
+    };
+
+    document.addEventListener("mouseup", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mouseup", handleClickOutside);
+    };
+  }, [showActionMenu]);
 
   return (
     <div
@@ -68,6 +91,7 @@ const Navbar = () => {
         } ${theme.borderGray} ${theme.text} shadow-md ${theme.text} ${
           showActionMenu ? "block" : "hidden"
         } `}
+        ref={menuRef}
       >
         <div
           className={`user-actions-item py-2 pr-6 pl-4 flex items-center gap-3 cursor-pointer ${theme.hoverBackground}`}
