@@ -23,6 +23,7 @@ const Navbar = () => {
   const theme = getTheme(mode);
 
   const [enabled, setEnabled] = useState(mode === "dark" ? true : false);
+  const [showActionMenu, setShowActionMenu] = useState(false);
 
   useEffect(() => {
     if (enabled) {
@@ -54,7 +55,7 @@ const Navbar = () => {
         />
         <div
           className={`user-avatar cursor-pointer ${theme.hoverBackground} rounded-full p-1`}
-          onClick={""}
+          onClick={() => setShowActionMenu(!showActionMenu)}
         >
           <div
             className={` rounded-full w-8 h-8 ${theme.secondaryBackground} `}
@@ -62,7 +63,11 @@ const Navbar = () => {
         </div>
       </div>
       <div
-        className={` user-actions-menu min-w-[256px] font-semibold  absolute end-8 top-20  py-2 rounded-md ${theme.background} ${theme.borderGray} ${theme.text} shadow-md ${theme.text} `}
+        className={` user-actions-menu min-w-[256px] font-semibold  absolute end-8 top-20  py-2 rounded-md ${
+          theme.background
+        } ${theme.borderGray} ${theme.text} shadow-md ${theme.text} ${
+          showActionMenu ? "block" : "hidden"
+        } `}
       >
         <div
           className={`user-actions-item py-2 pr-6 pl-4 flex items-center gap-3 cursor-pointer ${theme.hoverBackground}`}
@@ -71,7 +76,6 @@ const Navbar = () => {
             <div
               className={`user-avatar cursor-pointer ${theme.hoverBackground} rounded-full
               `}
-              onClick={""}
             >
               <div
                 className={` rounded-full w-8 h-8 ${theme.secondaryBackground} `}
