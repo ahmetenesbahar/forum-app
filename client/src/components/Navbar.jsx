@@ -36,7 +36,6 @@ const Navbar = () => {
   }, [enabled]);
 
   useEffect(() => {
-    console.log(showActionMenu);
     const handleClickOutside = (event) => {
       if (
         showActionMenu &&
