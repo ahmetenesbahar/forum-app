@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../state/index";
 import { useNavigate } from "react-router-dom";
 import { getTheme } from "theme";
-import { FaHome } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa6";
+import { FaRegBell } from "react-icons/fa6";
+import { FiSettings } from "react-icons/fi";
+import { RiLogoutBoxLine } from "react-icons/ri";
 import { ReactComponent as Logod20 } from "../assets/Logod20.svg";
 import Searchbar from "./Searchbar";
 
@@ -15,15 +18,64 @@ const Navbar = () => {
   const theme = getTheme(mode);
   return (
     <div
-      className={`justify-between items-center flex px-4 border-b w-full ${theme.borderGray}`}
+      className={`justify-between items-center flex px-8 border-b w-full ${theme.borderGray} relative`}
     >
       <div className="logo">
-        <Logod20 className={`${theme.logo}`} fill="currentColor" />
+        <Logod20 className={`${theme.logo} cursor-pointer`} fill={theme.logo} />
       </div>
       <div className="searchbar w-2/5 ">
         <Searchbar theme={theme} />
       </div>
-      <div className="user-actions">asd</div>
+      <div className="user-actions flex items-center justify-center gap-3">
+        <div
+          className={`rounded-full w-18 px-3 py-2 flex items-center justify-center ${theme.hoverBackground}  cursor-pointer gap-2 font-semibold`}
+        >
+          <FaPlus className={`w-6 h-6 ${theme.text} `} />
+          Create
+        </div>
+        <FaRegBell
+          className={`w-10 h-10 ${theme.text} cursor-pointer ${theme.hoverBackground} rounded-full p-2`}
+        />
+        <div
+          className={`user-avatar cursor-pointer ${theme.hoverBackground} rounded-full p-1`}
+          onClick={""}
+        >
+          <div
+            className={` rounded-full w-8 h-8 ${theme.secondaryBackground} `}
+          />
+        </div>
+      </div>
+      <div
+        className={` user-actions-menu font-semibold  absolute end-8 top-20  py-2 rounded-md ${theme.background} ${theme.borderGray} ${theme.text} shadow ${theme.text} `}
+      >
+        <div
+          className={`user-actions-item py-2 pr-6 pl-2 flex gap-2 cursor-pointer ${theme.hoverBackground}`}
+        >
+          <div>
+            <div
+              className={`user-avatar cursor-pointer ${theme.hoverBackground} rounded-full p-1`}
+              onClick={""}
+            >
+              <div
+                className={` rounded-full w-8 h-8 ${theme.secondaryBackground} `}
+              />
+            </div>
+          </div>
+          <div>
+            <p>View Profile</p>
+            <p className="text-xs">u/Satuhaz</p>
+          </div>
+        </div>
+        <div className="user-actions-item pl-2 py-2 flex">Dark Mode</div>
+        <div className="user-actions-item pl-2 py-2 flex items-center gap-2">
+          <FiSettings className="w-6 h-6  " />
+          Settings
+        </div>
+        <div className="user-actions-item pl-2 py-2  flex items-center gap-2">
+          <RiLogoutBoxLine className="w-6 h-6" />
+          Log Out
+        </div>
+      </div>
     </div>
   );
 };

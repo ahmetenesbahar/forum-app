@@ -9,7 +9,7 @@ const Searchbar = ({ theme }) => {
         type="text"
         onChange={""}
         placeholder="Search on ForumD20"
-        className={`${theme.secondaryBackground} rounded-full px-10 w-full h-10 focus:outline-none`}
+        className={`${theme.secondaryBackground} ${theme.hoverBackground} rounded-full px-10 w-full h-10 focus:outline-none`}
       />
     </div>
   );
