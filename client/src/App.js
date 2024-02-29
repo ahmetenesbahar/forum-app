@@ -5,7 +5,6 @@ import LoginPage from "components/LoginPage";
 import ProfilePage from "components/ProfilePage";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import Navbar from "components/Navbar";
 
 const App = () => {
   const mode = useSelector((state) => state.mode);
@@ -30,11 +29,10 @@ const App = () => {
   return (
     <div className={`app ${theme.background} ${theme.text}`}>
       <BrowserRouter>
-        <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          {/* <Route path="/login" element={<LoginPage />} />
+          <Route path="/profile" element={<ProfilePage />} /> */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
