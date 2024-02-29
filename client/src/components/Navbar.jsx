@@ -18,7 +18,7 @@ import Searchbar from "./Searchbar";
 const Navbar = ({ theme }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user); //!User null ise action kısmında login çıkıcak unutmuşum buraya döncez
   const mode = useSelector((state) => state.mode);
 
   const [enabled, setEnabled] = useState(mode === "dark" ? true : false);

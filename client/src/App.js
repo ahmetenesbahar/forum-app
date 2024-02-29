@@ -1,8 +1,6 @@
 import React from "react";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import HomePage from "components/HomePage";
-import LoginPage from "components/modals/LoginModal";
-import ProfilePage from "components/ProfilePage";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { getTheme } from "theme";
@@ -16,8 +14,6 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage theme={theme} />} />
-          {/* <Route path="/login" element={<LoginPage />} />
-          <Route path="/profile" element={<ProfilePage />} /> */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>

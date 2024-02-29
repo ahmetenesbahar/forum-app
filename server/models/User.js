@@ -6,13 +6,13 @@ const UserSchema = new mongoose.Schema({
     required: true,
     min: 3,
     max: 20,
+    unique: true,
   },
   profileName: {
     type: String,
     required: true,
     min: 3,
     max: 20,
-    unique: true,
   },
   email: {
     type: String,
@@ -33,10 +33,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     max: 250,
   },
-  interestedCategories: [
+  interestedCommunities: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
+      ref: "Community",
     },
   ],
   createdAt: {

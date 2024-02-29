@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-const CategorySchema = new mongoose.Schema({
-  categoryName: {
+const CommunitySchema = new mongoose.Schema({
+  communityName: {
     type: String,
     required: true,
     unique: true,
@@ -14,5 +14,5 @@ const CategorySchema = new mongoose.Schema({
   ],
 });
 
-const Category = mongoose.model("Category", CategorySchema);
-export default Category;
+const Community = mongoose.model("Community", CommunitySchema);
+export default Community;

@@ -22,9 +22,9 @@ const PostSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  category: {
+  community: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Category",
+    ref: "Community",
     required: true,
   },
   votes: [
