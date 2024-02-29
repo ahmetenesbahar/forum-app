@@ -15,12 +15,11 @@ import { RiMoonLine } from "react-icons/ri";
 import { ReactComponent as Logod20 } from "../assets/Logod20.svg";
 import Searchbar from "./Searchbar";
 
-const Navbar = () => {
+const Navbar = ({ theme }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const mode = useSelector((state) => state.mode);
-  const theme = getTheme(mode);
 
   const [enabled, setEnabled] = useState(mode === "dark" ? true : false);
   const [showActionMenu, setShowActionMenu] = useState(false);
