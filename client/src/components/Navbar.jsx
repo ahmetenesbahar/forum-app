@@ -1,9 +1,9 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import { Switch } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { setMode, setLogout } from "../state/index";
 import { useNavigate } from "react-router-dom";
+import { Switch } from "@headlessui/react";
+import { setMode, setLogout } from "../state/index";
 import { getTheme } from "theme";
 
 import { FaPlus } from "react-icons/fa6";
@@ -26,6 +26,11 @@ const Navbar = () => {
   const [showActionMenu, setShowActionMenu] = useState(false);
 
   const menuRef = useRef(null);
+
+  const handleLogout = () => {
+    dispatch(setLogout);
+    navigate("/login");
+  };
 
   useEffect(() => {
     if (enabled) {
@@ -138,6 +143,7 @@ const Navbar = () => {
         </div>
         <div
           className={`user-actions-item py-2 pr-6 pl-4 flex gap-3 cursor-pointer ${theme.hoverBackground}`}
+          onClick={handleLogout}
         >
           <RiLogoutBoxLine className="w-6 h-6" />
           Log Out
