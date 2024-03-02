@@ -4,8 +4,6 @@ import { setLogin } from "state";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Dropzone from "react-dropzone";
-import Satuhaz from "../../assets/Satuhaz.png";
-import Book from "../../assets/Book.png";
 
 const registerSchema = yup.object().shape({
   username: yup.string().required("Required"),
@@ -198,24 +196,41 @@ const Form = ({ theme }) => {
                         <input {...getInputProps()} />
                         {!values.picture ? (
                           <div
-                            className={`flex relative mt-20 justify-center `}
+                            className={`dropzone border-dashed h-32 flex items-center justify-center border-2 ${theme.primaryBorder} p-10 rounded-lg text-center ${theme.secondaryBackground}`}
+                            onClick={(e) => e.stopPropagation()}
                           >
-                            <img
-                              src={Satuhaz}
-                              className="w-52 h-56 absolute z-10 -top-24 "
-                            />
-                            <div className="z-20 flex items-start relative">
-                              <img
-                                src={Book}
-                                className=" h-36 w-full object-fit "
-                              />
-                              <p className="absolute top-0 text-black font-semibold text-center">
-                                Satuhaz's Profile Picture Collection
-                              </p>
-                            </div>
+                            <p>
+                              <span
+                                className={`px-2 py-1 rounded-md ${theme.secondary} ${theme.hoverBackground} cursor-pointer mx-1`}
+                                onClick={(e) => {
+                                  const input = document.createElement("input");
+                                  input.setAttribute("type", "file");
+                                  input.setAttribute(
+                                    "accept",
+                                    ".jpg,.jpeg,.png"
+                                  );
+                                  input.onchange = (e) => {
+                                    const file = e.target.files[0];
+                                    if (file) {
+                                      setFieldValue("picture", file);
+                                    }
+                                  };
+                                  input.click();
+                                }}
+                              >
+                                Select
+                              </span>
+                              or drop your profile photo here
+                            </p>
                           </div>
                         ) : (
-                          ""
+                          <div>
+                            <img
+                              src={URL.createObjectURL(values.picture)}
+                              alt="Profile Photo"
+                              className=" object-cover"
+                            />
+                          </div>
                         )}
                       </div>
                     )}
