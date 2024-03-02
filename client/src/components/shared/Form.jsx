@@ -4,6 +4,8 @@ import { setLogin } from "state";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Dropzone from "react-dropzone";
+import Satuhaz from "../../assets/Satuhaz.png";
+import Book from "../../assets/Book.png";
 
 const registerSchema = yup.object().shape({
   username: yup.string().required("Required"),
@@ -191,18 +193,30 @@ const Form = ({ theme }) => {
                       setFieldValue("picture", acceptedFiles[0])
                     }
                   >
-                    <input
-                      type="file"
-                      value={values.picture}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 w-full rounded-full z-20 relative  focus:outline-none mb-2`}
-                    />
-                    {errors.password && touched.password && (
-                      <div
-                        className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1  `}
-                      >
-                        {errors.password}
+                    {({ getRootProps, getInputProps }) => (
+                      <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        {!values.picture ? (
+                          <div
+                            className={`flex relative mt-20 justify-center `}
+                          >
+                            <img
+                              src={Satuhaz}
+                              className="w-52 h-56 absolute z-10 -top-24 "
+                            />
+                            <div className="z-20 flex items-start relative">
+                              <img
+                                src={Book}
+                                className=" h-36 w-full object-fit "
+                              />
+                              <p className="absolute top-0 text-black font-semibold text-center">
+                                Satuhaz's Profile Picture Collection
+                              </p>
+                            </div>
+                          </div>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     )}
                   </Dropzone>
