@@ -4,11 +4,13 @@ import { setLogin } from "state";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Dropzone from "react-dropzone";
+import Select, { StylesConfig } from "react-select";
+import { getThemeReactSelect } from "theme";
 
 const registerSchema = yup.object().shape({
   username: yup.string().required("Required"),
   profileName: yup.string().required("Required"),
-  email: yup.string().email("invalid email").required("Required"),
+  email: yup.string().email("Invalid Email").required("Required"),
   password: yup.string().required("Required"),
   location: yup.string().required("Required"),
   communities: yup.array().required("Required"),
@@ -26,8 +28,7 @@ const initialValuesRegister = {
   email: "",
   password: "",
   picture: "",
-  bio: "",
-  communities: "",
+  communities: [],
 };
 
 const initialValuesLogin = {
@@ -36,7 +37,18 @@ const initialValuesLogin = {
 };
 
 const Form = ({ theme }) => {
+  const mode = useSelector((state) => state.mode);
+  const reactSelectTheme = getThemeReactSelect(mode);
   const isRegistered = useSelector((state) => state.isRegistered);
+
+  const communities = [
+    { id: 1, name: "Durward Reynolds", unavailable: false },
+    { id: 2, name: "Kenton Towne", unavailable: false },
+    { id: 3, name: "Therese Wunsch", unavailable: false },
+    { id: 5, name: "Katelyn Rohan", unavailable: false },
+  ];
+
+  const [selectedCommunities, setSelectedCommunities] = useState([]);
 
   const [pageType, setPageType] = useState(isRegistered ? "login" : "register");
 
@@ -123,7 +135,7 @@ const Form = ({ theme }) => {
                   />
                   {errors.username && touched.username && (
                     <div
-                      className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1  `}
+                      className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
                     >
                       {errors.username}
                     </div>
@@ -141,7 +153,7 @@ const Form = ({ theme }) => {
                   />
                   {errors.profileName && touched.profileName && (
                     <div
-                      className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1  `}
+                      className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
                     >
                       {errors.profileName}
                     </div>
@@ -159,7 +171,7 @@ const Form = ({ theme }) => {
                   />
                   {errors.email && touched.email && (
                     <div
-                      className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1  `}
+                      className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
                     >
                       {errors.email}
                     </div>
@@ -177,7 +189,7 @@ const Form = ({ theme }) => {
                   />
                   {errors.password && touched.password && (
                     <div
-                      className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1  `}
+                      className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
                     >
                       {errors.password}
                     </div>
@@ -201,7 +213,7 @@ const Form = ({ theme }) => {
                           >
                             <p>
                               <span
-                                className={`px-2 py-1 rounded-md ${theme.secondary} ${theme.hoverBackground} cursor-pointer mx-1`}
+                                className={`px-2 py-1 rounded-md ${theme.secondary} ${theme.hoverBlue} text-white cursor-pointer mx-1`}
                                 onClick={(e) => {
                                   const input = document.createElement("input");
                                   input.setAttribute("type", "file");
@@ -224,17 +236,107 @@ const Form = ({ theme }) => {
                             </p>
                           </div>
                         ) : (
-                          <div>
+                          <div className="flex items-center justify-center">
                             <img
                               src={URL.createObjectURL(values.picture)}
                               alt="Profile Photo"
-                              className=" object-cover"
+                              className=" object-cover w-56 h-56 rounded-full"
                             />
                           </div>
                         )}
                       </div>
                     )}
                   </Dropzone>
+                </div>
+                <div className={`relative pt-7`}>
+                  <Select
+                    name="communities"
+                    options={communities.map((community) => ({
+                      value: community.id,
+                      label: community.name,
+                    }))}
+                    value={selectedCommunities}
+                    onChange={(selectedOptions) =>
+                      setSelectedCommunities(selectedOptions)
+                    }
+                    onBlur={handleBlur}
+                    isMulti
+                    closeMenuOnSelect={false}
+                    styles={{
+                      control: (provided) => ({
+                        ...provided,
+                        backgroundColor: reactSelectTheme.secondaryBackground,
+                        maxWidth: "371px",
+                        color: "white !important",
+                      }),
+                      menu: (provided) => ({
+                        ...provided,
+                        backgroundColor: reactSelectTheme.secondaryBackground,
+                        color: reactSelectTheme.text,
+                      }),
+                      option: (provided, state) => ({
+                        ...provided,
+                        backgroundColor: state.isFocused
+                          ? reactSelectTheme.secondaryBackground
+                          : "initial",
+                        "&:hover": {
+                          backgroundColor: reactSelectTheme.hoverBackground,
+                        },
+                        cursor: "pointer",
+                      }),
+                      multiValue: (provided) => ({
+                        ...provided,
+                        backgroundColor: reactSelectTheme.primary,
+                      }),
+                      multiValueLabel: (provided) => ({
+                        ...provided,
+                        color: "#fff",
+                        fontSize: "14px",
+                        fontWeight: "600",
+                      }),
+                      multiValueRemove: (provided) => ({
+                        ...provided,
+                        color: "#fff",
+                        fontSize: "16px",
+                        "&:hover": {
+                          color: "rgb(139, 0, 0)",
+                          backgroundColor: "transparent",
+                        },
+                        ":hover svg": {
+                          fill: "red",
+                          width: "16px",
+                          height: "16px",
+                        },
+                      }),
+                      clearIndicator: (provided) => ({
+                        ...provided,
+                        color: reactSelectTheme.text,
+                        cursor: "pointer",
+                        "&:hover": {
+                          color: "red",
+                        },
+                      }),
+                      dropdownIndicator: (provided) => ({
+                        ...provided,
+                        color: reactSelectTheme.text,
+                        cursor: "pointer",
+                        "&:hover": {
+                          color: reactSelectTheme.text,
+                        },
+                      }),
+                      input: (provided) => ({
+                        ...provided,
+                        color: reactSelectTheme.text,
+                      }),
+                    }}
+                  />
+                  {errors.communities && touched.communities && (
+                    <div
+                      className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
+                    >
+                      {errors.communities}
+                    </div>
+                  )}
                 </div>
               </div>
             ) : null}
