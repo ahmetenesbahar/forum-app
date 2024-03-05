@@ -123,7 +123,7 @@ const Form = ({ theme }) => {
           <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
             {!isRegistered ? (
               <div>
-                <div className="relative pt-7">
+                <div className="relative">
                   <input
                     type="text"
                     name="username"
@@ -240,7 +240,7 @@ const Form = ({ theme }) => {
                             <img
                               src={URL.createObjectURL(values.picture)}
                               alt="Profile Photo"
-                              className=" object-cover w-56 h-56 rounded-full"
+                              className=" object-cover w-44 h-44 rounded-full"
                             />
                           </div>
                         )}
@@ -337,6 +337,14 @@ const Form = ({ theme }) => {
                       {errors.communities}
                     </div>
                   )}
+                </div>
+                <div className="flex justify-center mt-6">
+                  <button
+                    type="submit"
+                    className={`${theme.primary} w-full px-4 py-2 rounded-full text-white font-semibold`}
+                  >
+                    Submit
+                  </button>
                 </div>
               </div>
             ) : null}

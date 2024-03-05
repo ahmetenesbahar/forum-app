@@ -5,7 +5,7 @@ const RegisterPage = ({ theme }) => {
   return (
     <div
       className={`relative ${theme.background} px-10 py-10   min-w-[450px] min-h-[500px]
-      rounded-xl`}
+      rounded-xl flex items-center justify-center shadow-md`}
     >
       <Form theme={theme} />
     </div>
