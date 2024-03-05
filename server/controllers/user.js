@@ -1,4 +1,4 @@
-import Category from "../models/Categories.js";
+import Community from "../models/Community.js";
 import User from "../models/User.js";
 
 /* READ */
@@ -13,20 +13,22 @@ export const getUser = async (req, res) => {
   }
 };
 
-export const getUserCategories = async (req, res) => {
+export const getUserCommunities = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findById(id);
 
-    const userCategories = await Promise.all(
-      user.interestedCategories.map((categoryId) => User.findById(categoryId))
+    const userCommunities = await Promise.all(
+      user.interestedCommunities.map((communityId) =>
+        User.findById(communityId)
+      )
     );
-    const formattedUserCategories = userCategories.map(
-      ({ _id, categoryName }) => {
-        return { _id, categoryName };
+    const formattedUserCommunities = userCommunities.map(
+      ({ _id, communityName }) => {
+        return { _id, communityName };
       }
     );
-    res.status(200).json(formattedUserCategories);
+    res.status(200).json(formattedUserCommunities);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -34,37 +36,39 @@ export const getUserCategories = async (req, res) => {
 
 /* UPDATE */
 
-export const addRemoveCategories = async (req, res) => {
+export const addRemoveCommunities = async (req, res) => {
   try {
-    const { id, categoryId } = req.params;
+    const { id, communityId } = req.params;
     const user = await User.findById(id);
-    const category = await Category.findById(categoryId);
-    if (user.interestedCategories.includes(categoryId)) {
-      user.interestedCategories = user.interestedCategories.filter(
-        (id) => id !== categoryId
+    const community = await Community.findById(communityId);
+    if (user.interestedCommunities.includes(communityId)) {
+      user.interestedCommunities = user.interestedCommunities.filter(
+        (id) => id !== communityId
       );
 
-      category.interestedUsers = category.interestedUsers.filter(
+      community.interestedUsers = community.interestedUsers.filter(
         (id) => id !== id
       );
     } else {
-      user.interestedCategories.push(categoryId);
-      category.interestedUsers.push(id);
+      user.interestedCommunities.push(communityId);
+      community.interestedUsers.push(id);
     }
 
     await user.save();
-    await category.save();
+    await community.save();
 
-    const userCategories = await Promise.all(
-      user.interestedCategories.map((categoryId) => User.findById(categoryId))
+    const userCommunities = await Promise.all(
+      user.interestedCommunities.map((communityId) =>
+        User.findById(communityId)
+      )
     );
-    const formattedUserCategories = userCategories.map(
-      ({ _id, categoryName }) => {
-        return { _id, categoryName };
+    const formattedUserCommunities = userCommunities.map(
+      ({ _id, communityName }) => {
+        return { _id, communityName };
       }
     );
 
-    res.status(200).json(formattedUserCategories);
+    res.status(200).json(formattedUserCommunities);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }

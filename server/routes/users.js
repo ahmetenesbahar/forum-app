@@ -1,8 +1,8 @@
 import express from "express";
 import {
   getUser,
-  getUserCategories,
-  addRemoveCategories,
+  getUserCommunities,
+  addRemoveCommunities,
 } from "../controllers/user.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -11,10 +11,10 @@ const router = express.Router();
 /* READ */
 
 router.get("/:id", verifyToken, getUser);
-router.get("/:id/categories", verifyToken, getUserCategories);
+router.get("/:id/communities", verifyToken, getUserCommunities);
 
 /* UPDATE */
 
-router.patch("/:id/:categorieId", verifyToken, addRemoveCategories);
+router.patch("/:id/:communityId", verifyToken, addRemoveCommunities);
 
 export default router;

@@ -1,29 +1,29 @@
 import mongoose from "mongoose";
 
-export const categories = [
+export const communities = [
   {
     _id: new mongoose.Types.ObjectId(),
-    categoryName: "Technology",
+    communityName: "Technology",
     interestedUsers: [],
   },
   {
     _id: new mongoose.Types.ObjectId(),
-    categoryName: "Science",
+    communityName: "Science",
     interestedUsers: [],
   },
   {
     _id: new mongoose.Types.ObjectId(),
-    categoryName: "Programming",
+    communityName: "Programming",
     interestedUsers: [],
   },
   {
     _id: new mongoose.Types.ObjectId(),
-    categoryName: "Travel",
+    communityName: "Travel",
     interestedUsers: [],
   },
   {
     _id: new mongoose.Types.ObjectId(),
-    categoryName: "Food",
+    communityName: "Food",
     interestedUsers: [],
   },
 ];
@@ -36,7 +36,7 @@ export const users = [
     email: "john@example.com",
     password: "password123",
     bio: "This is John Doe's bio.",
-    interestedCategories: [categories[4]._id, categories[1]._id],
+    interestedCommunities: [communities[4]._id, communities[1]._id],
   },
   {
     _id: new mongoose.Types.ObjectId(),
@@ -45,7 +45,7 @@ export const users = [
     email: "jane@example.com",
     password: "securepass",
     bio: "Jane Smith's bio goes here.",
-    interestedCategories: [categories[4]._id, categories[2]._id],
+    interestedCommunities: [communities[4]._id, communities[2]._id],
   },
   {
     _id: new mongoose.Types.ObjectId(),
@@ -54,7 +54,7 @@ export const users = [
     email: "alex@example.com",
     password: "12345678",
     bio: "Alex Wilson's bio.",
-    interestedCategories: [categories[0]._id, categories[2]._id],
+    interestedCommunities: [communities[0]._id, communities[2]._id],
   },
   {
     _id: new mongoose.Types.ObjectId(),
@@ -63,7 +63,7 @@ export const users = [
     email: "emma@example.com",
     password: "password987",
     bio: "Emma Jones's bio.",
-    interestedCategories: [categories[1]._id, categories[2]._id],
+    interestedCommunities: [communities[1]._id, communities[2]._id],
   },
   {
     _id: new mongoose.Types.ObjectId(),
@@ -72,7 +72,7 @@ export const users = [
     email: "sam@example.com",
     password: "sam123",
     bio: "Sam Carter's bio.",
-    interestedCategories: [categories[3]._id, categories[2]._id],
+    interestedCommunities: [communities[3]._id, communities[2]._id],
   },
 ];
 
@@ -83,7 +83,7 @@ export const posts = [
     content: "This is a post about MongoDB.",
     images: ["https://example.com/image1.jpg"],
     author: users[0]._id,
-    category: categories[0]._id,
+    community: communities[0]._id,
     votes: [],
     comments: [
       {
@@ -98,7 +98,7 @@ export const posts = [
     content: "Learn the basics of ReactJS in this post.",
     images: ["https://example.com/image2.jpg"],
     author: users[1]._id,
-    category: categories[0]._id,
+    community: communities[0]._id,
     votes: [],
     comments: [
       {
@@ -113,7 +113,7 @@ export const posts = [
     content: "A journey into the world of machine learning.",
     images: ["https://example.com/image3.jpg"],
     author: users[2]._id,
-    category: categories[1]._id,
+    community: communities[1]._id,
     votes: [],
     comments: [
       {
@@ -128,7 +128,7 @@ export const posts = [
     content: "Discover new recipes and cooking techniques.",
     images: ["https://example.com/image4.jpg"],
     author: users[3]._id,
-    category: categories[4]._id,
+    community: communities[4]._id,
     votes: [],
     comments: [
       {
@@ -143,7 +143,7 @@ export const posts = [
     content: "Explore the world through the eyes of a traveler.",
     images: ["https://example.com/image5.jpg"],
     author: users[4]._id,
-    category: categories[3]._id,
+    community: communities[3]._id,
     votes: [],
     comments: [
       {
