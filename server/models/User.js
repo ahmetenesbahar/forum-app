@@ -36,7 +36,6 @@ const UserSchema = new mongoose.Schema({
   interestedCommunities: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "Community",
     },
   ],

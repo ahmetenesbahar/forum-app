@@ -8,22 +8,21 @@ import Select, { StylesConfig } from "react-select";
 import { getThemeReactSelect } from "theme";
 
 const registerSchema = yup.object().shape({
-  username: yup.string().required("Required"),
+  userName: yup.string().required("Required"),
   profileName: yup.string().required("Required"),
   email: yup.string().email("Invalid Email").required("Required"),
   password: yup.string().required("Required"),
-  location: yup.string().required("Required"),
-  communities: yup.array().required("Required"),
+  communities: yup.array().notRequired(),
   picture: yup.string().required("Required"),
 });
 
 const loginSchema = yup.object().shape({
-  username: yup.string().required("Required"),
+  userName: yup.string().required("Required"),
   password: yup.string().required("Required"),
 });
 
 const initialValuesRegister = {
-  username: "",
+  userName: "",
   profileName: "",
   email: "",
   password: "",
@@ -32,7 +31,7 @@ const initialValuesRegister = {
 };
 
 const initialValuesLogin = {
-  username: "",
+  userName: "",
   password: "",
 };
 
@@ -97,12 +96,13 @@ const Form = ({ theme }) => {
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
+    console.log("buraaa gel ");
     if (pageType === "login") await login(values, onSubmitProps);
     if (pageType === "register") await register(values, onSubmitProps);
   };
 
   return (
-    <div>
+    <div className="min-w-[370px]">
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={
@@ -123,10 +123,10 @@ const Form = ({ theme }) => {
           <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
             {!isRegistered ? (
               <div>
-                <div className="relative">
+                <div className="relative pt-7">
                   <input
                     type="text"
-                    name="username"
+                    name="userName"
                     placeholder="Username"
                     value={values.username}
                     onChange={handleChange}
@@ -343,7 +343,7 @@ const Form = ({ theme }) => {
                     type="submit"
                     className={`${theme.primary} w-full px-4 py-2 rounded-full text-white font-semibold`}
                   >
-                    Submit
+                    {isRegistered ? "Login" : "Register"}
                   </button>
                 </div>
               </div>
