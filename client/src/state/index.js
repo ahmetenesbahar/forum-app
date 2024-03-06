@@ -41,8 +41,8 @@ export const authSlice = createSlice({
       });
       state.posts = updatedPosts;
     },
-    setRegistered: (state) => {
-      state.isRegistered = true;
+    setRegistered: (state, action) => {
+      state.isRegistered = action.payload;
     },
   },
 });

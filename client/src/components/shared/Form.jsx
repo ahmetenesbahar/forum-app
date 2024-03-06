@@ -91,7 +91,7 @@ const Form = ({ theme }) => {
 
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
-    if (loggedIn) {
+    if (loggedIn && loggedInResponse.status === 200) {
       dispatch(
         setLogin({
           user: loggedIn.user,
@@ -126,236 +126,256 @@ const Form = ({ theme }) => {
           resetForm,
         }) => (
           <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
-            {!isRegistered ? (
-              <div>
-                <div className="relative pt-7">
-                  <input
-                    type="text"
-                    name="userName"
-                    placeholder="Username"
-                    value={values.userName}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 w-full rounded-full z-20 relative  focus:outline-none mb-2`}
-                  />
-                  {errors.userName && touched.userName && (
-                    <div
-                      className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
-                    >
-                      {errors.userName}
-                    </div>
-                  )}
-                </div>
-                <div className="relative pt-7">
-                  <input
-                    type="text"
-                    name="profileName"
-                    placeholder="Profile Name"
-                    value={values.profileName}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 w-full rounded-full z-20 relative  focus:outline-none mb-2`}
-                  />
-                  {errors.profileName && touched.profileName && (
-                    <div
-                      className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
-                    >
-                      {errors.profileName}
-                    </div>
-                  )}
-                </div>
-                <div className="relative pt-7">
-                  <input
-                    type="text"
-                    name="email"
-                    placeholder="Email"
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 w-full rounded-full z-20 relative  focus:outline-none mb-2`}
-                  />
-                  {errors.email && touched.email && (
-                    <div
-                      className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
-                    >
-                      {errors.email}
-                    </div>
-                  )}
-                </div>
-                <div className="relative pt-7">
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={values.password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 w-full rounded-full z-20 relative  focus:outline-none mb-2`}
-                  />
-                  {errors.password && touched.password && (
-                    <div
-                      className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
-                    >
-                      {errors.password}
-                    </div>
-                  )}
-                </div>{" "}
-                <div className="relative pt-7">
-                  <Dropzone
-                    acceptedFiles=".jpg,.jpeg,.png"
-                    multiple={false}
-                    onDrop={(acceptedFiles) =>
-                      setFieldValue("picture", acceptedFiles[0])
-                    }
+            <div>
+              <div className="relative pt-7">
+                <input
+                  type="text"
+                  name="userName"
+                  placeholder="Username"
+                  value={values.userName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 w-full rounded-full z-20 relative  focus:outline-none mb-2`}
+                />
+                {errors.userName && touched.userName && (
+                  <div
+                    className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
                   >
-                    {({ getRootProps, getInputProps }) => (
-                      <div {...getRootProps()}>
-                        <input {...getInputProps()} />
-                        {!values.picture ? (
-                          <div
-                            className={`dropzone border-dashed h-32 flex items-center justify-center border-2 ${theme.primaryBorder} p-10 rounded-lg text-center ${theme.secondaryBackground}`}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <p>
-                              <span
-                                className={`px-2 py-1 rounded-md ${theme.secondary} ${theme.hoverBlue} text-white cursor-pointer mx-1`}
-                                onClick={(e) => {
-                                  const input = document.createElement("input");
-                                  input.setAttribute("type", "file");
-                                  input.setAttribute(
-                                    "accept",
-                                    ".jpg,.jpeg,.png"
-                                  );
-                                  input.onchange = (e) => {
-                                    const file = e.target.files[0];
-                                    if (file) {
-                                      setFieldValue("picture", file);
-                                    }
-                                  };
-                                  input.click();
-                                }}
-                              >
-                                Select
-                              </span>
-                              or drop your profile photo here
-                            </p>
-                          </div>
-                        ) : (
-                          <div className="flex items-center justify-center">
-                            <img
-                              src={URL.createObjectURL(values.picture)}
-                              alt="Profile Photo"
-                              className=" object-cover w-44 h-44 rounded-full"
-                            />
-                          </div>
-                        )}
+                    {errors.userName}
+                  </div>
+                )}
+              </div>
+              {!isRegistered && (
+                <>
+                  {" "}
+                  <div className="relative pt-7">
+                    <input
+                      type="text"
+                      name="profileName"
+                      placeholder="Profile Name"
+                      value={values.profileName}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 w-full rounded-full z-20 relative  focus:outline-none mb-2`}
+                    />
+                    {errors.profileName && touched.profileName && (
+                      <div
+                        className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
+                      >
+                        {errors.profileName}
                       </div>
                     )}
-                  </Dropzone>
-                </div>
-                <div className={`relative pt-7`}>
-                  <Select
-                    name="communities"
-                    options={communities.map((community) => ({
-                      value: community.id,
-                      label: community.name,
-                    }))}
-                    value={selectedCommunities}
-                    onChange={(selectedOptions) =>
-                      setSelectedCommunities(selectedOptions)
-                    }
-                    onBlur={handleBlur}
-                    isMulti
-                    closeMenuOnSelect={false}
-                    styles={{
-                      control: (provided) => ({
-                        ...provided,
-                        backgroundColor: reactSelectTheme.secondaryBackground,
-                        maxWidth: "371px",
-                        color: "white !important",
-                      }),
-                      menu: (provided) => ({
-                        ...provided,
-                        backgroundColor: reactSelectTheme.secondaryBackground,
-                        color: reactSelectTheme.text,
-                      }),
-                      option: (provided, state) => ({
-                        ...provided,
-                        backgroundColor: state.isFocused
-                          ? reactSelectTheme.secondaryBackground
-                          : "initial",
-                        "&:hover": {
-                          backgroundColor: reactSelectTheme.hoverBackground,
-                        },
-                        cursor: "pointer",
-                      }),
-                      multiValue: (provided) => ({
-                        ...provided,
-                        backgroundColor: reactSelectTheme.primary,
-                      }),
-                      multiValueLabel: (provided) => ({
-                        ...provided,
-                        color: "#fff",
-                        fontSize: "14px",
-                        fontWeight: "600",
-                      }),
-                      multiValueRemove: (provided) => ({
-                        ...provided,
-                        color: "#fff",
-                        fontSize: "16px",
-                        "&:hover": {
-                          color: "rgb(139, 0, 0)",
-                          backgroundColor: "transparent",
-                        },
-                        ":hover svg": {
-                          fill: "red",
-                          width: "16px",
-                          height: "16px",
-                        },
-                      }),
-                      clearIndicator: (provided) => ({
-                        ...provided,
-                        color: reactSelectTheme.text,
-                        cursor: "pointer",
-                        "&:hover": {
-                          color: "red",
-                        },
-                      }),
-                      dropdownIndicator: (provided) => ({
-                        ...provided,
-                        color: reactSelectTheme.text,
-                        cursor: "pointer",
-                        "&:hover": {
-                          color: reactSelectTheme.text,
-                        },
-                      }),
-                      input: (provided) => ({
-                        ...provided,
-                        color: reactSelectTheme.text,
-                      }),
-                    }}
-                  />
-                  {errors.communities && touched.communities && (
-                    <div
-                      className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
-                    >
-                      {errors.communities}
-                    </div>
-                  )}
-                </div>
-                <div className="flex justify-center mt-6">
-                  <button
-                    type="submit"
-                    className={`${theme.primary} w-full px-4 py-2 rounded-full text-white font-semibold`}
+                  </div>
+                  <div className="relative pt-7">
+                    <input
+                      type="text"
+                      name="email"
+                      placeholder="Email"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 w-full rounded-full z-20 relative  focus:outline-none mb-2`}
+                    />
+                    {errors.email && touched.email && (
+                      <div
+                        className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
+                      >
+                        {errors.email}
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+              <div className="relative pt-7">
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 w-full rounded-full z-20 relative  focus:outline-none mb-2`}
+                />
+                {errors.password && touched.password && (
+                  <div
+                    className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
                   >
-                    {isRegistered ? "Login" : "Register"}
-                  </button>
-                </div>
+                    {errors.password}
+                  </div>
+                )}
               </div>
-            ) : null}
+              {!isRegistered && (
+                <>
+                  {" "}
+                  <div className="relative pt-7">
+                    <Dropzone
+                      acceptedFiles=".jpg,.jpeg,.png"
+                      multiple={false}
+                      onDrop={(acceptedFiles) =>
+                        setFieldValue("picture", acceptedFiles[0])
+                      }
+                    >
+                      {({ getRootProps, getInputProps }) => (
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          {!values.picture ? (
+                            <div
+                              className={`dropzone border-dashed h-32 flex items-center justify-center border-2 ${theme.primaryBorder} p-10 rounded-lg text-center ${theme.secondaryBackground}`}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <p>
+                                <span
+                                  className={`px-2 py-1 rounded-md ${theme.secondary} ${theme.hoverBlue} text-white cursor-pointer mx-1`}
+                                  onClick={(e) => {
+                                    const input =
+                                      document.createElement("input");
+                                    input.setAttribute("type", "file");
+                                    input.setAttribute(
+                                      "accept",
+                                      ".jpg,.jpeg,.png"
+                                    );
+                                    input.onchange = (e) => {
+                                      const file = e.target.files[0];
+                                      if (file) {
+                                        setFieldValue("picture", file);
+                                      }
+                                    };
+                                    input.click();
+                                  }}
+                                >
+                                  Select
+                                </span>
+                                or drop your profile photo here
+                              </p>
+                            </div>
+                          ) : (
+                            <div className="flex items-center justify-center">
+                              <img
+                                src={URL.createObjectURL(values.picture)}
+                                alt="Profile Photo"
+                                className=" object-cover w-44 h-44 rounded-full"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </Dropzone>
+                  </div>
+                  <div className={`relative pt-7`}>
+                    <Select
+                      name="communities"
+                      options={communities.map((community) => ({
+                        value: community.id,
+                        label: community.name,
+                      }))}
+                      value={selectedCommunities}
+                      onChange={(selectedOptions) =>
+                        setSelectedCommunities(selectedOptions)
+                      }
+                      onBlur={handleBlur}
+                      isMulti
+                      closeMenuOnSelect={false}
+                      styles={{
+                        control: (provided) => ({
+                          ...provided,
+                          backgroundColor: reactSelectTheme.secondaryBackground,
+                          maxWidth: "371px",
+                          color: "white !important",
+                        }),
+                        menu: (provided) => ({
+                          ...provided,
+                          backgroundColor: reactSelectTheme.secondaryBackground,
+                          color: reactSelectTheme.text,
+                        }),
+                        option: (provided, state) => ({
+                          ...provided,
+                          backgroundColor: state.isFocused
+                            ? reactSelectTheme.secondaryBackground
+                            : "initial",
+                          "&:hover": {
+                            backgroundColor: reactSelectTheme.hoverBackground,
+                          },
+                          cursor: "pointer",
+                        }),
+                        multiValue: (provided) => ({
+                          ...provided,
+                          backgroundColor: reactSelectTheme.primary,
+                        }),
+                        multiValueLabel: (provided) => ({
+                          ...provided,
+                          color: "#fff",
+                          fontSize: "14px",
+                          fontWeight: "600",
+                        }),
+                        multiValueRemove: (provided) => ({
+                          ...provided,
+                          color: "#fff",
+                          fontSize: "16px",
+                          "&:hover": {
+                            color: "rgb(139, 0, 0)",
+                            backgroundColor: "transparent",
+                          },
+                          ":hover svg": {
+                            fill: "red",
+                            width: "16px",
+                            height: "16px",
+                          },
+                        }),
+                        clearIndicator: (provided) => ({
+                          ...provided,
+                          color: reactSelectTheme.text,
+                          cursor: "pointer",
+                          "&:hover": {
+                            color: "red",
+                          },
+                        }),
+                        dropdownIndicator: (provided) => ({
+                          ...provided,
+                          color: reactSelectTheme.text,
+                          cursor: "pointer",
+                          "&:hover": {
+                            color: reactSelectTheme.text,
+                          },
+                        }),
+                        input: (provided) => ({
+                          ...provided,
+                          color: reactSelectTheme.text,
+                        }),
+                      }}
+                    />
+                    {errors.communities && touched.communities && (
+                      <div
+                        className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
+                      >
+                        {errors.communities}
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+              <div className="flex justify-center mt-6">
+                <button
+                  type="submit"
+                  className={`${theme.primary} w-full px-4 py-2 rounded-full text-white font-semibold`}
+                >
+                  {isRegistered ? "Login" : "Register"}
+                </button>
+              </div>
+            </div>
           </form>
         )}
       </Formik>
+      <div
+        className="w-full items-center justify-center flex underline hover:font-semibold cursor-pointer mt-2"
+        onClick={() => {
+          setPageType(isRegistered ? "register" : "login");
+          dispatch(setRegistered(!isRegistered));
+        }}
+      >
+        {isRegistered
+          ? "Don't have an account? Sign Up here."
+          : "Already have an account? Login here."}
+      </div>
     </div>
   );
 };

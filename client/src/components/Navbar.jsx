@@ -27,8 +27,8 @@ const Navbar = ({ theme }) => {
   const menuRef = useRef(null);
 
   const handleLogout = () => {
-    dispatch(setLogout);
-    navigate("/login");
+    dispatch(setLogout());
+    setShowActionMenu(false);
   };
 
   useEffect(() => {
