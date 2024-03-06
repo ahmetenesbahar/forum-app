@@ -75,6 +75,11 @@ const Form = ({ theme }) => {
       setPageType("login");
       dispatch(setRegistered(true));
     }
+
+    await login(
+      { userName: values.userName, password: values.password },
+      onSubmitProps
+    );
   };
 
   const login = async (values, onSubmitProps) => {

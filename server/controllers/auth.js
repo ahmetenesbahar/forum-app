@@ -37,8 +37,8 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username: username });
+    const { userName, password } = req.body;
+    const user = await User.findOne({ userName: userName });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
