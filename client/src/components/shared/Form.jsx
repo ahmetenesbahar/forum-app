@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogin } from "state";
+import { setLogin, setRegistered } from "state";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Dropzone from "react-dropzone";
-import Select, { StylesConfig } from "react-select";
+import Select from "react-select";
 import { getThemeReactSelect } from "theme";
 
 const registerSchema = yup.object().shape({
@@ -73,6 +73,7 @@ const Form = ({ theme }) => {
 
     if (savedUser) {
       setPageType("login");
+      dispatch(setRegistered(true));
     }
   };
 
@@ -96,7 +97,6 @@ const Form = ({ theme }) => {
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
-    console.log("buraaa gel ");
     if (pageType === "login") await login(values, onSubmitProps);
     if (pageType === "register") await register(values, onSubmitProps);
   };
@@ -128,16 +128,16 @@ const Form = ({ theme }) => {
                     type="text"
                     name="userName"
                     placeholder="Username"
-                    value={values.username}
+                    value={values.userName}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 w-full rounded-full z-20 relative  focus:outline-none mb-2`}
                   />
-                  {errors.username && touched.username && (
+                  {errors.userName && touched.userName && (
                     <div
                       className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
                     >
-                      {errors.username}
+                      {errors.userName}
                     </div>
                   )}
                 </div>

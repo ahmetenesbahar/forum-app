@@ -23,7 +23,7 @@ export const authSlice = createSlice({
       state.user = null;
       state.token = null;
     },
-    setCategories: (state, action) => {
+    setCommunities: (state, action) => {
       if (state.user) {
         state.user.categories = action.payload.categories;
       } else {
@@ -41,6 +41,9 @@ export const authSlice = createSlice({
       });
       state.posts = updatedPosts;
     },
+    setRegistered: (state) => {
+      state.isRegistered = true;
+    },
   },
 });
 
@@ -48,9 +51,10 @@ export const {
   setMode,
   setLogin,
   setLogout,
-  setCategories,
+  setCommunities,
   setPosts,
   setPost,
+  setRegistered,
 } = authSlice.actions;
 
 export default authSlice.reducer;

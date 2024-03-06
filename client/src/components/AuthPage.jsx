@@ -1,17 +1,16 @@
 import React from "react";
-import LoginModal from "./modals/LoginModal";
-import RegisterModal from "./modals/RegisterModal";
+import Form from "./shared/Form";
+
 import { useSelector } from "react-redux";
 
 const AuthPage = ({ theme }) => {
   const isRegistered = useSelector((state) => state.isRegistered);
   return (
-    <div>
-      {isRegistered ? (
-        <LoginModal theme={theme} />
-      ) : (
-        <RegisterModal theme={theme} />
-      )}
+    <div
+      className={`relative ${theme.background} px-10 py-5   min-w-[450px] min-h-[500px]
+      rounded-xl flex items-center justify-center shadow-md`}
+    >
+      <Form theme={theme} />
     </div>
   );
 };
