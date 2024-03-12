@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Switch } from "@headlessui/react";
-import { setMode, setLogout } from "../state/index";
+import { setMode, setLogout, setShowForm } from "../state/index";
 import { getTheme } from "theme";
 
 import { FaPlus } from "react-icons/fa6";
@@ -81,14 +81,19 @@ const Navbar = ({ theme }) => {
         />
         <div
           className={`user-avatar cursor-pointer ${theme.hoverBackground} rounded-full p-1`}
-          onClick={() => setShowActionMenu(!showActionMenu)}
         >
           {user == null ? (
-            <p className="font-semibold cursor-pointer ">Login</p>
+            <p
+              className="font-semibold cursor-pointer px-2 py-1"
+              onClick={() => dispatch(setShowForm(true))}
+            >
+              Login
+            </p>
           ) : (
             <img
-              src={`http://localhost:3001/assets/${user.picturePath}`}
+              src={`http://localhost:3001/assets/${user?.picturePath}`}
               className={` rounded-full w-8 h-8 ${theme.secondaryBackground} `}
+              onClick={() => setShowActionMenu(!showActionMenu)}
             />
           )}
         </div>
@@ -110,7 +115,7 @@ const Navbar = ({ theme }) => {
               `}
             >
               <img
-                src={`http://localhost:3001/assets/${user.picturePath}`}
+                src={`http://localhost:3001/assets/${user?.picturePath}`}
                 className={` rounded-full w-8 h-8 ${theme.secondaryBackground} `}
               />
             </div>
