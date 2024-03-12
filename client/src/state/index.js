@@ -5,6 +5,7 @@ const initialState = {
   user: null,
   token: null,
   isRegistered: false,
+  showForm: false,
   posts: [],
 };
 
@@ -44,6 +45,9 @@ export const authSlice = createSlice({
     setRegistered: (state, action) => {
       state.isRegistered = action.payload;
     },
+    setShowForm: (state, action) => {
+      state.showForm = action.payload;
+    },
   },
 });
 
@@ -55,6 +59,7 @@ export const {
   setPosts,
   setPost,
   setRegistered,
+  setShowForm,
 } = authSlice.actions;
 
 export default authSlice.reducer;
