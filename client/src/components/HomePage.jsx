@@ -9,11 +9,8 @@ const HomePage = ({ theme }) => {
   return (
     <div>
       <Navbar theme={theme} />
-      {user === null && (
-        <div className="z-50 absolute w-full h-full top-0  bg-gray-500 bg-opacity-20 flex items-center justify-center">
-          <AuthPage theme={theme} />
-        </div>
-      )}
+
+      <AuthPage theme={theme} />
     </div>
   );
 };
