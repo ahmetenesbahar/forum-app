@@ -3,9 +3,11 @@ import Form from "./Form";
 import { RiCloseLine } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
 import { setShowForm } from "../state/index";
+import { useTheme } from "./contexts/ThemeContext";
 
-const AuthPage = ({ theme }) => {
+const AuthPage = () => {
   const dispatch = useDispatch();
+  const { theme } = useTheme();
   const user = useSelector((state) => state.user);
   const showForm = useSelector((state) => state.showForm);
 
