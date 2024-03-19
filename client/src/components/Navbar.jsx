@@ -22,7 +22,6 @@ const Navbar = ({ theme }) => {
 
   const [enabled, setEnabled] = useState(mode === "dark" ? true : false);
   const [showActionMenu, setShowActionMenu] = useState(false);
-  const [showCreateTab, setShowCreateTab] = useState(false);
 
   const menuRef = useRef(null);
 
@@ -33,9 +32,9 @@ const Navbar = ({ theme }) => {
 
   useEffect(() => {
     if (enabled) {
-      dispatch(setMode("dark"));
+      dispatch(setMode({ mode: "dark" }));
     } else {
-      dispatch(setMode("light"));
+      dispatch(setMode({ mode: "light" }));
     }
   }, [enabled]);
 
