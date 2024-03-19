@@ -32,9 +32,9 @@ const Navbar = ({ theme }) => {
 
   useEffect(() => {
     if (enabled) {
-      dispatch(setMode({ mode: "dark" }));
+      dispatch(setMode("dark"));
     } else {
-      dispatch(setMode({ mode: "light" }));
+      dispatch(setMode("light"));
     }
   }, [enabled]);
 
