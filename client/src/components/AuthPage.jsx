@@ -1,5 +1,5 @@
 import React from "react";
-import Form from "./shared/Form";
+import Form from "./Form";
 import { RiCloseLine } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
 import { setShowForm } from "../state/index";

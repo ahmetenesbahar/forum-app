@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import HomePage from "components/HomePage";
-import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { getTheme } from "theme";
 

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Switch } from "@headlessui/react";
 import { setMode, setLogout, setShowForm } from "../state/index";
-import { getTheme } from "theme";
 
 import { FaPlus } from "react-icons/fa6";
 import { FaRegBell } from "react-icons/fa6";
@@ -23,6 +22,7 @@ const Navbar = ({ theme }) => {
 
   const [enabled, setEnabled] = useState(mode === "dark" ? true : false);
   const [showActionMenu, setShowActionMenu] = useState(false);
+  const [showCreateTab, setShowCreateTab] = useState(false);
 
   const menuRef = useRef(null);
 
