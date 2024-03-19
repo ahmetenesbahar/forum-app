@@ -26,9 +26,9 @@ export const authSlice = createSlice({
     },
     setCommunities: (state, action) => {
       if (state.user) {
-        state.user.categories = action.payload.categories;
+        state.user.communities = action.payload.communities;
       } else {
-        console.error("user categories non existent");
+        console.error("user communities non existent");
       }
     },
     setPosts: (state, action) => {
