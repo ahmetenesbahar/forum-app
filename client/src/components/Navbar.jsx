@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Switch } from "@headlessui/react";
 import { setMode, setLogout, setShowForm } from "../state/index";
+import { setShowCreateModal } from "state/modalSlice";
 
 import { FaPlus } from "react-icons/fa6";
 import { FaRegBell } from "react-icons/fa6";
@@ -18,8 +19,10 @@ import { useTheme } from "./contexts/ThemeContext";
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const user = useSelector((state) => state.user);
   const mode = useSelector((state) => state.mode);
+  const show = useSelector((state) => state.modal?.showCreateModal);
   const { theme } = useTheme();
 
   const [enabled, setEnabled] = useState(mode === "dark" ? true : false);
@@ -31,6 +34,10 @@ const Navbar = () => {
     dispatch(setLogout());
     setShowActionMenu(false);
   };
+
+  useEffect(() => {
+    console.log(show);
+  }, [show]);
 
   useEffect(() => {
     if (enabled) {
@@ -73,6 +80,9 @@ const Navbar = () => {
       <div className="user-actions flex items-center justify-center gap-3">
         <div
           className={`rounded-full w-18 px-3 py-2 flex items-center justify-center ${theme.hoverBackground}  cursor-pointer gap-2 font-semibold`}
+          onClick={(e) => {
+            dispatch(setShowCreateModal(true));
+          }}
         >
           <FaPlus className={`w-6 h-6 ${theme.text} `} />
           Create
