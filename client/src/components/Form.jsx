@@ -36,9 +36,9 @@ const initialValuesLogin = {
 };
 
 const Form = ({ theme }) => {
-  const mode = useSelector((state) => state.mode);
+  const mode = useSelector((state) => state.auth.mode);
   const reactSelectTheme = getThemeReactSelect(mode);
-  const isRegistered = useSelector((state) => state.isRegistered);
+  const isRegistered = useSelector((state) => state.auth.isRegistered);
 
   const communities = [
     { id: 1, name: "Durward Reynolds", unavailable: false },

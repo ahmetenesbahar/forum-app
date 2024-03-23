@@ -8,8 +8,8 @@ import { useTheme } from "./contexts/ThemeContext";
 const AuthPage = () => {
   const dispatch = useDispatch();
   const { theme } = useTheme();
-  const user = useSelector((state) => state.user);
-  const showForm = useSelector((state) => state.showForm);
+  const user = useSelector((state) => state.auth.user);
+  const showForm = useSelector((state) => state.auth.showForm);
 
   return (
     <>

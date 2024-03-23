@@ -7,7 +7,7 @@ const ThemeContext = createContext();
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {
-  const mode = useSelector((state) => state.mode);
+  const mode = useSelector((state) => state.auth.mode);
   const theme = getTheme(mode);
 
   return (

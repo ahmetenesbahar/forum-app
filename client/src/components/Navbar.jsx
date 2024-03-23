@@ -20,9 +20,9 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.user);
-  const mode = useSelector((state) => state.mode);
-  const show = useSelector((state) => state.modal?.showCreateModal);
+  const user = useSelector((state) => state.auth.user);
+  const mode = useSelector((state) => state.auth.mode);
+
   const { theme } = useTheme();
 
   const [enabled, setEnabled] = useState(mode === "dark" ? true : false);
@@ -34,10 +34,6 @@ const Navbar = () => {
     dispatch(setLogout());
     setShowActionMenu(false);
   };
-
-  useEffect(() => {
-    console.log(show);
-  }, [show]);
 
   useEffect(() => {
     if (enabled) {
