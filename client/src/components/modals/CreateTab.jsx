@@ -5,6 +5,8 @@ import { useTheme } from "components/contexts/ThemeContext";
 
 import { Tab } from "@headlessui/react";
 
+import CreateCommunityForm from "components/communities/CreateCommunityForm";
+
 const CreateTab = () => {
   const modalRef = useRef(null);
   const { theme } = useTheme();
@@ -72,11 +74,13 @@ const CreateTab = () => {
               )}
             </Tab>
           </Tab.List>
-          <Tab.Panels className="mt-12">
+          <Tab.Panels className="mt-3">
             <Tab.Panel>
-              <div> woawoawo</div>
+              <CreateCommunityForm theme={theme} />
             </Tab.Panel>
-            <Tab.Panel>Content 2</Tab.Panel>
+            <Tab.Panel>
+              <CreateCommunityForm theme={theme} />
+            </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
       </div>
