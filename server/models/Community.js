@@ -6,6 +6,10 @@ const CommunitySchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  picturePath: {
+    type: String,
+    default: "",
+  },
   interestedUsers: [
     {
       type: mongoose.Schema.Types.ObjectId,
