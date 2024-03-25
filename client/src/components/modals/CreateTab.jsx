@@ -1,9 +1,13 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setShowCreateModal } from "state/modalSlice";
+import { useTheme } from "components/contexts/ThemeContext";
+
+import { Tab } from "@headlessui/react";
 
 const CreateTab = () => {
   const modalRef = useRef(null);
+  const { theme } = useTheme();
   const dispatch = useDispatch();
   const createTab = useSelector((state) => state.modal.showCreateModal);
 
@@ -34,7 +38,48 @@ const CreateTab = () => {
         showModal ? "block" : "hidden"
       }`}
     >
-      <div ref={modalRef} className={`w-12 h-12 bg-red-600 `}></div>
+      <div
+        ref={modalRef}
+        className={`relative ${theme.background} px-10 py-5   min-w-[450px] max-w-[500px]
+      rounded-xl flex items-center justify-center shadow-md relative flex-col`}
+      >
+        <Tab.Group>
+          <Tab.List>
+            <Tab as={Fragment}>
+              {({ selected }) => (
+                <button
+                  className={`mx-2 ${
+                    selected
+                      ? `${theme.primary} text-white px-4 py-2 font-semibold rounded-full  focus:outline-none`
+                      : `${theme.secondaryBackground}  ${theme.text} px-4 py-2 font-semibold rounded-full mx-2`
+                  }`}
+                >
+                  Create Community
+                </button>
+              )}
+            </Tab>
+            <Tab as={Fragment}>
+              {({ selected }) => (
+                <button
+                  className={`mx-2 ${
+                    selected
+                      ? `${theme.primary} text-white px-4 py-2 font-semibold rounded-full  focus:outline-none`
+                      : `${theme.secondaryBackground}  ${theme.text} px-4 py-2 font-semibold rounded-full mx-2`
+                  }`}
+                >
+                  Create Post
+                </button>
+              )}
+            </Tab>
+          </Tab.List>
+          <Tab.Panels className="mt-12">
+            <Tab.Panel>
+              <div> woawoawo</div>
+            </Tab.Panel>
+            <Tab.Panel>Content 2</Tab.Panel>
+          </Tab.Panels>
+        </Tab.Group>
+      </div>
     </div>
   );
 };
