@@ -22,6 +22,7 @@ const Navbar = () => {
 
   const user = useSelector((state) => state.auth.user);
   const mode = useSelector((state) => state.auth.mode);
+  const show = useSelector((state) => state.modal.showCreateModal);
 
   const { theme } = useTheme();
 
@@ -74,18 +75,21 @@ const Navbar = () => {
         <Searchbar theme={theme} />
       </div>
       <div className="user-actions flex items-center justify-center gap-3">
-        <div
-          className={`rounded-full w-18 px-3 py-2 flex items-center justify-center ${theme.hoverBackground}  cursor-pointer gap-2 font-semibold`}
-          onClick={(e) => {
-            dispatch(setShowCreateModal(true));
-          }}
-        >
-          <FaPlus className={`w-6 h-6 ${theme.text} `} />
-          Create
-        </div>
-        <FaRegBell
-          className={`w-10 h-10 ${theme.text} cursor-pointer ${theme.hoverBackground} rounded-full p-2`}
-        />
+        {!(user == null) && (
+          <>
+            <div
+              className={`rounded-full w-18 px-3 py-2 flex items-center justify-center ${theme.hoverBackground}  cursor-pointer gap-2 font-semibold`}
+              onClick={() => dispatch(setShowCreateModal(true))}
+            >
+              <FaPlus className={`w-6 h-6 ${theme.text} `} />
+              Create
+            </div>
+            <FaRegBell
+              className={`w-10 h-10 ${theme.text} cursor-pointer ${theme.hoverBackground} rounded-full p-2`}
+            />
+          </>
+        )}
+
         <div
           className={`user-avatar cursor-pointer ${theme.hoverBackground} rounded-full p-1`}
         >
