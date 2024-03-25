@@ -9,7 +9,7 @@ export const modalSlice = createSlice({
   initialState,
   reducers: {
     setShowCreateModal: (state, action) => {
-      state.showCreateModal = action.payload.setShowCreateModal;
+      state.showCreateModal = action.payload;
     },
   },
 });
