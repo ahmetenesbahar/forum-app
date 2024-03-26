@@ -10,6 +10,10 @@ const CommunitySchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  communityBio: {
+    type: String,
+    default: "",
+  },
   interestedUsers: [
     {
       type: mongoose.Schema.Types.ObjectId,

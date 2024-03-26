@@ -8,11 +8,13 @@ import { useTheme } from "components/contexts/ThemeContext";
 
 const createSchema = yup.object().shape({
   communityName: yup.string().required("Required"),
+  communityBio: yup.string().required("Required"),
   picture: yup.string().required("Required"),
 });
 
 const initialValues = {
   communityName: "",
+  communityBio: "",
   picture: "",
 };
 
@@ -55,6 +57,24 @@ const CreateCommunityForm = ({ theme }) => {
                   name="communityName"
                   placeholder=" Community Name"
                   value={values.communityName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 w-full rounded-full z-20 relative  focus:outline-none mb-2`}
+                />
+                {errors.communityName && touched.communityName && (
+                  <div
+                    className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
+                  >
+                    {errors.communityName}
+                  </div>
+                )}
+              </div>
+              <div className="relative pt-7">
+                <input
+                  type="text"
+                  name="communityBio"
+                  placeholder=" Community Bio"
+                  value={values.communityBio}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 w-full rounded-full z-20 relative  focus:outline-none mb-2`}

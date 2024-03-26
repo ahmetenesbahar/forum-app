@@ -14,7 +14,7 @@ const PostSchema = new mongoose.Schema({
   images: [
     {
       type: String, //! Sadece fotoğrafın URL'sini saklamak için String tipi kullandım.
-      required: true,
+      default: "",
     },
   ],
   author: {
