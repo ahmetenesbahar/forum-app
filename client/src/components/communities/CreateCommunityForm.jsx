@@ -21,6 +21,9 @@ const initialValues = {
 const CreateCommunityForm = ({ theme }) => {
   const dispatch = useDispatch();
 
+  const token = useSelector((state) => state.token);
+  const { _id } = useSelector((state) => state.user);
+
   const createCommunity = async (values, onSubmitProps) => {
     const formData = new FormData();
 
@@ -28,17 +31,28 @@ const CreateCommunityForm = ({ theme }) => {
       formData.append(value, values[value]);
     }
     formData.append("picturePath", values.picture.name);
+    console.log(_id);
+    formData.append("userId", _id);
 
-    const createdCommunityResponse = await fetch("", {
+    await fetch("http://localhost:3001/communities/create", {
       method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
       body: formData,
     });
     onSubmitProps.resetForm();
   };
 
+  const handleSubmit = async (values, onSubmitProps) => {
+    await createCommunity(values, onSubmitProps);
+  };
+
   return (
     <div className="min-w-[370px]">
-      <Formik initialValues={initialValues} validationSchema={createSchema}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={createSchema}
+        onSubmit={handleSubmit}
+      >
         {({
           values,
           errors,
@@ -70,14 +84,13 @@ const CreateCommunityForm = ({ theme }) => {
                 )}
               </div>
               <div className="relative pt-7">
-                <input
-                  type="text"
+                <textarea
                   name="communityBio"
                   placeholder=" Community Bio"
                   value={values.communityBio}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 w-full rounded-full z-20 relative  focus:outline-none mb-2`}
+                  className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 w-full rounded-lg h-[100px] max-h-[350px] min-h-[45px] z-20 relative  focus:outline-none mb-2`}
                 />
                 {errors.communityName && touched.communityName && (
                   <div
@@ -141,7 +154,7 @@ const CreateCommunityForm = ({ theme }) => {
               <div className="flex justify-center mt-6">
                 <button
                   type="submit"
-                  className={`${theme.primary} w-full px-4 py-2 rounded-full text-white font-semibold`}
+                  className={`${theme.primary} w-full px-4 py-2 rounded-full text-white focus:outline-none font-semibold`}
                 >
                   Create Community
                 </button>
