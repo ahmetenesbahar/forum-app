@@ -21,8 +21,8 @@ const initialValues = {
 const CreateCommunityForm = ({ theme }) => {
   const dispatch = useDispatch();
 
-  const token = useSelector((state) => state.token);
-  const { _id } = useSelector((state) => state.user);
+  const token = useSelector((state) => state.auth.token);
+  const { _id } = useSelector((state) => state.auth.user);
 
   const createCommunity = async (values, onSubmitProps) => {
     const formData = new FormData();
@@ -31,8 +31,15 @@ const CreateCommunityForm = ({ theme }) => {
       formData.append(value, values[value]);
     }
     formData.append("picturePath", values.picture.name);
-    console.log(_id);
     formData.append("userId", _id);
+
+    console.log(
+      formData.get("userId"),
+      formData.get("communityName"),
+      formData.get("communityBio"),
+      formData.get("picturePath"),
+      token
+    );
 
     await fetch("http://localhost:3001/communities/create", {
       method: "POST",
