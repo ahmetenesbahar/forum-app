@@ -22,7 +22,7 @@ const Navbar = () => {
 
   const user = useSelector((state) => state.auth.user);
   const mode = useSelector((state) => state.auth.mode);
-  const show = useSelector((state) => state.modal.showCreateModal);
+  const isRegistered = useSelector((state) => state.auth.isRegistered);
 
   const { theme } = useTheme();
 
@@ -98,7 +98,7 @@ const Navbar = () => {
               className="font-semibold cursor-pointer px-2 py-1"
               onClick={() => dispatch(setShowForm(true))}
             >
-              Login
+              {isRegistered ? "Log In" : "Sign Up"}
             </p>
           ) : (
             <img
