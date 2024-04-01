@@ -5,6 +5,7 @@ const CommunitySchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    max: 20,
   },
   picturePath: {
     type: String,

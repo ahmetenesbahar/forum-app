@@ -33,14 +33,6 @@ const CreateCommunityForm = ({ theme }) => {
     formData.append("picturePath", values.picture.name);
     formData.append("userId", _id);
 
-    console.log(
-      formData.get("userId"),
-      formData.get("communityName"),
-      formData.get("communityBio"),
-      formData.get("picturePath"),
-      token
-    );
-
     await fetch("http://localhost:3001/communities/create", {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },

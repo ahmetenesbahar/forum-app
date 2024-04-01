@@ -5,6 +5,8 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import Dropzone from "react-dropzone";
 import { useTheme } from "components/contexts/ThemeContext";
+import { getThemeReactSelect } from "theme";
+import Select from "react-select";
 
 const createSchema = yup.object().shape({
   title: yup.string().required("Required"),
@@ -20,6 +22,25 @@ const initialValues = {
 
 const CreatePostForm = ({ theme }) => {
   const dispatch = useDispatch();
+  const mode = useSelector((state) => state.auth.mode);
+  const reactSelectTheme = getThemeReactSelect(mode);
+  const communities = [
+    { id: 1, name: "Durward Reynolds", unavailable: false },
+    { id: 2, name: "Kenton Towne", unavailable: false },
+    { id: 3, name: "Therese Wunsch", unavailable: false },
+    { id: 5, name: "Katelyn Rohan", unavailable: false },
+    { id: 6, name: "Eliseo Effertz", unavailable: false },
+    { id: 7, name: "Rhianna Bradtke", unavailable: false },
+    { id: 8, name: "Fritz Hand", unavailable: false },
+    { id: 9, name: "Eliane Lueilwitz", unavailable: false },
+    { id: 10, name: "Herminia Daniel", unavailable: false },
+    { id: 11, name: "Elissa White", unavailable: false },
+    { id: 12, name: "Maxwell Jenkins", unavailable: false },
+  ];
+
+  const token = useSelector((state) => state.auth.token);
+  const { _id } = useSelector((state) => state.auth.user);
+  const [selectedCommunities, setSelectedCommunities] = useState([]);
 
   const createPost = async (values, onSubmitProps) => {
     const formData = new FormData();
@@ -28,13 +49,13 @@ const CreatePostForm = ({ theme }) => {
       formData.append(value, values[value]);
     }
     formData.append("picturePath", values.picture.name);
-
-    //! Bir takım required isterileri karşılayamıyorum önce communityForm u yapmam gerekiyor
+    formData.append("userId", _id);
 
     const createdPostResponse = await fetch(
       "http://localhost:3001/posts/createPost",
       {
         method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
         body: formData,
       }
     );
@@ -89,13 +110,111 @@ const CreatePostForm = ({ theme }) => {
                   value={values.content}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 h-[100px] w-full rounded-lg z-20 relative max-h-[350px] min-h-[45px]  focus:outline-none mb-2`}
+                  className={`border-2 border-gray-300 ${theme.secondaryBackground} p-2 h-[100px] w-full rounded-lg z-20 relative max-h-[350px] min-h-[45px]  focus:outline-none`}
                 />
                 {errors.content && touched.content && (
                   <div
                     className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
                   >
                     {errors.content}
+                  </div>
+                )}
+              </div>
+              <div className={`relative pt-7`}>
+                <Select
+                  name="communities"
+                  options={communities.map((community) => ({
+                    value: community.id,
+                    label: community.name,
+                  }))}
+                  value={selectedCommunities}
+                  onChange={(selectedOptions) =>
+                    setSelectedCommunities(selectedOptions)
+                  }
+                  onBlur={handleBlur}
+                  isMulti
+                  closeMenuOnSelect={false}
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      backgroundColor: reactSelectTheme.secondaryBackground,
+                      maxWidth: "100%",
+                      color: "white !important",
+                    }),
+                    menu: (provided) => ({
+                      ...provided,
+                      backgroundColor: reactSelectTheme.secondaryBackground,
+                      color: reactSelectTheme.text,
+                      maxHeight: "200px",
+                    }),
+                    option: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: state.isFocused
+                        ? reactSelectTheme.secondaryBackground
+                        : "initial",
+                      "&:hover": {
+                        backgroundColor: reactSelectTheme.hoverBackground,
+                      },
+                      cursor: "pointer",
+                    }),
+                    multiValue: (provided) => ({
+                      ...provided,
+                      backgroundColor: reactSelectTheme.primary,
+                    }),
+                    multiValueLabel: (provided) => ({
+                      ...provided,
+                      color: "#fff",
+                      fontSize: "14px",
+                      fontWeight: "600",
+                    }),
+                    multiValueRemove: (provided) => ({
+                      ...provided,
+                      color: "#fff",
+                      fontSize: "16px",
+                      "&:hover": {
+                        color: "rgb(139, 0, 0)",
+                        backgroundColor: "transparent",
+                      },
+                      ":hover svg": {
+                        fill: "red",
+                        width: "16px",
+                        height: "16px",
+                      },
+                    }),
+                    clearIndicator: (provided) => ({
+                      ...provided,
+                      color: reactSelectTheme.text,
+                      cursor: "pointer",
+                      "&:hover": {
+                        color: "red",
+                      },
+                    }),
+                    dropdownIndicator: (provided) => ({
+                      ...provided,
+                      color: reactSelectTheme.text,
+                      cursor: "pointer",
+                      "&:hover": {
+                        color: reactSelectTheme.text,
+                      },
+                    }),
+                    input: (provided) => ({
+                      ...provided,
+                      color: reactSelectTheme.text,
+                    }),
+                    menuList: (provided) => ({
+                      ...provided,
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                      backgroundColor: reactSelectTheme.secondaryBackground,
+                      color: reactSelectTheme.text,
+                    }),
+                  }}
+                />
+                {errors.communities && touched.communities && (
+                  <div
+                    className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
+                  >
+                    {errors.communities}
                   </div>
                 )}
               </div>
