@@ -98,7 +98,7 @@ const Navbar = () => {
               className="font-semibold cursor-pointer px-2 py-1"
               onClick={() => dispatch(setShowForm(true))}
             >
-              {isRegistered ? "Log In" : "Sign Up"}
+              {isRegistered ? "Log In" : "Register"}
             </p>
           ) : (
             <img
