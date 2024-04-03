@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogin, setRegistered } from "state";
 import { Formik } from "formik";
@@ -12,7 +12,7 @@ const registerSchema = yup.object().shape({
   profileName: yup.string().required("Required"),
   email: yup.string().email("Invalid Email").required("Required"),
   password: yup.string().required("Required"),
-  communities: yup.array().notRequired(),
+  communities: yup.array().required(),
   picture: yup.string().required("Required"),
 });
 
@@ -40,18 +40,26 @@ const Form = ({ theme }) => {
   const reactSelectTheme = getThemeReactSelect(mode);
   const isRegistered = useSelector((state) => state.auth.isRegistered);
 
-  const communities = [
-    { id: 1, name: "Durward Reynolds", unavailable: false },
-    { id: 2, name: "Kenton Towne", unavailable: false },
-    { id: 3, name: "Therese Wunsch", unavailable: false },
-    { id: 5, name: "Katelyn Rohan", unavailable: false },
-  ];
+  const [communities, setCommunities] = useState([]);
 
   const [selectedCommunities, setSelectedCommunities] = useState([]);
 
   const [pageType, setPageType] = useState(isRegistered ? "login" : "register");
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    try {
+      const fetchCommunities = async () => {
+        const response = await fetch("http://localhost:3001/communities");
+        const data = await response.json();
+        setCommunities(data);
+      };
+      fetchCommunities();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   const register = async (values, onSubmitProps) => {
     const formData = new FormData();
@@ -60,6 +68,10 @@ const Form = ({ theme }) => {
       formData.append(value, values[value]);
     }
     formData.append("picturePath", values.picture.name);
+    formData.append(
+      "interestedCommunities",
+      selectedCommunities.map((community) => community.value)
+    );
 
     const savedUserResponse = await fetch(
       "http://localhost:3001/auth/register",
@@ -265,13 +277,14 @@ const Form = ({ theme }) => {
                     <Select
                       name="communities"
                       options={communities.map((community) => ({
-                        value: community.id,
-                        label: community.name,
+                        value: community._id,
+                        label: community.communityName,
                       }))}
                       value={selectedCommunities}
-                      onChange={(selectedOptions) =>
-                        setSelectedCommunities(selectedOptions)
-                      }
+                      onChange={(selectedOptions) => {
+                        setSelectedCommunities(selectedOptions);
+                        setFieldValue("communities", selectedOptions);
+                      }}
                       onBlur={handleBlur}
                       isMulti
                       closeMenuOnSelect={false}
