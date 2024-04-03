@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCommunities } from "state";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Dropzone from "react-dropzone";
-import { useTheme } from "components/contexts/ThemeContext";
 import { getThemeReactSelect } from "theme";
 import Select from "react-select";
 
@@ -24,23 +22,29 @@ const CreatePostForm = ({ theme }) => {
   const dispatch = useDispatch();
   const mode = useSelector((state) => state.auth.mode);
   const reactSelectTheme = getThemeReactSelect(mode);
-  const communities = [
-    { id: 1, name: "Durward Reynolds", unavailable: false },
-    { id: 2, name: "Kenton Towne", unavailable: false },
-    { id: 3, name: "Therese Wunsch", unavailable: false },
-    { id: 5, name: "Katelyn Rohan", unavailable: false },
-    { id: 6, name: "Eliseo Effertz", unavailable: false },
-    { id: 7, name: "Rhianna Bradtke", unavailable: false },
-    { id: 8, name: "Fritz Hand", unavailable: false },
-    { id: 9, name: "Eliane Lueilwitz", unavailable: false },
-    { id: 10, name: "Herminia Daniel", unavailable: false },
-    { id: 11, name: "Elissa White", unavailable: false },
-    { id: 12, name: "Maxwell Jenkins", unavailable: false },
-  ];
+  let communities = [];
 
   const token = useSelector((state) => state.auth.token);
   const { _id } = useSelector((state) => state.auth.user);
   const [selectedCommunities, setSelectedCommunities] = useState([]);
+
+  /* //!Burada communities'i fetch etmek gerekiyor ama tüm communityleri fetch etmek mantıksız. Kullanıcının tkaip ettiği communityi fetchlemen gerekiyor. Önce sayfa kenarlarında communitylerin listelendiği bir component yap. Sonra oradan seçilen communityleri buraya gönder. Burada da seçilen communityleri fetch et.
+
+
+ const fetchCommunities = async () => {
+   try {
+     const response = await fetch("http://localhost:3001/communities", {
+       method: "GET",
+       headers: { Authorization: `Bearer ${token}` },
+     });
+     communities = await response.json();
+   } catch (error) {
+     console.error(error);
+   }
+ };
+
+ fetchCommunities();
+  */
 
   const createPost = async (values, onSubmitProps) => {
     const formData = new FormData();
@@ -124,8 +128,8 @@ const CreatePostForm = ({ theme }) => {
                 <Select
                   name="communities"
                   options={communities.map((community) => ({
-                    value: community.id,
-                    label: community.name,
+                    value: community._id,
+                    label: community.communityName,
                   }))}
                   value={selectedCommunities}
                   onChange={(selectedOptions) =>

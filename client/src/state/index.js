@@ -24,24 +24,24 @@ export const authSlice = createSlice({
       state.user = null;
       state.token = null;
     },
-    setCommunities: (state, action) => {
-      if (state.user) {
-        state.user.communities = action.payload.communities;
-      } else {
-        console.error("user communities non existent");
-      }
-    },
-    setPosts: (state, action) => {
-      state.posts = action.payload.posts;
-    },
-    setPost: (state, action) => {
-      const updatedPosts = state.posts.map((post) => {
-        if (post._id === action.payload.post_id) {
-          return action.payload.post;
-        }
-      });
-      state.posts = updatedPosts;
-    },
+    // setCommunities: (state, action) => {
+    //   if (state.user) {
+    //     state.user.communities = action.payload.communities;
+    //   } else {
+    //     console.error("user communities non existent");
+    //   }
+    // },
+    // setPosts: (state, action) => {
+    //   state.posts = action.payload.posts;
+    // },
+    // setPost: (state, action) => {
+    //   const updatedPosts = state.posts.map((post) => {
+    //     if (post._id === action.payload.post_id) {
+    //       return action.payload.post;
+    //     }
+    //   });
+    //   state.posts = updatedPosts;
+    // }, //! burada neler oluyor bi bakıcaz zamanında yazmışım ama ne kadar gerekli ?
     setRegistered: (state, action) => {
       state.isRegistered = action.payload;
     },

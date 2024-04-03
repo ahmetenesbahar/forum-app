@@ -13,6 +13,15 @@ export const getUserCommunities = async (req, res) => {
   }
 };
 
+export const getCommunities = async (req, res) => {
+  try {
+    const community = await Community.find();
+    res.status(200).json(community);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
 /*CREATE*/
 
 export const createCommunity = async (req, res) => {
