@@ -127,6 +127,7 @@ const CreatePostForm = ({ theme }) => {
               <div className={`relative pt-7`}>
                 <Select
                   name="communities"
+                  placeholder="Select Community"
                   options={communities.map((community) => ({
                     value: community._id,
                     label: community.communityName,
