@@ -5,6 +5,7 @@ import * as yup from "yup";
 import Dropzone from "react-dropzone";
 import { getThemeReactSelect } from "theme";
 import Select from "react-select";
+import Button from "components/shared/Button";
 
 const createSchema = yup.object().shape({
   title: yup.string().required("Required"),
@@ -275,12 +276,7 @@ const CreatePostForm = ({ theme }) => {
               </div>
 
               <div className="flex justify-center mt-6">
-                <button
-                  type="submit"
-                  className={`${theme.primary} w-full px-4 py-2 rounded-full text-white font-semibold`}
-                >
-                  Create Post
-                </button>
+                <Button label={"Create Post"} />
               </div>
             </div>
           </form>

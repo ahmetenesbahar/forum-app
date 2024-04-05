@@ -6,6 +6,7 @@ import * as yup from "yup";
 import Dropzone from "react-dropzone";
 import Select from "react-select";
 import { getThemeReactSelect } from "theme";
+import Button from "./shared/Button";
 
 const registerSchema = yup.object().shape({
   userName: yup.string().required("Required"),
@@ -367,12 +368,7 @@ const Form = ({ theme }) => {
                 </>
               )}
               <div className="flex justify-center mt-6">
-                <button
-                  type="submit"
-                  className={`${theme.primary} w-full px-4 py-2 rounded-full text-white font-semibold`}
-                >
-                  {isRegistered ? "Login" : "Register"}
-                </button>
+                <Button label={isRegistered ? "Login" : "Register"} />
               </div>
             </div>
           </form>
