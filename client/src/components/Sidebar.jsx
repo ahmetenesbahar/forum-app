@@ -18,11 +18,7 @@ const Sidebar = () => {
   }, []);
   return (
     <div className={`${theme.borderGray} border-r-2 w-1/6`}>
-      <h1
-        className={`${theme.text} text-lg font-bold p-4 border-b ${theme.borderGray}`}
-      >
-        Communities
-      </h1>
+      <h1 className={`${theme.text} text-lg font-bold p-4 `}>Communities</h1>
       <ul>
         {communities.map((community) => (
           <li
