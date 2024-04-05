@@ -8,7 +8,7 @@ const Main = () => {
   const createTab = useSelector((state) => state.modal.showCreateModal);
 
   return (
-    <div className="w-5/6 p-8">
+    <div className="w-full p-8">
       {createTab & !(user === null) ? <ModalCenter type={"createTab"} /> : " "}
     </div>
   );

@@ -66,7 +66,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`justify-between items-center flex px-8 border-b w-full ${theme.borderGray} relative`}
+      className={`justify-between items-center flex px-8 border-b w-full ${theme.borderGray} relative select-none`}
     >
       <div className="logo">
         <Logod20 className={`${theme.logo} cursor-pointer`} fill={theme.logo} />
