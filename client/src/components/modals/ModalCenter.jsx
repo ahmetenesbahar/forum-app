@@ -39,7 +39,7 @@ const ModalCenter = ({ type }) => {
     >
       <div
         ref={modalRef}
-        className={`relative ${theme.background} px-10 py-5   min-w-[450px] max-w-[500px]
+        className={`relative ${theme.background} px-10 py-5 min-w-[450px] max-w-[500px]
           rounded-xl flex items-center justify-center shadow-md relative flex-col`}
       >
         {type === "createTab" ? <CreateTab /> : ""}
