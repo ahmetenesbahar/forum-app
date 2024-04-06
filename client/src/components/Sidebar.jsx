@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { useTheme } from "./contexts/ThemeContext";
 import { Transition } from "@headlessui/react";
 import { RiArrowUpSLine, RiArrowDownSLine } from "react-icons/ri";
@@ -23,7 +23,7 @@ const Sidebar = () => {
     <div className={`${theme.borderGray} border-r-2 w-80`}>
       <div className="communities">
         <div
-          className={`flex items-center cursor-pointer ${theme.hoverBackground}`}
+          className={`flex items-center cursor-pointer relative z-20 ${theme.hoverBackground}`}
           onClick={() => setIsShowing((isShowing) => !isShowing)}
         >
           <h1 className={`${theme.text} text-lg font-bold p-4 select-none `}>
@@ -40,18 +40,18 @@ const Sidebar = () => {
         </div>
         <Transition
           show={isShowing}
-          enter="transition-opacity duration-75"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition-opacity duration-150"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
+          enter="transition duration-200 ease-out"
+          enterFrom="opacity-0 -translate-y-5"
+          enterTo="opacity-100 translate-y-0"
+          leave="transition duration-200 ease-in"
+          leaveFrom="opacity-100 translate-y-0"
+          leaveTo="opacity-0 -translate-y-5"
         >
-          <ul>
+          <ul className={`border-b ${theme.borderGray}`}>
             {communities.map((community) => (
               <li
                 key={community._id}
-                className={`${theme.text} p-3 border-b ${theme.borderGray} ${theme.hoverBackground} hover:cursor-pointer select-none`}
+                className={`${theme.text} p-3 ${theme.hoverBackground} hover:cursor-pointer select-none`}
               >
                 <div className="flex gap-2 items-center ">
                   <img
