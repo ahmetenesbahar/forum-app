@@ -48,7 +48,12 @@ const upload = multer({ storage: storage });
 // ROUTES WITH FILES
 
 app.post("/auth/register", upload.single("picture"), register); // we can't separate register because of the file upload
-app.post("/createPost", verifyToken, upload.single("picture"), createPost);
+app.post(
+  "/posts/createPost",
+  verifyToken,
+  upload.single("picture"),
+  createPost
+);
 app.post(
   "/communities/create",
   verifyToken,

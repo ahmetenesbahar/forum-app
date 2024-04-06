@@ -13,7 +13,7 @@ const registerSchema = yup.object().shape({
   profileName: yup.string().required("Required"),
   email: yup.string().email("Invalid Email").required("Required"),
   password: yup.string().required("Required"),
-  communities: yup.array().required(),
+  communities: yup.array().required("Required"),
   picture: yup.string().required("Required"),
 });
 
@@ -160,7 +160,6 @@ const Form = ({ theme }) => {
               </div>
               {!isRegistered && (
                 <>
-                  {" "}
                   <div className="relative pt-7">
                     <input
                       type="text"
@@ -219,7 +218,6 @@ const Form = ({ theme }) => {
               </div>
               {!isRegistered && (
                 <>
-                  {" "}
                   <div className="relative pt-7">
                     <Dropzone
                       acceptedFiles=".jpg,.jpeg,.png"

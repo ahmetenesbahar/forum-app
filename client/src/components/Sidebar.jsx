@@ -42,10 +42,10 @@ const Sidebar = () => {
         </div>
         <Transition
           show={isShowing}
-          enter="transition duration-200 ease-out"
+          enter="transition duration-100 ease-out"
           enterFrom="opacity-0 -translate-y-5"
           enterTo="opacity-100 translate-y-0"
-          leave="transition duration-200 ease-in"
+          leave="transition duration-100 ease-out"
           leaveFrom="opacity-100 translate-y-0"
           leaveTo="opacity-0 -translate-y-5"
         >

@@ -11,22 +11,23 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  images: [
-    {
-      type: String, //! Sadece fotoğrafın URL'sini saklamak için String tipi kullandım.
-      default: "",
-    },
-  ],
+  picturePath: {
+    type: String,
+    default: "",
+    required: true,
+  },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
-  community: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Community",
-    required: true,
-  },
+  community: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Community",
+      required: true,
+    },
+  ],
   votes: [
     {
       user: {
@@ -35,7 +36,6 @@ const PostSchema = new mongoose.Schema({
       },
       type: {
         type: String, // 'upvote' veya 'downvote'
-        required: true,
       },
     },
   ],
@@ -47,12 +47,10 @@ const PostSchema = new mongoose.Schema({
     {
       text: {
         type: String,
-        required: true,
       },
       author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
       },
       createdAt: {
         type: Date,

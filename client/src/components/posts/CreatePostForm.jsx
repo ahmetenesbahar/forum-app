@@ -11,59 +11,55 @@ const createSchema = yup.object().shape({
   title: yup.string().required("Required"),
   content: yup.string().required("Required"),
   picture: yup.string().required("Required"),
+  community: yup.object().required("Required"),
 });
 
 const initialValues = {
   title: "",
   content: "",
   picture: "",
+  community: [],
 };
 
 const CreatePostForm = ({ theme }) => {
   const dispatch = useDispatch();
   const mode = useSelector((state) => state.auth.mode);
   const reactSelectTheme = getThemeReactSelect(mode);
-  let communities = [];
 
   const token = useSelector((state) => state.auth.token);
   const { _id } = useSelector((state) => state.auth.user);
-  const [selectedCommunities, setSelectedCommunities] = useState([]);
+  const [selectedCommunity, setSelectedCommunity] = useState([]);
+  const [communities, setCommunities] = useState([]);
 
-  /* //!Burada communities'i fetch etmek gerekiyor ama tüm communityleri fetch etmek mantıksız. Kullanıcının tkaip ettiği communityi fetchlemen gerekiyor. Önce sayfa kenarlarında communitylerin listelendiği bir component yap. Sonra oradan seçilen communityleri buraya gönder. Burada da seçilen communityleri fetch et.
-
-
- const fetchCommunities = async () => {
-   try {
-     const response = await fetch("http://localhost:3001/communities", {
-       method: "GET",
-       headers: { Authorization: `Bearer ${token}` },
-     });
-     communities = await response.json();
-   } catch (error) {
-     console.error(error);
-   }
- };
-
- fetchCommunities();
-  */
+  useEffect(() => {
+    try {
+      const fetchCommunities = async () => {
+        const response = await fetch("http://localhost:3001/communities");
+        const data = await response.json();
+        setCommunities(data);
+      };
+      fetchCommunities();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   const createPost = async (values, onSubmitProps) => {
-    const formData = new FormData();
-
-    for (let value in values) {
-      formData.append(value, values[value]);
-    }
-    formData.append("picturePath", values.picture.name);
-    formData.append("userId", _id);
-
-    const createdPostResponse = await fetch(
-      "http://localhost:3001/posts/createPost",
-      {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData,
-      }
-    );
+    await fetch("http://localhost:3001/posts/createPost", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: _id,
+        title: values.title,
+        content: values.content,
+        picture: values.picture,
+        picturePath: values.picture.name,
+        community: values.community.value,
+      }),
+    });
     onSubmitProps.resetForm();
   };
 
@@ -127,18 +123,18 @@ const CreatePostForm = ({ theme }) => {
               </div>
               <div className={`relative pt-7`}>
                 <Select
-                  name="communities"
+                  name="community"
                   placeholder="Select Community"
                   options={communities.map((community) => ({
                     value: community._id,
                     label: community.communityName,
                   }))}
-                  value={selectedCommunities}
-                  onChange={(selectedOptions) =>
-                    setSelectedCommunities(selectedOptions)
-                  }
+                  value={selectedCommunity}
+                  onChange={(selectedOptions) => {
+                    setSelectedCommunity(selectedOptions);
+                    setFieldValue("community", selectedOptions);
+                  }}
                   onBlur={handleBlur}
-                  isMulti
                   closeMenuOnSelect={false}
                   styles={{
                     control: (provided) => ({
@@ -163,37 +159,11 @@ const CreatePostForm = ({ theme }) => {
                       },
                       cursor: "pointer",
                     }),
-                    multiValue: (provided) => ({
-                      ...provided,
-                      backgroundColor: reactSelectTheme.primary,
-                    }),
-                    multiValueLabel: (provided) => ({
+                    singleValue: (provided) => ({
                       ...provided,
                       color: "#fff",
                       fontSize: "14px",
                       fontWeight: "600",
-                    }),
-                    multiValueRemove: (provided) => ({
-                      ...provided,
-                      color: "#fff",
-                      fontSize: "16px",
-                      "&:hover": {
-                        color: "rgb(139, 0, 0)",
-                        backgroundColor: "transparent",
-                      },
-                      ":hover svg": {
-                        fill: "red",
-                        width: "16px",
-                        height: "16px",
-                      },
-                    }),
-                    clearIndicator: (provided) => ({
-                      ...provided,
-                      color: reactSelectTheme.text,
-                      cursor: "pointer",
-                      "&:hover": {
-                        color: "red",
-                      },
                     }),
                     dropdownIndicator: (provided) => ({
                       ...provided,
@@ -216,11 +186,11 @@ const CreatePostForm = ({ theme }) => {
                     }),
                   }}
                 />
-                {errors.communities && touched.communities && (
+                {errors.community && touched.community && (
                   <div
                     className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
                   >
-                    {errors.communities}
+                    {errors.community}
                   </div>
                 )}
               </div>
@@ -274,7 +244,6 @@ const CreatePostForm = ({ theme }) => {
                   )}
                 </Dropzone>
               </div>
-
               <div className="flex justify-center mt-6">
                 <Button label={"Create Post"} />
               </div>
