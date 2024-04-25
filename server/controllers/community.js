@@ -33,10 +33,14 @@ export const createCommunity = async (req, res) => {
       communityName,
       communityBio,
       picturePath,
-      interestedUsers: [],
+      interestedUsers: [userId],
     });
 
     await newCommunity.save();
+
+    await User.findByIdAndUpdate(userId, {
+      $push: { interestedCommunities: newCommunity._id },
+    });
 
     const community = await Community.find();
     res.status(201).json(community);
