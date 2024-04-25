@@ -25,6 +25,7 @@ export const register = async (req, res) => {
       password: passwordHash,
       picturePath,
       interestedCommunities,
+      posts: [],
     });
 
     const savedUser = await newUser.save();
