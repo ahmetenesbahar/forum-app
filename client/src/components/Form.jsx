@@ -13,7 +13,7 @@ const registerSchema = yup.object().shape({
   profileName: yup.string().required("Required"),
   email: yup.string().email("Invalid Email").required("Required"),
   password: yup.string().required("Required"),
-  communities: yup.array().required("Required"),
+  interestedCommunities: yup.array().of(yup.string().required("Required")),
   picture: yup.string().required("Required"),
 });
 
@@ -28,7 +28,7 @@ const initialValuesRegister = {
   email: "",
   password: "",
   picture: "",
-  communities: [],
+  interestedCommunities: [],
 };
 
 const initialValuesLogin = {
@@ -63,22 +63,23 @@ const Form = ({ theme }) => {
   }, []);
 
   const register = async (values, onSubmitProps) => {
-    const formData = new FormData();
-
-    for (let value in values) {
-      formData.append(value, values[value]);
-    }
-    formData.append("picturePath", values.picture.name);
-    formData.append(
-      "interestedCommunities",
-      selectedCommunities.map((community) => community.value)
+    const interestedCommunities = selectedCommunities.map(
+      (community) => community.value
     );
 
     const savedUserResponse = await fetch(
       "http://localhost:3001/auth/register",
       {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userName: values.userName,
+          profileName: values.profileName,
+          email: values.email,
+          password: values.password,
+          picturePath: values.picture.name,
+          interestedCommunities: interestedCommunities,
+        }),
       }
     );
     const savedUser = await savedUserResponse.json();
@@ -274,7 +275,7 @@ const Form = ({ theme }) => {
                   </div>
                   <div className={`relative pt-7`}>
                     <Select
-                      name="communities"
+                      name="interestedCommunities"
                       options={communities.map((community) => ({
                         value: community._id,
                         label: community.communityName,
