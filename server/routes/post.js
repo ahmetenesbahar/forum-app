@@ -11,7 +11,7 @@ const router = express.Router();
 
 /*READ*/
 
-router.get("/", verifyToken, getFeedPosts);
+router.get("/getPosts", verifyToken, getFeedPosts);
 router.get("/:id/posts", verifyToken, getUserPosts); //! bir ara buradaki idyi username olarak değiştireceğim
 
 /*UPDATE*/
