@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import authReducer from "state/index";
 import modalReducer from "state/modalSlice";
+import postsReducer from "state/postSlice";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import {
@@ -25,7 +26,7 @@ import { ThemeProvider } from "components/contexts/ThemeContext";
 const persistConfig = { key: "root", storage, version: 1 };
 const persistedReducer = persistReducer(persistConfig, authReducer);
 const store = configureStore({
-  reducer: { auth: persistedReducer, modal: modalReducer },
+  reducer: { auth: persistedReducer, modal: modalReducer, posts: postsReducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
