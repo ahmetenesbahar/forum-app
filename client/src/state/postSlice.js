@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchPosts = createAsyncThunk("post/getPosts", async () => {
+export const fetchPosts = createAsyncThunk("post/getPosts", async (token) => {
   try {
     const response = await fetch("http://localhost:3001/posts/getPosts", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     if (!response.ok) {
