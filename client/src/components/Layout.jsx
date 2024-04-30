@@ -6,7 +6,7 @@ import { useTheme } from "./contexts/ThemeContext";
 const Page = () => {
   const { theme } = useTheme();
   return (
-    <div className="h-screen flex">
+    <div className="flex">
       <Sidebar />
       <Main />
     </div>

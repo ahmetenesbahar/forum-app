@@ -8,7 +8,7 @@ const HomePage = () => {
   const user = useSelector((state) => state.auth.user);
 
   return (
-    <div>
+    <div className="">
       <Navbar />
       <AuthPage />
       <Layout />

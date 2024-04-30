@@ -7,7 +7,7 @@ const App = () => {
   const { theme } = useTheme();
 
   return (
-    <div className={`app ${theme.background} ${theme.text}`}>
+    <div className={` ${theme.background} ${theme.text}`}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />

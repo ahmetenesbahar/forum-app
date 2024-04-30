@@ -9,7 +9,7 @@ const Main = () => {
   const createTab = useSelector((state) => state.modal.showCreateModal);
 
   return (
-    <div className="w-full p-8">
+    <div className="w-full py-4 h-[calc(100vh-80px)] overflow-auto ">
       {createTab & !(user === null) ? <ModalCenter type={"createTab"} /> : " "}
       <Flow />
     </div>
