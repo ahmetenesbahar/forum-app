@@ -14,7 +14,6 @@ const PostSchema = new mongoose.Schema({
   picturePath: {
     type: String,
     default: "",
-    required: true,
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,

@@ -10,7 +10,7 @@ import Button from "components/shared/Button";
 const createSchema = yup.object().shape({
   title: yup.string().required("Required"),
   content: yup.string().required("Required"),
-  picture: yup.string().required("Required"),
+  picture: yup.string().notRequired("Required"),
   community: yup.object().required("Required"),
 });
 
