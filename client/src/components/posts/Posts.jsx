@@ -15,7 +15,7 @@ const Posts = () => {
 
   return (
     <div className="flex flex-col justify-center items-center max-w-[756px] w-full gap-y-2 ">
-      {posts.map((post) => (
+      {posts?.map((post) => (
         <>
           <div
             key={post._id}
