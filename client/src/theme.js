@@ -12,6 +12,8 @@ export const getTheme = (mode) => {
       hoverBackground: "hover:bg-light-hoverBackground",
       primaryBorder: "border-light-primary",
       hoverBlue: "hover:bg-light-hoverBlue",
+      upVote: "bg-light-upVote",
+      downVote: "bg-light-downVote",
     };
   } else {
     return {
@@ -26,6 +28,8 @@ export const getTheme = (mode) => {
       hoverBackground: "hover:bg-dark-hoverBackground",
       primaryBorder: "border-dark-primary",
       hoverBlue: "hover:bg-dark-hoverBlue",
+      upVote: "bg-dark-upVote",
+      downVote: "bg-dark-downVote",
     };
   }
 };

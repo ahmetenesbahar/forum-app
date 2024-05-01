@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "state/postSlice";
 import { useTheme } from "components/contexts/ThemeContext";
+import { PiArrowFatDown, PiArrowFatUp } from "react-icons/pi";
+import { GoComment } from "react-icons/go";
 
 const Posts = () => {
   const dispatch = useDispatch();
@@ -43,6 +45,20 @@ const Posts = () => {
                 />
               </div>
             )}
+            <div className="flex items-center gap-3">
+              <div className="w-20 h-9 flex items-center rounded-full gap-3 px-2 py-1">
+                <PiArrowFatUp
+                  className={` w-6 h-6 cursor-pointer ${theme.upVote}`}
+                />
+                {0}
+                <PiArrowFatDown
+                  className={`w-6 h-6 cursor-pointer ${theme.downVote}`}
+                />
+              </div>
+              <div className="w-20 h-9 flex items-center rounded-full gap-3 px-2 py-1 bg-red-500">
+                <GoComment className="w-6 h-6" />
+              </div>
+            </div>
           </div>
           <div className={`w-full h-px ${theme.grayBackground}`} />
         </>

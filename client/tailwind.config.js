@@ -12,6 +12,8 @@ module.exports = {
           borderGray: "#c0c0c0",
           hoverBackground: "#f5f5f5",
           hoverBlue: "#1E90FF",
+          downVote: "#6A5CFF",
+          upVote: "#D93A00",
           text: "#333333",
         },
         dark: {
@@ -22,6 +24,8 @@ module.exports = {
           borderGray: "#373c3f",
           hoverBackground: " #2c3e44",
           hoverBlue: "#66a3e0",
+          downVote: "#6A5CFF",
+          upVote: "#D93A00",
           text: "#FFFFFF",
         },
       },
