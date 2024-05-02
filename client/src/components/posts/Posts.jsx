@@ -21,7 +21,7 @@ const Posts = () => {
         <>
           <div
             key={post._id}
-            className={`w-full  px-2 py-1  ${theme.hoverBackground} cursor-pointer rounded-lg `}
+            className={`w-full  px-4 py-1  ${theme.hoverBackground} cursor-pointer rounded-lg `}
           >
             <div className={`flex items-center gap-1 `}>
               <img
@@ -34,29 +34,46 @@ const Posts = () => {
                 <span className="opacity-70 font-normal">• 1 day ago</span>
               </p>
             </div>
-            <p className="text-white font-medium text-xl">{post.title}</p>
-            <p className="">{post.content}</p>
+            <p className=" font-medium text-xl">{post.title}</p>
+            <p className="mt-2">{post.content}</p>
             {post.picturePath === "" ? null : (
-              <div className="w-full flex items-center justify-center ">
+              <div className="w-full relative flex items-center justify-center bg-contain rounded-xl mt-3">
+                <div
+                  className={`absolute max-w-[736px] max-h-[416px] w-full h-full ${theme.secondaryBackground} blur-md`}
+                />
                 <img
                   src={`http://localhost:3001/assets/${post?.picturePath}`}
                   alt=""
-                  className="max-w-[724px] max-h-[540px] rounded-lg"
+                  className="z-40 max-w-[724px] max-h-[540px] rounded-lg object-contain"
                 />
               </div>
             )}
-            <div className="flex items-center gap-3">
-              <div className="w-20 h-9 flex items-center rounded-full gap-3 px-2 py-1">
-                <PiArrowFatUp
-                  className={` w-6 h-6 cursor-pointer ${theme.upVote}`}
-                />
+            <div className="flex items-center gap-3 mt-3">
+              <div
+                className={` relative w-20 h-9 flex items-center rounded-full space-between  ${theme.secondaryBackground}`}
+              >
+                <div
+                  className={` w-9 h-9 flex items-center rounded-full px-2 py-1 ${theme.hoverBackground}`}
+                >
+                  <PiArrowFatUp
+                    className={` w-5 h-5 cursor-pointer ${theme.upVote}  `}
+                  />
+                </div>
+
                 {0}
-                <PiArrowFatDown
-                  className={`w-6 h-6 cursor-pointer ${theme.downVote}`}
-                />
+                <div
+                  className={` w-9 h-9 flex items-center rounded-full px-2 py-1 ${theme.hoverBackground}`}
+                >
+                  <PiArrowFatDown
+                    className={`w-5 h-5 cursor-pointer ${theme.downVote}`}
+                  />
+                </div>
               </div>
-              <div className="w-20 h-9 flex items-center rounded-full gap-3 px-2 py-1 bg-red-500">
-                <GoComment className="w-6 h-6" />
+              <div
+                className={`w-20 h-9 flex items-center justify-center rounded-full gap-3 px-2 py-1  ${theme.secondaryBackground} ${theme.hoverBackground}`}
+              >
+                <GoComment className="w-5 h-5" />
+                <p>31</p>
               </div>
             </div>
           </div>
