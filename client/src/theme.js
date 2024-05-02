@@ -10,10 +10,13 @@ export const getTheme = (mode) => {
       borderGray: "border-light-borderGray",
       grayBackground: "bg-light-borderGray",
       hoverBackground: "hover:bg-light-hoverBackground",
+      secondaryHoverBackground: "hover:bg-light-secondaryHoverBackground",
       primaryBorder: "border-light-primary",
       hoverBlue: "hover:bg-light-hoverBlue",
-      upVote: "bg-light-upVote",
-      downVote: "bg-light-downVote",
+      upVote: "hover:text-light-upVote",
+      downVote: "hover:text-light-downVote",
+      upVoteBackground: "hover:bg-light-upVote",
+      downVoteBackground: "hover:bg-light-downVote",
     };
   } else {
     return {
@@ -26,10 +29,13 @@ export const getTheme = (mode) => {
       borderGray: "border-dark-borderGray",
       grayBackground: "bg-dark-borderGray",
       hoverBackground: "hover:bg-dark-hoverBackground",
+      secondaryHoverBackground: "hover:bg-dark-secondaryHoverBackground",
       primaryBorder: "border-dark-primary",
       hoverBlue: "hover:bg-dark-hoverBlue",
-      upVote: "bg-dark-upVote",
-      downVote: "bg-dark-downVote",
+      upVote: "hover:text-dark-upVote",
+      downVote: "hover:text-dark-downVote",
+      upVoteBackground: "bg-dark-upVote",
+      downVoteBackground: "bg-dark-downVote",
     };
   }
 };
