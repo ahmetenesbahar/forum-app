@@ -17,6 +17,7 @@ export const getTheme = (mode) => {
       downVote: "hover:text-light-downVote",
       upVoteBackground: "hover:bg-light-upVote",
       downVoteBackground: "hover:bg-light-downVote",
+      activeBackground: "active:bg-light-activeBackground",
     };
   } else {
     return {
@@ -36,6 +37,7 @@ export const getTheme = (mode) => {
       downVote: "hover:text-dark-downVote",
       upVoteBackground: "bg-dark-upVote",
       downVoteBackground: "bg-dark-downVote",
+      activeBackground: "active:bg-dark-activeBackground",
     };
   }
 };
