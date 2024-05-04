@@ -6,6 +6,7 @@ import * as yup from "yup";
 import Dropzone from "react-dropzone";
 import { useTheme } from "components/contexts/ThemeContext";
 import Button from "components/shared/Button";
+import axios from "axios";
 
 const createSchema = yup.object().shape({
   communityName: yup.string().required("Required"),
@@ -26,21 +27,24 @@ const CreateCommunityForm = ({ theme }) => {
   const { _id } = useSelector((state) => state.auth.user);
 
   const createCommunity = async (values, onSubmitProps) => {
-    const data = {
-      ...values,
-      picturePath: values.picture.name,
-      userId: _id,
-    };
+    try {
+      const formData = new FormData();
+      formData.append("picture", values.picture);
+      formData.append("communityName", values.communityName);
+      formData.append("communityBio", values.communityBio);
+      formData.append("userId", _id);
+      formData.append("picturePath", values.picture.name);
 
-    await fetch("http://localhost:3001/communities/create", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    onSubmitProps.resetForm();
+      await axios.post("http://localhost:3001/communities/create", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      onSubmitProps.resetForm();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleSubmit = async (values, onSubmitProps) => {

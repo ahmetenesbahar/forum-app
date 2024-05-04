@@ -30,7 +30,7 @@ const Posts = () => {
                 className="w-7 h-7 rounded-full"
               />
               <p className="text-sm font-medium opacity-90">
-                f/{post.community.communityName}{" "}
+                f/{post.community.communityName}
                 <span className="opacity-70 font-normal">• 1 day ago</span>
               </p>
             </div>

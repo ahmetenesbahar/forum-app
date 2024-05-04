@@ -6,6 +6,7 @@ import Dropzone from "react-dropzone";
 import { getThemeReactSelect } from "theme";
 import Select from "react-select";
 import Button from "components/shared/Button";
+import axios from "axios";
 
 const createSchema = yup.object().shape({
   title: yup.string().required("Required"),
@@ -34,9 +35,8 @@ const CreatePostForm = ({ theme }) => {
   useEffect(() => {
     try {
       const fetchCommunities = async () => {
-        const response = await fetch("http://localhost:3001/communities");
-        const data = await response.json();
-        setCommunities(data);
+        const response = await axios.get("http://localhost:3001/communities");
+        setCommunities(response.data);
       };
       fetchCommunities();
     } catch (error) {
@@ -45,24 +45,27 @@ const CreatePostForm = ({ theme }) => {
   }, []);
 
   const createPost = async (values, onSubmitProps) => {
-    await fetch("http://localhost:3001/posts/createPost", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: _id,
-        title: values.title,
-        content: values.content,
-        picture: values.picture,
-        picturePath: values.picture.name,
-        community: values.community.value,
-      }),
-    });
-    onSubmitProps.resetForm();
-  };
+    try {
+      const formData = new FormData();
+      formData.append("userId", _id);
+      formData.append("title", values.title);
+      formData.append("content", values.content);
+      formData.append("picture", values.picture);
+      formData.append("picturePath", values.picture.name);
+      formData.append("community", values.community.value);
 
+      await axios.post("http://localhost:3001/posts/createPost", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      onSubmitProps.resetForm();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleFormSubmit = async (values, onSubmitProps) => {
     await createPost(values, onSubmitProps);
   };

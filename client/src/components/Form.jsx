@@ -7,6 +7,7 @@ import Dropzone from "react-dropzone";
 import Select from "react-select";
 import { getThemeReactSelect } from "theme";
 import Button from "./shared/Button";
+import axios from "axios";
 
 const registerSchema = yup.object().shape({
   userName: yup.string().required("Required"),
@@ -63,55 +64,67 @@ const Form = ({ theme }) => {
   }, []);
 
   const register = async (values, onSubmitProps) => {
-    const interestedCommunities = selectedCommunities.map(
-      (community) => community.value
-    );
+    try {
+      const interestedCommunities = selectedCommunities.map(
+        (community) => community.value
+      );
 
-    const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userName: values.userName,
-          profileName: values.profileName,
-          email: values.email,
-          password: values.password,
-          picturePath: values.picture.name,
-          interestedCommunities: interestedCommunities,
-        }),
+      const formData = new FormData();
+      formData.append("userName", values.userName);
+      formData.append("profileName", values.profileName);
+      formData.append("email", values.email);
+      formData.append("password", values.password);
+      formData.append("picture", values.picture);
+      formData.append("picturePath", values.picture.name);
+      formData.append("interestedCommunities", interestedCommunities);
+
+      const savedUserResponse = await axios.post(
+        "http://localhost:3001/auth/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const savedUser = await savedUserResponse.data;
+      onSubmitProps.resetForm();
+
+      if (savedUser) {
+        setPageType("login");
+        dispatch(setRegistered(true));
       }
-    );
-    const savedUser = await savedUserResponse.json();
-    onSubmitProps.resetForm();
 
-    if (savedUser) {
-      setPageType("login");
-      dispatch(setRegistered(true));
+      await login(
+        { userName: values.userName, password: values.password },
+        onSubmitProps
+      );
+    } catch (error) {
+      console.error("Error while registering:", error);
     }
-
-    await login(
-      { userName: values.userName, password: values.password },
-      onSubmitProps
-    );
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
+    try {
+      const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
 
-    const loggedIn = await loggedInResponse.json();
-    onSubmitProps.resetForm();
-    if (loggedIn && loggedInResponse.status === 200) {
-      dispatch(
-        setLogin({
-          user: loggedIn.user,
-          token: loggedIn.token,
-        })
-      );
+      const loggedIn = await loggedInResponse.json();
+      onSubmitProps.resetForm();
+      if (loggedIn && loggedInResponse.status === 200) {
+        dispatch(
+          setLogin({
+            user: loggedIn.user,
+            token: loggedIn.token,
+          })
+        );
+      }
+    } catch (error) {
+      console.error("Error while logging in:", error);
     }
   };
 
@@ -264,7 +277,7 @@ const Form = ({ theme }) => {
                             <div className="flex items-center justify-center">
                               <img
                                 src={URL.createObjectURL(values.picture)}
-                                alt="Profile Photo"
+                                alt="Profile"
                                 className=" object-cover w-44 h-44 rounded-full"
                               />
                             </div>
