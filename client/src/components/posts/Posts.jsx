@@ -52,28 +52,28 @@ const Posts = () => {
               <div
                 className={` relative w-20 h-9 flex items-center rounded-full space-between  ${theme.secondaryBackground}`}
               >
-                <div
-                  className={` w-9 h-9 flex items-center rounded-full px-2 py-1 ${theme.hoverBackground}`}
-                >
+                <div className={` w-9 h-9 flex items-center  `}>
                   <PiArrowFatUp
-                    className={` w-5 h-5 cursor-pointer ${theme.upVote}  `}
+                    className={` w-full h-full rounded-full px-2 py-1  cursor-pointer ${theme.upVote} ${theme.secondaryHoverBackground} ${theme.activeBackground}  `}
                   />
                 </div>
 
                 {0}
-                <div
-                  className={` w-9 h-9 flex items-center rounded-full px-2 py-1 ${theme.hoverBackground}`}
-                >
+                <div className={` w-9 h-9 flex items-center  `}>
                   <PiArrowFatDown
-                    className={`w-5 h-5 cursor-pointer ${theme.downVote}`}
+                    className={`w-full h-full rounded-full px-2 py-1  cursor-pointer ${theme.downVote} ${theme.secondaryHoverBackground} ${theme.activeBackground}`}
                   />
                 </div>
               </div>
               <div
-                className={`w-20 h-9 flex items-center justify-center rounded-full gap-3 px-2 py-1  ${theme.secondaryBackground} ${theme.hoverBackground}`}
+                className={`w-20 h-9 rounded-full   ${theme.secondaryBackground} `}
               >
-                <GoComment className="w-5 h-5" />
-                <p>31</p>
+                <div
+                  className={`w-full h-full flex items-center rounded-full justify-center gap-3 px-2 py-1 ${theme.secondaryHoverBackground} ${theme.activeBackground}`}
+                >
+                  <GoComment className="w-5 h-5" />
+                  <p>31</p>
+                </div>
               </div>
             </div>
           </div>
