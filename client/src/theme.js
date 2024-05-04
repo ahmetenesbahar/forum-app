@@ -18,6 +18,8 @@ export const getTheme = (mode) => {
       upVoteBackground: "hover:bg-light-upVote",
       downVoteBackground: "hover:bg-light-downVote",
       activeBackground: "active:bg-light-activeBackground",
+      scrollbarThumb: "scrollbar-thumb-[#FF5700]",
+      scrollbarTrack: "scrollbar-track-[#c0c0c0]",
     };
   } else {
     return {
@@ -38,6 +40,8 @@ export const getTheme = (mode) => {
       upVoteBackground: "bg-dark-upVote",
       downVoteBackground: "bg-dark-downVote",
       activeBackground: "active:bg-dark-activeBackground",
+      scrollbarThumb: "scrollbar-thumb-[#FF4500]",
+      scrollbarTrack: "scrollbar-track-[#1a282d]",
     };
   }
 };
