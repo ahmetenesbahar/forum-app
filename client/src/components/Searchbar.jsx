@@ -1,7 +1,9 @@
 import React from "react";
 import { RiSearchLine } from "react-icons/ri";
+import { useTheme } from "./contexts/ThemeContext";
 
-const Searchbar = ({ theme }) => {
+const Searchbar = () => {
+  const { theme } = useTheme();
   return (
     <div className="relative flex items-center">
       <RiSearchLine className="absolute left-3 w-5 h-5" />
