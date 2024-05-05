@@ -20,6 +20,7 @@ export const getTheme = (mode) => {
       activeBackground: "active:bg-light-activeBackground",
       scrollbarThumb: "scrollbar-thumb-[#FF5700]",
       scrollbarTrack: "scrollbar-track-[#c0c0c0]",
+      boxBackground: "bg-light-boxBackground",
     };
   } else {
     return {
@@ -42,6 +43,7 @@ export const getTheme = (mode) => {
       activeBackground: "active:bg-dark-activeBackground",
       scrollbarThumb: "scrollbar-thumb-[#FF4500]",
       scrollbarTrack: "scrollbar-track-[#1a282d]",
+      boxBackground: "bg-dark-boxBackground",
     };
   }
 };

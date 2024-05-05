@@ -17,6 +17,7 @@ module.exports = {
           downVote: "#6A5CFF",
           upVote: "#D93A00",
           text: "#333333",
+          boxBackground: "#F9FAFA",
         },
         dark: {
           primary: "#FF4500",
@@ -31,6 +32,7 @@ module.exports = {
           downVote: "#6A5CFF",
           upVote: "#D93A00",
           text: "#FFFFFF",
+          boxBackground: "#04090A",
         },
       },
     },
