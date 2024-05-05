@@ -44,7 +44,7 @@ const Posts = () => {
                 <img
                   src={`http://localhost:3001/assets/${post?.picturePath}`}
                   alt=""
-                  className="z-40 max-w-[724px] max-h-[540px] rounded-lg object-contain"
+                  className="z-40 max-w-[724px] max-h-[540px] rounded-lg object-contain select-none"
                 />
               </div>
             )}
@@ -58,7 +58,7 @@ const Posts = () => {
                   />
                 </div>
 
-                {0}
+                <p className="select-none">0</p>
                 <div className={` w-9 h-9 flex items-center  `}>
                   <PiArrowFatDown
                     className={`w-full h-full rounded-full px-2 py-1  cursor-pointer ${theme.downVote} ${theme.secondaryHoverBackground} ${theme.activeBackground}`}
@@ -72,7 +72,7 @@ const Posts = () => {
                   className={`w-full h-full flex items-center rounded-full justify-center gap-3 px-2 py-1 ${theme.secondaryHoverBackground} ${theme.activeBackground}`}
                 >
                   <GoComment className="w-5 h-5" />
-                  <p>31</p>
+                  <p className="select-none*">31</p>
                 </div>
               </div>
             </div>
