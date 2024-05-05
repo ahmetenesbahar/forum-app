@@ -34,7 +34,7 @@ const Posts = () => {
                 <span className="opacity-70 font-normal">• 1 day ago</span>
               </p>
             </div>
-            <p className=" font-medium text-xl">{post.title}</p>
+            <p className=" font-medium text-xl mt-1">{post.title}</p>
             <p className="mt-2">{post.content}</p>
             {post.picturePath === "" ? null : (
               <div
