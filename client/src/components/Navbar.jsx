@@ -136,7 +136,7 @@ const Navbar = () => {
             <p className="text-xs">u/{user?.profileName}</p>
           </div>
         </div>
-        <div className="user-actions-item pl-4 py-2 pr-6 gap-3 flex items-center ">
+        <div className=" relative z-20 user-actions-item pl-4 py-2 pr-6 gap-3 flex items-center ">
           <RiMoonLine className="w-6 h-6 " />
           <div className="flex items-center gap-8">
             Dark Mode
