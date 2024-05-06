@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCommunities } from "state";
+import { setShowCreateModal } from "state/modalSlice";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Dropzone from "react-dropzone";
 import { useTheme } from "components/contexts/ThemeContext";
 import Button from "components/shared/Button";
 import axios from "axios";
+import useCommunities from "hooks/useCommunities";
 
 const createSchema = yup.object().shape({
-  communityName: yup.string().required("Required"),
+  communityName: yup
+    .string()
+    .required("Required")
+    .max(25, "Community name must be at most 25 characters"),
   communityBio: yup.string().required("Required"),
   picture: yup.string().required("Required"),
 });
@@ -22,7 +27,7 @@ const initialValues = {
 
 const CreateCommunityForm = ({ theme }) => {
   const dispatch = useDispatch();
-
+  const { mutate: mutateCommunities } = useCommunities();
   const token = useSelector((state) => state.auth.token);
   const { _id } = useSelector((state) => state.auth.user);
 
@@ -30,7 +35,10 @@ const CreateCommunityForm = ({ theme }) => {
     try {
       const formData = new FormData();
       formData.append("picture", values.picture);
-      formData.append("communityName", values.communityName);
+      formData.append(
+        "communityName",
+        values.communityName.split(" ").join("")
+      );
       formData.append("communityBio", values.communityBio);
       formData.append("userId", _id);
       formData.append("picturePath", values.picture.name);
@@ -42,6 +50,8 @@ const CreateCommunityForm = ({ theme }) => {
         },
       });
       onSubmitProps.resetForm();
+      mutateCommunities();
+      dispatch(setShowCreateModal(false));
     } catch (err) {
       console.log(err);
     }
@@ -82,7 +92,7 @@ const CreateCommunityForm = ({ theme }) => {
                 />
                 {errors.communityName && touched.communityName && (
                   <div
-                    className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
+                    className={`${theme.primary} absolute  h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
                   >
                     {errors.communityName}
                   </div>
@@ -99,7 +109,7 @@ const CreateCommunityForm = ({ theme }) => {
                 />
                 {errors.communityName && touched.communityName && (
                   <div
-                    className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
+                    className={`${theme.primary} absolute  h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
                   >
                     {errors.communityName}
                   </div>
