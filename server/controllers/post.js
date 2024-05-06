@@ -55,6 +55,32 @@ export const getUserPosts = async (req, res) => {
   }
 };
 
+export const getLatestPosts = async (req, res) => {
+  try {
+    const latestPosts = await Post.aggregate([
+      { $sort: { createdAt: -1 } },
+      {
+        $group: {
+          _id: "$community",
+          posts: { $first: "$$ROOT" },
+        },
+      },
+      {
+        $replaceRoot: {
+          newRoot: "$posts",
+        },
+      },
+    ]);
+    const populatedLatestPosts = await Post.populate(latestPosts, [
+      { path: "author" },
+      { path: "community" },
+    ]);
+    res.status(200).json(populatedLatestPosts);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
 /* UPDATE */
 
 export const upVote = async (req, res) => {
