@@ -8,6 +8,7 @@ import { getThemeReactSelect } from "theme";
 import Select from "react-select";
 import Button from "components/shared/Button";
 import usePosts from "hooks/usePosts";
+import useLatestPosts from "hooks/useLatestPosts";
 import axios from "axios";
 
 const createSchema = yup.object().shape({
@@ -34,6 +35,7 @@ const CreatePostForm = ({ theme }) => {
   const [selectedCommunity, setSelectedCommunity] = useState([]);
   const [communities, setCommunities] = useState([]);
   const { mutate: mutatePosts } = usePosts(token);
+  const { mutate: mutateLatestPosts } = useLatestPosts(token);
 
   useEffect(() => {
     try {
@@ -66,6 +68,7 @@ const CreatePostForm = ({ theme }) => {
 
       onSubmitProps.resetForm();
       mutatePosts();
+      mutateLatestPosts();
       dispatch(setShowCreateModal(false));
     } catch (error) {
       console.log(error);

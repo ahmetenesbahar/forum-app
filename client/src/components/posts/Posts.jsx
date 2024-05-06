@@ -15,7 +15,7 @@ const Posts = () => {
       {posts
         ?.slice()
         .reverse()
-        .map((post) => (
+        .map((post, index) => (
           <>
             <div
               key={post._id}
@@ -84,7 +84,9 @@ const Posts = () => {
                 </div>
               </div>
             </div>
-            <div className={`w-full h-px ${theme.grayBackground}`} />
+            {index !== posts.length - 1 && (
+              <div className={`w-full h-px ${theme.grayBackground}`} />
+            )}
           </>
         ))}
     </div>
