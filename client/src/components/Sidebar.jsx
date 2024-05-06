@@ -2,23 +2,13 @@ import React, { useEffect, useState, Fragment } from "react";
 import { useTheme } from "./contexts/ThemeContext";
 import { Transition } from "@headlessui/react";
 import { RiArrowUpSLine, RiArrowDownSLine } from "react-icons/ri";
+import useCommunities from "hooks/useCommunities";
 
 const Sidebar = () => {
   const { theme } = useTheme();
   const [isShowing, setIsShowing] = useState(true);
-  const [communities, setCommunities] = useState([]);
-  useEffect(() => {
-    try {
-      const fetchCommunities = async () => {
-        const response = await fetch("http://localhost:3001/communities");
-        const data = await response.json();
-        setCommunities(data);
-      };
-      fetchCommunities();
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+  const { data: communities } = useCommunities();
+
   return (
     <div className={`${theme.borderGray} border-r-2 w-80 p-4`}>
       <div className={isShowing ? `` : `border-b ${theme.borderGray} `}>
@@ -50,7 +40,7 @@ const Sidebar = () => {
           leaveTo="opacity-0 -translate-y-5"
         >
           <ul className={`border-b ${theme.borderGray}`}>
-            {communities.map((community) => (
+            {communities?.map((community) => (
               <li
                 key={community._id}
                 className={`${theme.text} min-h-[40px] px-2 py-1 rounded-md   ${theme.hoverBackground}  hover:cursor-pointer select-none`}
