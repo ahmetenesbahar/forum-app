@@ -1,19 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "state/postSlice";
 import { useTheme } from "components/contexts/ThemeContext";
 import { PiArrowFatDown, PiArrowFatUp } from "react-icons/pi";
 import { GoComment } from "react-icons/go";
+import usePosts from "hooks/usePosts";
 
 const Posts = () => {
-  const dispatch = useDispatch();
-  const { posts, status, error } = useSelector((state) => state.posts);
   const token = useSelector((state) => state.auth.token);
+  const { data: posts } = usePosts(token);
   const { theme } = useTheme();
-
-  useEffect(() => {
-    dispatch(fetchPosts(token));
-  }, [dispatch, token]);
 
   return (
     <div className="flex flex-col justify-center items-center max-w-[756px] w-full gap-y-2 ">
