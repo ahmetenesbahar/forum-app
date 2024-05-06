@@ -9,8 +9,8 @@ const Box = () => {
     <div
       className={
         clearHandle
-          ? ` max-w-[305px] h-[820px] w-full`
-          : `max-w-[305px] h-[820px] w-full sticky top-[8px] rounded-2xl ${theme.boxBackground} hover:overflow-auto`
+          ? ` max-w-[305px] max-h-[820px] w-full`
+          : `max-w-[305px] max-h-[820px] h-max w-full sticky top-[8px] rounded-2xl ${theme.boxBackground} hover:overflow-auto`
       }
     >
       <div
