@@ -51,7 +51,7 @@ const Posts = () => {
                   <img
                     src={`http://localhost:3001/assets/${post?.picturePath}`}
                     alt=""
-                    className="z-10 max-w-[724px] max-h-[540px] h-full  object-contain select-none"
+                    className="z-10 max-w-[724px] max-h-[430px] h-full  object-contain select-none"
                   />
                 </div>
               )}
