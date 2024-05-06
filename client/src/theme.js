@@ -21,6 +21,7 @@ export const getTheme = (mode) => {
       scrollbarThumb: "scrollbar-thumb-[#FF5700]",
       scrollbarTrack: "scrollbar-track-[#c0c0c0]",
       boxBackground: "bg-light-boxBackground",
+      boxText: "text-light-boxText",
     };
   } else {
     return {
@@ -44,6 +45,7 @@ export const getTheme = (mode) => {
       scrollbarThumb: "scrollbar-thumb-[#FF4500]",
       scrollbarTrack: "scrollbar-track-[#1a282d]",
       boxBackground: "bg-dark-boxBackground",
+      boxText: "text-dark-boxText",
     };
   }
 };
