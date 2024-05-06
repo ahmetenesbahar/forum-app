@@ -34,7 +34,7 @@ const Posts = () => {
               </div>
               <p className=" font-medium text-xl mt-1">{post.title}</p>
               <p className="mt-2">{post.content}</p>
-              {post.picturePath === "" ? null : (
+              {post.picturePath === "undefined" ? null : (
                 <div
                   className={`w-full relative flex items-center justify-center bg-contain rounded-xl mt-3 border ${theme.borderGray}`}
                 >
