@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setShowCreateModal } from "state/modalSlice";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Dropzone from "react-dropzone";
 import { getThemeReactSelect } from "theme";
 import Select from "react-select";
 import Button from "components/shared/Button";
+import usePosts from "hooks/usePosts";
 import axios from "axios";
 
 const createSchema = yup.object().shape({
@@ -19,7 +21,7 @@ const initialValues = {
   title: "",
   content: "",
   picture: "",
-  community: [],
+  community: "",
 };
 
 const CreatePostForm = ({ theme }) => {
@@ -31,6 +33,7 @@ const CreatePostForm = ({ theme }) => {
   const { _id } = useSelector((state) => state.auth.user);
   const [selectedCommunity, setSelectedCommunity] = useState([]);
   const [communities, setCommunities] = useState([]);
+  const { mutate: mutatePosts } = usePosts(token);
 
   useEffect(() => {
     try {
@@ -62,6 +65,8 @@ const CreatePostForm = ({ theme }) => {
       });
 
       onSubmitProps.resetForm();
+      mutatePosts();
+      dispatch(setShowCreateModal(false));
     } catch (error) {
       console.log(error);
     }
@@ -101,7 +106,7 @@ const CreatePostForm = ({ theme }) => {
                 />
                 {errors.title && touched.title && (
                   <div
-                    className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
+                    className={`${theme.primary} absolute h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
                   >
                     {errors.title}
                   </div>
@@ -118,7 +123,7 @@ const CreatePostForm = ({ theme }) => {
                 />
                 {errors.content && touched.content && (
                   <div
-                    className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
+                    className={`${theme.primary} absolute h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
                   >
                     {errors.content}
                   </div>
@@ -145,6 +150,8 @@ const CreatePostForm = ({ theme }) => {
                       backgroundColor: reactSelectTheme.secondaryBackground,
                       maxWidth: "100%",
                       color: "white !important",
+                      position: "relative",
+                      zIndex: 99,
                     }),
                     menu: (provided) => ({
                       ...provided,
@@ -191,7 +198,7 @@ const CreatePostForm = ({ theme }) => {
                 />
                 {errors.community && touched.community && (
                   <div
-                    className={`${theme.primary} absolute w-20 h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
+                    className={`${theme.primary} absolute h-16 rounded-lg px-2 py-1 top-0 left-1 text-white `}
                   >
                     {errors.community}
                   </div>
