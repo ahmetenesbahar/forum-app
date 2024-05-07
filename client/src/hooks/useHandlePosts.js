@@ -1,10 +1,12 @@
 import useSWR from "swr";
 import axios from "axios";
 import usePosts from "./usePosts";
+import useLatestPosts from "./useLatestPosts";
 import { useCallback } from "react";
 
 const useHandlePosts = (token) => {
   const { data: posts, mutate: mutatePosts } = usePosts(token);
+  const { mutate: mutateLatestPosts } = useLatestPosts(token);
 
   const handleDelete = useCallback(
     async (postId) => {
@@ -21,6 +23,7 @@ const useHandlePosts = (token) => {
 
         if (response.status === 200) {
           mutatePosts();
+          mutateLatestPosts();
         }
 
         return response.data;
