@@ -2,16 +2,19 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "components/contexts/ThemeContext";
 import { PiArrowFatDown, PiArrowFatUp } from "react-icons/pi";
+import PostActions from "./PostActions";
+
 import { GoComment } from "react-icons/go";
 import usePosts from "hooks/usePosts";
 
 const Posts = () => {
   const token = useSelector((state) => state.auth.token);
+  const user = useSelector((state) => state.auth.user);
   const { data: posts } = usePosts(token);
   const { theme } = useTheme();
 
   return (
-    <div className="flex flex-col justify-center items-center max-w-[756px] w-full gap-y-2 ">
+    <div className="flex flex-col items-center max-w-[756px] w-full gap-y-2 ">
       {posts
         ?.slice()
         .reverse()
@@ -19,18 +22,21 @@ const Posts = () => {
           <>
             <div
               key={post._id}
-              className={`w-full  px-4 py-1  ${theme.hoverBackground} cursor-pointer rounded-lg `}
+              className={`w-full  px-3 py-1  ${theme.hoverBackground} cursor-pointer rounded-lg `}
             >
-              <div className={`flex items-center gap-1 `}>
-                <img
-                  src={`http://localhost:3001/assets/${post.community?.picturePath}`}
-                  alt=""
-                  className="w-7 h-7 rounded-full"
-                />
-                <p className="text-sm font-medium opacity-90">
-                  f/{post.community.communityName}
-                  <span className="opacity-70 font-normal">• 1 day ago</span>
-                </p>
+              <div className="flex items-center justify-between">
+                <div className={`flex items-center gap-1 `}>
+                  <img
+                    src={`http://localhost:3001/assets/${post.community?.picturePath}`}
+                    alt=""
+                    className="w-7 h-7 rounded-full"
+                  />
+                  <p className="text-sm font-medium opacity-90">
+                    f/{post.community.communityName}
+                    <span className="opacity-70 font-normal">• 1 day ago</span>
+                  </p>
+                </div>
+                <PostActions post={post} />
               </div>
               <p className=" font-medium text-xl mt-1">{post.title}</p>
               <p className="mt-2">{post.content}</p>
