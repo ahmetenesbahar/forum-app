@@ -5,6 +5,7 @@ import {
   upVote,
   downVote,
   getLatestPosts,
+  deletePost,
 } from "../controllers/post.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -19,5 +20,8 @@ router.get("/getLatestPosts", verifyToken, getLatestPosts);
 /*UPDATE*/
 router.patch("/:id/upvote", verifyToken, upVote);
 router.patch("/:id/downvote", verifyToken, downVote);
+
+/*DELETE*/
+router.delete("/:id/deletePost", verifyToken, deletePost);
 
 export default router;
