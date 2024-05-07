@@ -110,7 +110,7 @@ const Navbar = () => {
         </div>
       </div>
       <div
-        className={` user-actions-menu min-w-[256px] font-semibold  absolute end-8 top-20  py-2 rounded-md ${
+        className={` user-actions-menu min-w-[256px] font-semibold z-50  absolute end-8 top-20  py-2 rounded-md ${
           theme.background
         } ${theme.borderGray} ${theme.text} shadow-md ${theme.text} ${
           showActionMenu ? "block" : "hidden"
