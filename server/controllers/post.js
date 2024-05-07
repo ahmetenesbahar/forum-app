@@ -1,3 +1,4 @@
+import Community from "../models/Community.js";
 import Post from "../models/Post.js";
 import User from "../models/User.js";
 
@@ -85,7 +86,7 @@ export const getLatestPosts = async (req, res) => {
 
 export const upVote = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { _id } = req.params;
     const { userId } = req.body;
     const post = await Post.findById(id);
     const isVoted = post.votes.get(userId);
@@ -108,7 +109,7 @@ export const upVote = async (req, res) => {
 
 export const downVote = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { _id } = req.params;
     const { userId } = req.body;
     const post = await Post.findById(id);
     const isVoted = post.votes.find((vote) => vote.user.equals(userId));
@@ -124,6 +125,29 @@ export const downVote = async (req, res) => {
       { new: true }
     );
     res.status(200).json(updatedPost);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
+//DELETE
+
+export const deletePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await Post.findById(id)
+      .populate("author")
+      .populate("community");
+
+    await User.findByIdAndUpdate(post.author, {
+      $pull: { posts: id },
+    });
+    await Community.findByIdAndUpdate(post.community, {
+      $pull: { posts: id },
+    });
+    await Post.findByIdAndDelete(id);
+
+    res.status(200).json({ message: "Post deleted successfully" });
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
