@@ -32,7 +32,18 @@ const useHandlePosts = (token) => {
         throw error;
       }
     },
-    [mutatePosts, token]
+    [mutatePosts, token, mutateLatestPosts]
+  );
+
+  const handleUpVote = useCallback(
+    async (postId, userId) => {
+      try {
+        const response = await axios.post();
+      } catch (error) {
+        throw error;
+      }
+    },
+    [mutateLatestPosts, mutatePosts, token]
   );
 
   return { handleDelete };
