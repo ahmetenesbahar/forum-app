@@ -17,4 +17,5 @@ const Searchbar = () => {
   );
 };
 
+Searchbar.displayName = "Searchbar";
 export default Searchbar;

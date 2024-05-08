@@ -49,4 +49,5 @@ const CreateTab = () => {
   );
 };
 
+CreateTab.displayName = "CreateTab";
 export default CreateTab;

@@ -47,5 +47,5 @@ const ModalCenter = ({ type }) => {
     </div>
   );
 };
-
+ModalCenter.displayName = "ModalCenter";
 export default ModalCenter;

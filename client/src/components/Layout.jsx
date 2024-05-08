@@ -13,4 +13,5 @@ const Page = () => {
   );
 };
 
+Page.displayName = "Page";
 export default Page;

@@ -70,4 +70,5 @@ const PostActions = ({ post }) => {
   );
 };
 
+PostActions.displayName = "PostActions";
 export default PostActions;

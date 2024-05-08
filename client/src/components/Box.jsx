@@ -39,4 +39,5 @@ const Box = () => {
   );
 };
 
+Box.displayName = "Box";
 export default Box;

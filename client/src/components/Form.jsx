@@ -401,4 +401,5 @@ const Form = ({ theme }) => {
   );
 };
 
+Form.displayName = "Form";
 export default Form;

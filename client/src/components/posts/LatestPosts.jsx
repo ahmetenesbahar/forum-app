@@ -54,4 +54,5 @@ const LatestPosts = () => {
   );
 };
 
+LatestPosts.displayName = "LatestPosts";
 export default LatestPosts;

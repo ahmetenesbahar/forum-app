@@ -20,4 +20,5 @@ const Main = () => {
   );
 };
 
+Main.displayName = "Main";
 export default Main;

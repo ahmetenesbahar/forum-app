@@ -268,4 +268,5 @@ const CreatePostForm = ({ theme }) => {
   );
 };
 
+CreatePostForm.displayName = "CreatePostForm";
 export default CreatePostForm;

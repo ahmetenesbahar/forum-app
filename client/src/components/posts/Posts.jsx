@@ -99,4 +99,5 @@ const Posts = () => {
   );
 };
 
+Posts.displayName = "Posts";
 export default Posts;

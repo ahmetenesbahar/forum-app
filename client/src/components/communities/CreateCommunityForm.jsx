@@ -176,5 +176,5 @@ const CreateCommunityForm = ({ theme }) => {
     </div>
   );
 };
-
+CreateCommunityForm.displayName = "CreateCommunityForm";
 export default CreateCommunityForm;

@@ -31,4 +31,5 @@ const AuthPage = () => {
   );
 };
 
+AuthPage.displayName = "AuthPage";
 export default AuthPage;

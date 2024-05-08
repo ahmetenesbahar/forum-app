@@ -65,4 +65,5 @@ const Sidebar = () => {
   );
 };
 
+Sidebar.displayName = "Sidebar";
 export default Sidebar;

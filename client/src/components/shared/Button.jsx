@@ -13,4 +13,5 @@ const Button = ({ label }) => {
   );
 };
 
+Button.displayName = "Button";
 export default Button;

@@ -16,4 +16,5 @@ const HomePage = () => {
   );
 };
 
+HomePage.displayName = "HomePage";
 export default HomePage;

@@ -11,4 +11,5 @@ const Flow = () => {
   );
 };
 
+Flow.displayName = "Flow";
 export default Flow;
