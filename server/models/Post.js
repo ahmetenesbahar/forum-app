@@ -27,12 +27,13 @@ const PostSchema = new mongoose.Schema({
   },
   votes: [
     {
-      user: {
+      userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
       type: {
-        type: String, // 'upvote' veya 'downvote'
+        type: String,
+        enum: ["upvote", "downvote"],
       },
     },
   ],

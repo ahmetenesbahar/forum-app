@@ -46,6 +46,18 @@ const UserSchema = new mongoose.Schema({
       ref: "Post",
     },
   ],
+  votes: [
+    {
+      postId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      },
+      type: {
+        type: String,
+        enum: ["upvote", "downvote"],
+      },
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
