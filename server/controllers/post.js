@@ -86,22 +86,18 @@ export const getLatestPosts = async (req, res) => {
 
 export const upVote = async (req, res) => {
   try {
-    const { _id } = req.params;
+    const { id } = req.params;
     const { userId } = req.body;
     const post = await Post.findById(id);
-    const isVoted = post.votes.get(userId);
+    const isVoted = post.votes.some((vote) => vote.userId.equals(userId));
 
     if (isVoted) {
-      post.votes = post.votes.filter((vote) => !vote.user.equals(userId));
+      post.votes = post.votes.filter((vote) => !vote.userId.equals(userId));
     } else {
-      post.votes.push({ user: userId, type: "upvote" });
+      post.votes.push({ userId: userId, type: "upvote" });
     }
-    const updatedPost = await Post.findByIdAndUpdate(
-      id,
-      { votes: post.votes },
-      { new: true }
-    );
-    res.status(200).json(updatedPost);
+    await post.save();
+    res.status(200).json(post);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -109,27 +105,22 @@ export const upVote = async (req, res) => {
 
 export const downVote = async (req, res) => {
   try {
-    const { _id } = req.params;
+    const { id } = req.params;
     const { userId } = req.body;
     const post = await Post.findById(id);
-    const isVoted = post.votes.find((vote) => vote.user.equals(userId));
+    const isVoted = post.votes.some((vote) => vote.userId.equals(userId));
 
     if (isVoted) {
-      post.votes = post.votes.filter((vote) => !vote.user.equals(userId));
+      post.votes = post.votes.filter((vote) => !vote.userId.equals(userId));
     } else {
-      post.votes.push({ user: userId, type: "downvote" });
+      post.votes.push({ userId: userId, type: "downvote" });
     }
-    const updatedPost = await Post.findByIdAndUpdate(
-      id,
-      { votes: post.votes },
-      { new: true }
-    );
-    res.status(200).json(updatedPost);
+    await post.save();
+    res.status(200).json(post);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
 };
-
 //DELETE
 
 export const deletePost = async (req, res) => {

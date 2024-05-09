@@ -5,7 +5,7 @@ import useLatestPosts from "./useLatestPosts";
 import { useCallback } from "react";
 
 const useHandlePosts = (token) => {
-  const { data: posts, mutate: mutatePosts } = usePosts(token);
+  const { mutate: mutatePosts } = usePosts(token);
   const { mutate: mutateLatestPosts } = useLatestPosts(token);
 
   const handleDelete = useCallback(
@@ -38,15 +38,60 @@ const useHandlePosts = (token) => {
   const handleUpVote = useCallback(
     async (postId, userId) => {
       try {
-        const response = await axios.post();
+        const response = await axios.patch(
+          `http://localhost:3001/posts/${postId}/upvote`,
+          { userId },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          mutatePosts();
+          mutateLatestPosts();
+        }
+
+        return response.data;
       } catch (error) {
+        console.log("Upvote failed:", error);
         throw error;
       }
     },
     [mutateLatestPosts, mutatePosts, token]
   );
 
-  return { handleDelete };
+  const handleDownVote = useCallback(
+    async (postId, userId) => {
+      try {
+        const response = await axios.patch(
+          `http://localhost:3001/posts/${postId}/upvote`,
+          { userId },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          mutatePosts();
+          mutateLatestPosts();
+        }
+
+        return response.data;
+      } catch (error) {
+        console.log("Upvote failed:", error);
+        throw error;
+      }
+    },
+    [mutateLatestPosts, mutatePosts, token]
+  );
+
+  return { handleDelete, handleUpVote, handleDownVote };
 };
 
 export default useHandlePosts;

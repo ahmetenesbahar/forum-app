@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "components/contexts/ThemeContext";
 import { PiArrowFatDown, PiArrowFatUp } from "react-icons/pi";
@@ -6,13 +6,17 @@ import PostActions from "./PostActions";
 
 import { GoComment } from "react-icons/go";
 import usePosts from "hooks/usePosts";
+import useHandlePosts from "hooks/useHandlePosts";
+import PostVotes from "./PostVotes";
 
 const Posts = () => {
   const token = useSelector((state) => state.auth.token);
   const user = useSelector((state) => state.auth.user);
   const { data: posts } = usePosts(token);
+  const { handleUpVote, handleDownVote } = useHandlePosts(token);
   const { theme } = useTheme();
 
+  useEffect(() => {});
   return (
     <div className="flex flex-col items-center max-w-[756px] w-full gap-y-2 ">
       {posts
@@ -65,14 +69,23 @@ const Posts = () => {
                 <div
                   className={` relative w-20 h-9 flex items-center rounded-full space-between  ${theme.secondaryBackground}`}
                 >
-                  <div className={`w-9 h-9 flex items-center  `}>
+                  <div
+                    className={`w-9 h-9 flex items-center`}
+                    onClick={() => {
+                      handleUpVote(post._id, user._id);
+                    }}
+                  >
                     <PiArrowFatUp
                       className={` w-full h-full rounded-full px-2 py-1  cursor-pointer ${theme.upVote} ${theme.secondaryHoverBackground} ${theme.activeBackground}  `}
                     />
                   </div>
-
-                  <p className="select-none">0</p>
-                  <div className={` w-9 h-9 flex items-center  `}>
+                  <PostVotes post={post} />
+                  <div
+                    className={` w-9 h-9 flex items-center`}
+                    onClick={() => {
+                      handleDownVote(post._id, user._id);
+                    }}
+                  >
                     <PiArrowFatDown
                       className={`w-full h-full rounded-full px-2 py-1  cursor-pointer ${theme.downVote} ${theme.secondaryHoverBackground} ${theme.activeBackground}`}
                     />
