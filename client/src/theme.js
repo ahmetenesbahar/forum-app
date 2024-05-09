@@ -1,3 +1,5 @@
+import { hover } from "@testing-library/user-event/dist/hover";
+
 export const getTheme = (mode) => {
   if (mode === "light") {
     return {
@@ -17,6 +19,8 @@ export const getTheme = (mode) => {
       downVote: "hover:text-light-downVote",
       upVoteBackground: "bg-light-upVote",
       downVoteBackground: "bg-light-downVote",
+      hoverDownVote: "hover:bg-light-hoverDownVote",
+      hoverUpVote: "hover:bg-light-hoverUpVote",
       activeBackground: "active:bg-light-activeBackground",
       scrollbarThumb: "scrollbar-thumb-[#FF5700]",
       scrollbarTrack: "scrollbar-track-[#c0c0c0]",
@@ -43,6 +47,8 @@ export const getTheme = (mode) => {
       downVote: "hover:text-dark-downVote",
       upVoteBackground: "bg-dark-upVote",
       downVoteBackground: "bg-dark-downVote",
+      hoverDownVote: "hover:bg-dark-hoverDownVote",
+      hoverUpVote: "hover:bg-dark-hoverUpVote",
       activeBackground: "active:bg-dark-activeBackground",
       scrollbarThumb: "scrollbar-thumb-[#FF4500]",
       scrollbarTrack: "scrollbar-track-[#1a282d]",
