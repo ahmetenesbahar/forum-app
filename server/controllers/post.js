@@ -44,6 +44,18 @@ export const getFeedPosts = async (req, res) => {
   }
 };
 
+export const getSinglePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await Post.findById(id)
+      .populate("author")
+      .populate("community");
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const getUserPosts = async (req, res) => {
   try {
     const { userId } = req.params;

@@ -6,6 +6,7 @@ import {
   downVote,
   getLatestPosts,
   deletePost,
+  getSinglePost,
 } from "../controllers/post.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -16,6 +17,7 @@ const router = express.Router();
 router.get("/getPosts", verifyToken, getFeedPosts);
 router.get("/:id/posts", verifyToken, getUserPosts); //! bir ara buradaki idyi username olarak değiştireceğim
 router.get("/getLatestPosts", verifyToken, getLatestPosts);
+router.get("/:id/getSinglePost", verifyToken, getSinglePost);
 
 /*UPDATE*/
 router.patch("/:id/upvote", verifyToken, upVote);
