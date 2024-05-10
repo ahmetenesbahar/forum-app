@@ -2,6 +2,7 @@ import React from "react";
 import { useTheme } from "components/contexts/ThemeContext";
 import { useSelector } from "react-redux";
 import useLatestPosts from "hooks/useLatestPosts";
+import PostVoteCount from "./PostVoteCount";
 
 const LatestPosts = () => {
   const { theme } = useTheme();
@@ -40,8 +41,8 @@ const LatestPosts = () => {
               )}
             </div>
             <div>
-              <p className={`text-xs mt-2 ${theme.boxText}`}>
-                0 upvotes <span>·</span> 31 comments
+              <p className={`text-xs mt-2 flex gap-1 ${theme.boxText}`}>
+                <PostVoteCount post={post} /> <span>·</span> 31 comments
               </p>
             </div>
           </div>
