@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import useHandlePosts from "hooks/useHandlePosts";
 import { PiArrowFatDown, PiArrowFatUp } from "react-icons/pi";
 import { useTheme } from "components/contexts/ThemeContext";
+import PostVoteCount from "components/posts/PostVoteCount";
 
 const PostVotes = ({ post }) => {
   const { theme } = useTheme();
   const token = useSelector((state) => state.auth.token);
   const user = useSelector((state) => state.auth.user);
-  const { handleUpVote, handleDownVote } = useHandlePosts(token);
+  const { handleUpVote, handleDownVote } = useHandlePosts(token, post?._id);
 
   const [isVoted, setIsVoted] = useState(false);
   const [upVoted, setUpVoted] = useState(false);
@@ -42,8 +43,9 @@ const PostVotes = ({ post }) => {
     >
       <div
         className={`w-9 h-9 flex items-center`}
-        onClick={() => {
+        onClick={(e) => {
           handleUpVote(post._id, user._id);
+          e.stopPropagation();
           setUpVoted(!upVoted);
           setDownVoted(false);
         }}
@@ -56,16 +58,7 @@ const PostVotes = ({ post }) => {
           }
         />
       </div>
-      <p className="select-none">
-        {post?.votes.reduce((total, vote) => {
-          if (vote.type === "upvote") {
-            return total + 1;
-          } else if (vote.type === "downvote") {
-            return total - 1;
-          }
-          return total;
-        }, 0)}
-      </p>
+      <PostVoteCount post={post} />
       <div
         className={` w-9 h-9 flex items-center`}
         onClick={() => {
