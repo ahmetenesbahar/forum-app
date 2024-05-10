@@ -8,9 +8,11 @@ const PostVotes = ({ post }) => {
   const { theme } = useTheme();
   const token = useSelector((state) => state.auth.token);
   const user = useSelector((state) => state.auth.user);
-  const { handleUpVote, handleDownVote, upVoted, downVoted } =
-    useHandlePosts(token);
+  const { handleUpVote, handleDownVote } = useHandlePosts(token);
+
   const [isVoted, setIsVoted] = useState(false);
+  const [upVoted, setUpVoted] = useState(false);
+  const [downVoted, setDownVoted] = useState(false);
 
   useEffect(() => {
     if (upVoted || downVoted) {
@@ -19,6 +21,14 @@ const PostVotes = ({ post }) => {
       setIsVoted(false);
     }
   }, [upVoted, downVoted]);
+
+  useEffect(() => {
+    post.votes.map((vote) => {
+      vote.userId === user._id && vote.type === "upvote"
+        ? setUpVoted(true)
+        : setDownVoted(true);
+    });
+  });
 
   return (
     <div
@@ -34,6 +44,8 @@ const PostVotes = ({ post }) => {
         className={`w-9 h-9 flex items-center`}
         onClick={() => {
           handleUpVote(post._id, user._id);
+          setUpVoted(!upVoted);
+          setDownVoted(false);
         }}
       >
         <PiArrowFatUp
@@ -58,6 +70,8 @@ const PostVotes = ({ post }) => {
         className={` w-9 h-9 flex items-center`}
         onClick={() => {
           handleDownVote(post._id, user._id);
+          setUpVoted(false);
+          setDownVoted(!downVoted);
         }}
       >
         <PiArrowFatDown
