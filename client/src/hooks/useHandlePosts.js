@@ -2,13 +2,11 @@ import useSWR from "swr";
 import axios from "axios";
 import usePosts from "./usePosts";
 import useLatestPosts from "./useLatestPosts";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
 const useHandlePosts = (token) => {
   const { mutate: mutatePosts } = usePosts(token);
   const { mutate: mutateLatestPosts } = useLatestPosts(token);
-  const [upVoted, setUpVoted] = useState(false);
-  const [downVoted, setDownVoted] = useState(false);
 
   const handleDelete = useCallback(
     async (postId) => {
@@ -52,8 +50,6 @@ const useHandlePosts = (token) => {
         );
 
         if (response.status === 200) {
-          setUpVoted(!upVoted);
-          setDownVoted(false);
           mutatePosts();
           mutateLatestPosts();
         }
@@ -64,14 +60,14 @@ const useHandlePosts = (token) => {
         throw error;
       }
     },
-    [mutateLatestPosts, mutatePosts, token, upVoted]
+    [mutateLatestPosts, mutatePosts, token]
   );
 
   const handleDownVote = useCallback(
     async (postId, userId) => {
       try {
         const response = await axios.patch(
-          `http://localhost:3001/posts/${postId}/upvote`,
+          `http://localhost:3001/posts/${postId}/downvote`,
           { userId },
           {
             headers: {
@@ -82,8 +78,6 @@ const useHandlePosts = (token) => {
         );
 
         if (response.status === 200) {
-          setDownVoted(!downVoted);
-          setUpVoted(false);
           mutatePosts();
           mutateLatestPosts();
         }
@@ -94,10 +88,10 @@ const useHandlePosts = (token) => {
         throw error;
       }
     },
-    [mutateLatestPosts, mutatePosts, token, downVoted]
+    [mutateLatestPosts, mutatePosts, token]
   );
 
-  return { handleDelete, handleUpVote, handleDownVote, upVoted, downVoted };
+  return { handleDelete, handleUpVote, handleDownVote };
 };
 
 export default useHandlePosts;
