@@ -2,11 +2,15 @@ import useSWR from "swr";
 import axios from "axios";
 import usePosts from "./usePosts";
 import useLatestPosts from "./useLatestPosts";
-import { useCallback } from "react";
+import usePost from "./usePost";
+import { useCallback, useMemo } from "react";
 
 const useHandlePosts = (token) => {
   const { mutate: mutatePosts } = usePosts(token);
   const { mutate: mutateLatestPosts } = useLatestPosts(token);
+  // const { data: singlePost, mutate: mutatePost } = usePost(token, post._id);
+
+  const hasVoted = useMemo(() => {});
 
   const handleDelete = useCallback(
     async (postId) => {
