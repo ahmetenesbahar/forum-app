@@ -1,16 +1,26 @@
-import useSWR from "swr";
 import axios from "axios";
 import usePosts from "./usePosts";
 import useLatestPosts from "./useLatestPosts";
 import usePost from "./usePost";
 import { useCallback, useMemo } from "react";
 
-const useHandlePosts = (token) => {
+const useHandlePosts = (token, post, userId) => {
   const { mutate: mutatePosts } = usePosts(token);
   const { mutate: mutateLatestPosts } = useLatestPosts(token);
-  // const { data: singlePost, mutate: mutatePost } = usePost(token, post._id);
+  const { data: singlePost, mutate: mutatePost } = usePost(token, post?._id);
 
-  const hasVoted = useMemo(() => {});
+  const hasVoted = useMemo(() => {
+    const voteType = singlePost?.votes
+      .map((vote) => {
+        if (vote.userId === userId) {
+          return vote.type;
+        }
+      })
+      .filter(Boolean)
+      .join("");
+
+    return voteType;
+  }, [singlePost, userId]);
 
   const handleDelete = useCallback(
     async (postId) => {
@@ -26,6 +36,7 @@ const useHandlePosts = (token) => {
         );
 
         if (response.status === 200) {
+          mutatePost();
           mutatePosts();
           mutateLatestPosts();
         }
@@ -36,7 +47,7 @@ const useHandlePosts = (token) => {
         throw error;
       }
     },
-    [mutatePosts, token, mutateLatestPosts]
+    [mutatePosts, token, mutateLatestPosts, mutatePost]
   );
 
   const handleUpVote = useCallback(
@@ -54,6 +65,7 @@ const useHandlePosts = (token) => {
         );
 
         if (response.status === 200) {
+          mutatePost();
           mutatePosts();
           mutateLatestPosts();
         }
@@ -64,7 +76,7 @@ const useHandlePosts = (token) => {
         throw error;
       }
     },
-    [mutateLatestPosts, mutatePosts, token]
+    [mutateLatestPosts, mutatePosts, token, mutatePost]
   );
 
   const handleDownVote = useCallback(
@@ -82,6 +94,7 @@ const useHandlePosts = (token) => {
         );
 
         if (response.status === 200) {
+          mutatePost();
           mutatePosts();
           mutateLatestPosts();
         }
@@ -92,10 +105,10 @@ const useHandlePosts = (token) => {
         throw error;
       }
     },
-    [mutateLatestPosts, mutatePosts, token]
+    [mutateLatestPosts, mutatePosts, token, mutatePost]
   );
 
-  return { handleDelete, handleUpVote, handleDownVote };
+  return { handleDelete, handleUpVote, handleDownVote, hasVoted };
 };
 
 export default useHandlePosts;
