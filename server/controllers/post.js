@@ -102,9 +102,17 @@ export const upVote = async (req, res) => {
     const { userId } = req.body;
     const post = await Post.findById(id);
     const isVoted = post.votes.some((vote) => vote.userId.equals(userId));
+    const voteType = post.votes.find((vote) =>
+      vote.userId.equals(userId)
+    )?.type;
 
     if (isVoted) {
-      post.votes = post.votes.filter((vote) => !vote.userId.equals(userId));
+      if (voteType === "downvote") {
+        post.votes = post.votes.filter((vote) => !vote.userId.equals(userId));
+        post.votes.push({ userId: userId, type: "upvote" });
+      } else {
+        post.votes = post.votes.filter((vote) => !vote.userId.equals(userId));
+      }
     } else {
       post.votes.push({ userId: userId, type: "upvote" });
     }
@@ -121,9 +129,17 @@ export const downVote = async (req, res) => {
     const { userId } = req.body;
     const post = await Post.findById(id);
     const isVoted = post.votes.some((vote) => vote.userId.equals(userId));
+    const voteType = post.votes.find((vote) =>
+      vote.userId.equals(userId)
+    )?.type;
 
     if (isVoted) {
-      post.votes = post.votes.filter((vote) => !vote.userId.equals(userId));
+      if (voteType === "upvote") {
+        post.votes = post.votes.filter((vote) => !vote.userId.equals(userId));
+        post.votes.push({ userId: userId, type: "downvote" });
+      } else {
+        post.votes = post.votes.filter((vote) => !vote.userId.equals(userId));
+      }
     } else {
       post.votes.push({ userId: userId, type: "downvote" });
     }
