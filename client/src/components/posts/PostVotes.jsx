@@ -9,34 +9,29 @@ const PostVotes = ({ post }) => {
   const { theme } = useTheme();
   const token = useSelector((state) => state.auth.token);
   const user = useSelector((state) => state.auth.user);
-  const { handleUpVote, handleDownVote } = useHandlePosts(token, post?._id);
+  const { handleUpVote, handleDownVote, hasVoted } = useHandlePosts(
+    token,
+    post,
+    user._id
+  );
 
   const [isVoted, setIsVoted] = useState(false);
-  const [upVoted, setUpVoted] = useState(false);
-  const [downVoted, setDownVoted] = useState(false);
 
   useEffect(() => {
-    if (upVoted || downVoted) {
+    console.log(hasVoted);
+    if (hasVoted === "upvote" || hasVoted === "downvote") {
       setIsVoted(true);
     } else {
       setIsVoted(false);
     }
-  }, [upVoted, downVoted]);
-
-  useEffect(() => {
-    post.votes.map((vote) => {
-      vote.userId === user._id && vote.type === "upvote"
-        ? setUpVoted(true)
-        : setDownVoted(true);
-    });
-  });
+  }, [hasVoted]);
 
   return (
     <div
       className={
-        upVoted
+        hasVoted === "upvote"
           ? ` relative w-20 h-9 flex items-center rounded-full space-between  ${theme.upVoteBackground}`
-          : downVoted
+          : hasVoted === "downvote"
           ? ` relative w-20 h-9 flex items-center rounded-full space-between  ${theme.downVoteBackground}`
           : ` relative w-20 h-9 flex items-center rounded-full space-between  ${theme.secondaryBackground}`
       }
@@ -45,9 +40,6 @@ const PostVotes = ({ post }) => {
         className={`w-9 h-9 flex items-center`}
         onClick={(e) => {
           handleUpVote(post._id, user._id);
-          e.stopPropagation();
-          setUpVoted(!upVoted);
-          setDownVoted(false);
         }}
       >
         <PiArrowFatUp
@@ -63,8 +55,6 @@ const PostVotes = ({ post }) => {
         className={` w-9 h-9 flex items-center`}
         onClick={() => {
           handleDownVote(post._id, user._id);
-          setUpVoted(false);
-          setDownVoted(!downVoted);
         }}
       >
         <PiArrowFatDown
