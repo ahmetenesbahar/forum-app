@@ -64,7 +64,7 @@ const Posts = () => {
                 <PostVotes post={post} />
 
                 <div
-                  className={`w-20 h-9 rounded-full   ${theme.secondaryBackground} `}
+                  className={`w-24 h-9 rounded-full   ${theme.secondaryBackground} `}
                 >
                   <div
                     className={`w-full h-full flex items-center rounded-full justify-center gap-3 px-2 py-1 ${theme.secondaryHoverBackground} ${theme.activeBackground}`}

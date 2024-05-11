@@ -30,10 +30,10 @@ const PostVotes = ({ post }) => {
     <div
       className={
         hasVoted === "upvote"
-          ? ` relative w-20 h-9 flex items-center rounded-full space-between  ${theme.upVoteBackground}`
+          ? ` relative w-24 h-9 flex items-center rounded-full justify-between ${theme.upVoteBackground}`
           : hasVoted === "downvote"
-          ? ` relative w-20 h-9 flex items-center rounded-full space-between  ${theme.downVoteBackground}`
-          : ` relative w-20 h-9 flex items-center rounded-full space-between  ${theme.secondaryBackground}`
+          ? ` relative w-24 h-9 flex items-center rounded-full justify-between  ${theme.downVoteBackground}`
+          : ` relative w-24 h-9 flex items-center rounded-full justify-between ${theme.secondaryBackground}`
       }
     >
       <div
