@@ -12,7 +12,7 @@ const PostVotes = ({ post }) => {
   const { handleUpVote, handleDownVote, hasVoted } = useHandlePosts(
     token,
     post,
-    user._id
+    user?._id
   );
 
   const [isVoted, setIsVoted] = useState(false);
