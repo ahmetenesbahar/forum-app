@@ -110,11 +110,32 @@ export const upVote = async (req, res) => {
       if (voteType === "downvote") {
         post.votes = post.votes.filter((vote) => !vote.userId.equals(userId));
         post.votes.push({ userId: userId, type: "upvote" });
+
+        await User.findByIdAndUpdate(userId, {
+          $pull: {
+            votes: { postId: id, type: "downvote" },
+          },
+        });
+        await User.findByIdAndUpdate(userId, {
+          $push: {
+            votes: { postId: id, type: "upvote" },
+          },
+        });
       } else {
         post.votes = post.votes.filter((vote) => !vote.userId.equals(userId));
+        await User.findByIdAndUpdate(userId, {
+          $pull: {
+            votes: { postId: id, type: "upvote" },
+          },
+        });
       }
     } else {
       post.votes.push({ userId: userId, type: "upvote" });
+      await User.findByIdAndUpdate(userId, {
+        $push: {
+          votes: { postId: id, type: "upvote" },
+        },
+      });
     }
     await post.save();
     res.status(200).json(post);
@@ -137,11 +158,31 @@ export const downVote = async (req, res) => {
       if (voteType === "upvote") {
         post.votes = post.votes.filter((vote) => !vote.userId.equals(userId));
         post.votes.push({ userId: userId, type: "downvote" });
+        await User.findByIdAndUpdate(userId, {
+          $pull: {
+            votes: { postId: id, type: "upvote" },
+          },
+        });
+        await User.findByIdAndUpdate(userId, {
+          $push: {
+            votes: { postId: id, type: "downvote" },
+          },
+        });
       } else {
         post.votes = post.votes.filter((vote) => !vote.userId.equals(userId));
+        await User.findByIdAndUpdate(userId, {
+          $pull: {
+            votes: { postId: id, type: "downvote" },
+          },
+        });
       }
     } else {
       post.votes.push({ userId: userId, type: "downvote" });
+      await User.findByIdAndUpdate(userId, {
+        $push: {
+          votes: { postId: id, type: "downvote" },
+        },
+      });
     }
     await post.save();
     res.status(200).json(post);

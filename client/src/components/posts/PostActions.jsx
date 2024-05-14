@@ -55,7 +55,7 @@ const PostActions = ({ post }) => {
             <RiEyeOffFill className="w-5 h-5" />
             <p>Hide</p>
           </button>
-          {post?.author._id === user?._id && (
+          {post?.author?._id === user?._id && (
             <button
               className={`flex items-center gap-3 rounded-b-xl   px-4 py-2  ${theme.hoverBackground}`}
               onClick={() => handleDelete(post._id)}

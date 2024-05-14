@@ -18,7 +18,6 @@ const PostVotes = ({ post }) => {
   const [isVoted, setIsVoted] = useState(false);
 
   useEffect(() => {
-    console.log(hasVoted);
     if (hasVoted === "upvote" || hasVoted === "downvote") {
       setIsVoted(true);
     } else {
