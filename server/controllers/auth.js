@@ -16,6 +16,8 @@ export const register = async (req, res) => {
       interestedCommunities,
     } = req.body;
 
+    const finalPicturePath =
+      picturePath === "undefined" ? "Satuhaz.png" : picturePath;
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
     const newUser = new User({
@@ -23,7 +25,7 @@ export const register = async (req, res) => {
       profileName,
       email,
       password: passwordHash,
-      picturePath,
+      picturePath: finalPicturePath,
       interestedCommunities,
       posts: [],
     });

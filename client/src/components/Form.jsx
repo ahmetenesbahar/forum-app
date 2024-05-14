@@ -15,7 +15,7 @@ const registerSchema = yup.object().shape({
   email: yup.string().email("Invalid Email").required("Required"),
   password: yup.string().required("Required"),
   interestedCommunities: yup.array().of(yup.string().required("Required")),
-  picture: yup.string().required("Required"),
+  picture: yup.string().notRequired("Required"),
 });
 
 const loginSchema = yup.object().shape({
@@ -75,7 +75,7 @@ const Form = ({ theme }) => {
       formData.append("email", values.email);
       formData.append("password", values.password);
       formData.append("picture", values.picture);
-      formData.append("picturePath", values.picture.name);
+      formData.append("picturePath", values.picture?.name);
       formData.append("interestedCommunities", interestedCommunities);
 
       const savedUserResponse = await axios.post(
