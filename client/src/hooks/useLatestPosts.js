@@ -18,8 +18,9 @@ const fetcher = async (url, token) => {
 const useLatestPosts = (token) => {
   const fetchUrl = "http://localhost:3001/posts/getLatestPosts";
 
-  const { data, error, isLoading, mutate } = useSWR(fetchUrl, (url) =>
-    fetcher(url, token)
+  const { data, error, isLoading, mutate } = useSWR(
+    token ? fetchUrl : null,
+    (url) => fetcher(url, token)
   );
 
   return {
