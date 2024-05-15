@@ -76,7 +76,9 @@ const Form = ({ theme }) => {
       formData.append("password", values.password);
       formData.append("picture", values.picture);
       formData.append("picturePath", values.picture?.name);
-      formData.append("interestedCommunities", interestedCommunities);
+      interestedCommunities.forEach((communityId) => {
+        formData.append("interestedCommunities", communityId);
+      });
 
       const savedUserResponse = await axios.post(
         "http://localhost:3001/auth/register",
@@ -296,7 +298,6 @@ const Form = ({ theme }) => {
                       value={selectedCommunities}
                       onChange={(selectedOptions) => {
                         setSelectedCommunities(selectedOptions);
-                        setFieldValue("communities", selectedOptions);
                       }}
                       onBlur={handleBlur}
                       isMulti
