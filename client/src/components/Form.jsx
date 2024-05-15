@@ -53,9 +53,8 @@ const Form = ({ theme }) => {
   useEffect(() => {
     try {
       const fetchCommunities = async () => {
-        const response = await fetch("http://localhost:3001/communities");
-        const data = await response.json();
-        setCommunities(data);
+        const response = await axios.get("http://localhost:3001/communities");
+        setCommunities(response.data);
       };
       fetchCommunities();
     } catch (error) {
@@ -109,13 +108,12 @@ const Form = ({ theme }) => {
 
   const login = async (values, onSubmitProps) => {
     try {
-      const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
+      const loggedInResponse = await axios.post(
+        "http://localhost:3001/auth/login",
+        values
+      );
 
-      const loggedIn = await loggedInResponse.json();
+      const loggedIn = loggedInResponse.data;
       onSubmitProps.resetForm();
       if (loggedIn && loggedInResponse.status === 200) {
         dispatch(
