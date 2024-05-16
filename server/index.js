@@ -12,6 +12,7 @@ import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/post.js";
 import communityRoutes from "./routes/community.js";
+import searchRoutes from "./routes/search.js";
 import { register } from "./controllers/auth.js";
 import { createPost } from "./controllers/post.js";
 import { verifyToken } from "./middleware/auth.js";
@@ -67,6 +68,7 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/communities", communityRoutes);
+app.use("/search", searchRoutes);
 
 /* MONGOOSE SETUP */
 
