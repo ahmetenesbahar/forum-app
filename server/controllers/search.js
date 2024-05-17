@@ -7,12 +7,14 @@ import User from "../models/User.js";
 export const searchAll = async (req, res) => {
   try {
     const { searchParameter } = req.query;
-    const regex = new RegExp(searchParameter, "i");
-    const users = await User.find({ profileName: { $regex: regex } });
-    const communities = await Community.find({
-      communityName: { $regex: regex },
+    const stringParameter = String(searchParameter);
+    const users = await User.find({
+      profileName: { $regex: stringParameter },
     });
-    const posts = await Post.find({ title: { $regex: regex } });
+    const communities = await Community.find({
+      communityName: { $regex: stringParameter },
+    });
+    const posts = await Post.find({ title: { $regex: stringParameter } });
 
     const results = {
       users,
