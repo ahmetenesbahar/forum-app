@@ -42,7 +42,7 @@ const LatestPosts = () => {
             </div>
             <div>
               <p className={`text-xs mt-2 flex gap-1 ${theme.boxText}`}>
-                <PostVoteCount post={post} /> <span>·</span> 31 comments
+                <PostVoteCount post={post} /> votes <span>·</span> 31 comments
               </p>
             </div>
           </div>
