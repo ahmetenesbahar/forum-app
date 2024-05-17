@@ -15,9 +15,9 @@ const fetcher = async (url) => {
 };
 
 const useSearch = (parameter) => {
-  const fetchUrl = `http://localhost:3001/search?query=${encodeURIComponent(
-    parameter
-  )}`;
+  const fetchUrl = parameter
+    ? `http://localhost:3001/search?query=${encodeURIComponent(parameter)}`
+    : null;
   const { data, error, isValidating, mutate } = useSWR(fetchUrl, fetcher);
 
   return {
