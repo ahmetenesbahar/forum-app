@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { RiSearchLine, RiCloseLine } from "react-icons/ri";
 import { useTheme } from "./contexts/ThemeContext";
 import useSearch from "hooks/useSearch";
+import SearchResults from "./SearchResults";
 
 const Searchbar = () => {
   const { theme } = useTheme();
   const [parameter, setParameter] = useState("");
-  const { data: result, mutate: mutateSearch } = useSearch(parameter || "");
-
-  useEffect(() => {}, [parameter]);
+  const { data: result } = useSearch(parameter);
 
   return (
     <div className="flex flex-col relative">
@@ -18,7 +17,6 @@ const Searchbar = () => {
           type="text"
           onChange={(e) => {
             setParameter(e.target.value);
-            mutateSearch();
           }}
           value={parameter}
           placeholder="Search on ForumD20"
@@ -29,28 +27,7 @@ const Searchbar = () => {
           onClick={() => setParameter("")}
         />
       </div>
-      {parameter && (
-        <div className="absolute w-2/5 h-48 text-white bg-red-500 overflow-auto z-30  ">
-          <div className="flex flex-col">
-            <p>Users</p>
-            <div className="flex">
-              {result?.users?.map((user) => user?.profileName)}
-            </div>
-          </div>
-          <div>
-            <p>Communities</p>
-            <div>
-              {result?.communities?.map(
-                (community) => community?.communityName
-              )}
-            </div>
-          </div>
-          <div>
-            <p>Posts</p>
-            <div>{result?.posts?.map((post) => post?.title)}</div>
-          </div>
-        </div>
-      )}
+      {parameter && <SearchResults results={result} />}
     </div>
   );
 };

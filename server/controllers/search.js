@@ -8,13 +8,15 @@ export const searchAll = async (req, res) => {
   try {
     const { searchParameter } = req.query;
     const stringParameter = String(searchParameter);
+    const regex = new RegExp(stringParameter, "i");
+
     const users = await User.find({
-      profileName: { $regex: stringParameter },
+      profileName: { $regex: regex },
     });
     const communities = await Community.find({
-      communityName: { $regex: stringParameter },
+      communityName: { $regex: regex },
     });
-    const posts = await Post.find({ title: { $regex: stringParameter } });
+    const posts = await Post.find({ title: { $regex: regex } });
 
     const results = {
       users,
