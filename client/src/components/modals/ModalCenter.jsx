@@ -11,6 +11,7 @@ const ModalCenter = ({ type }) => {
   const createTab = useSelector((state) => state.modal.showCreateModal);
 
   const [showModal, setShowModal] = useState(createTab);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -31,6 +32,7 @@ const ModalCenter = ({ type }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showModal]);
+
   return (
     <div
       className={` z-50 absolute w-full h-full top-0 left-0  bg-gray-500 bg-opacity-20 flex items-center justify-center ${
