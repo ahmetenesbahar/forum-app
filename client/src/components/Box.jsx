@@ -12,7 +12,7 @@ const Box = () => {
       className={
         clearHandle
           ? ` max-w-[305px] max-h-[820px] w-full`
-          : ` max-w-[305px] max-h-[820px] h-max w-full sticky top-[8px] !rounded-2xl p-4 ${theme.boxBackground} overflow-hidden hover:overflow-auto scrollbar ${theme.boxScrollbar}  ${theme.boxScrollbarTrack}  scrollbar-thin  `
+          : ` max-w-[305px] max-h-[820px] h-max w-full sticky top-[8px] !rounded-2xl p-4 ${theme.boxBackground} overflow-hidden hover:overflow-auto scrollbar ${theme.boxScrollbarThumb}  ${theme.boxScrollbarTrack}  scrollbar-thin  `
       }
     >
       <div
