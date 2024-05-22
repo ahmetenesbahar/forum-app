@@ -35,7 +35,7 @@ const LatestPosts = () => {
                   <img
                     src={`http://localhost:3001/assets/${post?.picturePath}`}
                     alt=""
-                    className="z-10 max-w-20 max-h-20  h-full  object-contain select-none rounded-2xl"
+                    className="z-10 max-w-20 max-h-20  h-full  object-contain select-none "
                   />
                 </div>
               )}
