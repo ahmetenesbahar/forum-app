@@ -12,7 +12,7 @@ const SearchResults = ({ results }) => {
     <div
       className={`absolute w-full max-h-48 top-12 text-white  overflow-auto z-30 ${theme.secondaryBackground} rounded-xl overflow-auto scrollbar   ${theme.scrollbarTrack}  scrollbar-thin ${theme.scrollbarThumb} `}
     >
-      <div className="flex flex-col">
+      <div className={`flex flex-col ${theme.text}`}>
         <UserDisplay results={results} />
         <CommunityDisplay results={results} />
         <PostDisplay results={results} />

@@ -26,7 +26,7 @@ const CommunityDisplay = ({ results }) => {
       {isShowing &&
         results?.communities?.map((community) => (
           <div
-            className={`flex items-center gap-3 cursor-pointer py-1 px-4 ${theme.hoverBackground}`}
+            className={`flex items-center gap-3 cursor-pointer py-1 px-4 ${theme.secondaryHoverBackground}`}
           >
             <img
               src={`http://localhost:3001/assets/${community?.picturePath}`}

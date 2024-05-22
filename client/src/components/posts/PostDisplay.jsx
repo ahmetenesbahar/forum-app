@@ -26,7 +26,7 @@ const PostDisplay = ({ results }) => {
       {isShowing &&
         results?.posts?.map((post) => (
           <div
-            className={`flex items-center gap-3 cursor-pointer py-1 px-4 w-full justify-between ${theme.hoverBackground}`}
+            className={`flex items-center gap-3 cursor-pointer py-1 px-4 w-full justify-between ${theme.secondaryHoverBackground}`}
           >
             <div className="flex flex-col justify-between">
               <p className=" font-semibold text-base">{post?.title}</p>

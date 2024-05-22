@@ -26,7 +26,7 @@ const UserDisplay = ({ results }) => {
       {isShowing &&
         results?.users?.map((user) => (
           <div
-            className={`flex items-center gap-3 cursor-pointer py-1 px-4 ${theme.hoverBackground}`}
+            className={`flex items-center gap-3 cursor-pointer py-1 px-4 ${theme.secondaryHoverBackground}`}
           >
             <img
               src={`http://localhost:3001/assets/${user?.picturePath}`}
