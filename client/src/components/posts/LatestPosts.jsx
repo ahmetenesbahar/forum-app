@@ -20,7 +20,7 @@ const LatestPosts = () => {
               className="w-6 h-6 rounded-full"
             />
             <p className={`text-xs  ${theme.boxText}`}>
-              f/{post.community.communityName}
+              f/{post?.community?.communityName}
             </p>
           </div>
           <div className=" mt-1">
