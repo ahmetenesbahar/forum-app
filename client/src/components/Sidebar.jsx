@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { useTheme } from "./contexts/ThemeContext";
 import { Transition } from "@headlessui/react";
-import { RiArrowUpSLine, RiArrowDownSLine } from "react-icons/ri";
+import { RiArrowUpSLine } from "react-icons/ri";
 import useCommunities from "hooks/useCommunities";
 
 const Sidebar = () => {
