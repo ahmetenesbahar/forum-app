@@ -20,7 +20,7 @@ const SearchResults = ({ results }) => {
           <CommunityDisplay results={results} />
         </div>
         <div>
-          <p className="text-lg font-medium px-4  py-1">Posts</p>
+          <p className="text-lg font-medium px-4 py-1 ">Posts</p>
           <div className={`w-full h-px ${theme.grayBackground}`} />
           <PostDisplay results={results} />
         </div>
