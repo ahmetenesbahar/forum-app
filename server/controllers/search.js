@@ -16,7 +16,9 @@ export const searchAll = async (req, res) => {
     const communities = await Community.find({
       communityName: { $regex: regex },
     });
-    const posts = await Post.find({ title: { $regex: regex } });
+    const posts = await Post.find({ title: { $regex: regex } })
+      .populate("author")
+      .populate("community");
 
     const results = {
       users,
