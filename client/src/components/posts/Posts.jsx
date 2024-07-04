@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+
+import { useSelector, useDispatch } from "react-redux";
+import { setPostId } from "../../state/postSlice";
 import { useTheme } from "components/contexts/ThemeContext";
 import PostActions from "./PostActions";
 import { GoComment } from "react-icons/go";
@@ -8,10 +10,14 @@ import PostVotes from "./PostVotes";
 
 const Posts = () => {
   const token = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch();
   const { data: posts } = usePosts(token);
   const { theme } = useTheme();
 
-  useEffect(() => {});
+  const handlePostClick = (postId) => {
+    dispatch(setPostId(postId));
+  };
+
   return (
     <div className="flex flex-col items-center max-w-[756px] w-full gap-y-2 ">
       {posts
@@ -22,6 +28,9 @@ const Posts = () => {
             <div
               key={post._id}
               className={`w-full  px-3 py-1  ${theme.hoverBackground} cursor-pointer rounded-lg `}
+              onClick={() => {
+                handlePostClick(post._id);
+              }}
             >
               <div className="flex items-center justify-between">
                 <div className={`flex items-center gap-1 `}>
