@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import CreateTab from "./modals/CreateTab";
 import { useSelector } from "react-redux";
 import ModalCenter from "./modals/ModalCenter";
 import Flow from "./Flow";
@@ -11,10 +10,11 @@ const Main = () => {
   const createTab = useSelector((state) => state.modal.showCreateModal);
   const postId = useSelector((state) => state.posts.postId);
   const { theme } = useTheme();
-  const [selectedPostId, setSelectedPostId] = useState(null);
+  const [selectedPost, setSelectedPost] = useState(null);
 
   useEffect(() => {
-    setSelectedPostId(postId);
+    setSelectedPost(postId);
+    console.log(postId);
   }, [postId]);
 
   return (
@@ -22,7 +22,7 @@ const Main = () => {
       className={`w-full py-4 h-[calc(100vh-80px)] overflow-auto scrollbar ${theme.scrollbarThumb} ${theme.scrollbarTrack}  scrollbar-thin`}
     >
       {createTab & !(user === null) ? <ModalCenter type={"createTab"} /> : " "}
-      {selectedPostId ? <PostDetail postId={postId} /> : <Flow />}
+      {selectedPost ? <PostDetail postId={postId} /> : <Flow />}
     </div>
   );
 };
