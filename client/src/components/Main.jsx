@@ -14,7 +14,6 @@ const Main = () => {
 
   useEffect(() => {
     setSelectedPost(postId);
-    console.log(postId);
   }, [postId]);
 
   return (
