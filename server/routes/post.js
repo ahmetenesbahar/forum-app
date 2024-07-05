@@ -7,6 +7,7 @@ import {
   getLatestPosts,
   deletePost,
   getSinglePost,
+  comment,
 } from "../controllers/post.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -22,6 +23,7 @@ router.get("/:id/getSinglePost", verifyToken, getSinglePost);
 /*UPDATE*/
 router.patch("/:id/upvote", verifyToken, upVote);
 router.patch("/:id/downvote", verifyToken, downVote);
+router.patch("/:id/comment", verifyToken, comment);
 
 /*DELETE*/
 router.delete("/:id/deletePost", verifyToken, deletePost);

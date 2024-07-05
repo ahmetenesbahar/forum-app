@@ -59,6 +59,21 @@ const UserSchema = new mongoose.Schema({
       },
     },
   ],
+  comments: [
+    {
+      text: {
+        type: String,
+      },
+      commentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,

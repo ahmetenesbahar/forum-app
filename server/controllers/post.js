@@ -96,6 +96,25 @@ export const getLatestPosts = async (req, res) => {
 
 /* UPDATE */
 
+export const comment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { userId, text } = req.body;
+    const post = await Post.findById(id);
+
+    post.comments.push({ text: text, author: userId });
+    await post.save();
+    await User.findByIdAndUpdate(userId, {
+      $push: {
+        comments: { postId: id, text: text },
+      },
+    });
+    res.status(200).json(post);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
 export const upVote = async (req, res) => {
   try {
     const { id } = req.params;

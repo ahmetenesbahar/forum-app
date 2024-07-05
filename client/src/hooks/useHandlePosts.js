@@ -22,6 +22,8 @@ const useHandlePosts = (token, post, userId) => {
     return voteType;
   }, [singlePost, userId]);
 
+  const comment = useCallback({}, []);
+
   const handleDelete = useCallback(
     async (postId) => {
       try {
