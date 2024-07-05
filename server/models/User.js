@@ -66,7 +66,6 @@ const UserSchema = new mongoose.Schema({
       },
       commentId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Post",
       },
       createdAt: {
         type: Date,

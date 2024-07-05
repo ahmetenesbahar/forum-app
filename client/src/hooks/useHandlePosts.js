@@ -22,13 +22,12 @@ const useHandlePosts = (token, post, userId) => {
     return voteType;
   }, [singlePost, userId]);
 
-  const comment = useCallback({}, []);
-
-  const handleDelete = useCallback(
-    async (postId) => {
+  const handleComment = useCallback(
+    async (postId, userId, text) => {
       try {
-        const response = await axios.delete(
-          `http://localhost:3001/posts/${postId}/deletePost`,
+        const response = await axios.patch(
+          `http://localhost:3001/posts/${postId}/comment`,
+          { userId, text },
           {
             headers: {
               "Content-Type": "application/json",
@@ -42,14 +41,13 @@ const useHandlePosts = (token, post, userId) => {
           mutatePosts();
           mutateLatestPosts();
         }
-
         return response.data;
       } catch (error) {
-        console.error("Post deletion failed:", error);
+        console.log("Commenting failed:", error);
         throw error;
       }
     },
-    [mutatePosts, token, mutateLatestPosts, mutatePost]
+    [mutateLatestPosts, mutatePosts, token, mutatePost]
   );
 
   const handleUpVote = useCallback(
@@ -110,7 +108,41 @@ const useHandlePosts = (token, post, userId) => {
     [mutateLatestPosts, mutatePosts, token, mutatePost]
   );
 
-  return { handleDelete, handleUpVote, handleDownVote, hasVoted };
+  const handleDelete = useCallback(
+    async (postId) => {
+      try {
+        const response = await axios.delete(
+          `http://localhost:3001/posts/${postId}/deletePost`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          mutatePost();
+          mutatePosts();
+          mutateLatestPosts();
+        }
+
+        return response.data;
+      } catch (error) {
+        console.error("Post deletion failed:", error);
+        throw error;
+      }
+    },
+    [mutatePosts, token, mutateLatestPosts, mutatePost]
+  );
+
+  return {
+    handleDelete,
+    handleUpVote,
+    handleDownVote,
+    hasVoted,
+    handleComment,
+  };
 };
 
 export default useHandlePosts;

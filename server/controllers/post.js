@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Community from "../models/Community.js";
 import Post from "../models/Post.js";
 import User from "../models/User.js";
@@ -101,12 +102,13 @@ export const comment = async (req, res) => {
     const { id } = req.params;
     const { userId, text } = req.body;
     const post = await Post.findById(id);
-
     post.comments.push({ text: text, author: userId });
     await post.save();
+    const savedComment = post.comments[post.comments.length - 1];
+    const commentId = savedComment._id;
     await User.findByIdAndUpdate(userId, {
       $push: {
-        comments: { postId: id, text: text },
+        comments: { commentId: commentId, text: text },
       },
     });
     res.status(200).json(post);
