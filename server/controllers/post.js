@@ -104,7 +104,7 @@ export const comment = async (req, res) => {
     const post = await Post.findById(id);
     post.comments.push({ text: text, author: userId });
     await post.save();
-    const savedComment = post.comments[post.comments.length - 1];
+    const savedComment = post.comments[post.comments.length - 1]; //! buradan emin değilim
     const commentId = savedComment._id;
     await User.findByIdAndUpdate(userId, {
       $push: {
