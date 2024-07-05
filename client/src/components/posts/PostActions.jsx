@@ -33,7 +33,10 @@ const PostActions = ({ post }) => {
     <div className="relative" ref={menu}>
       <div
         className={`cursor-pointer rounded-full ${theme.secondaryHoverBackground} p-2`}
-        onClick={() => setShowActions(!showActions)}
+        onClick={(e) => {
+          setShowActions(!showActions);
+          e.stopPropagation();
+        }}
       >
         <RiMoreFill />
       </div>

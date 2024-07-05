@@ -1,23 +1,35 @@
 import React, { useEffect } from "react";
 import usePost from "hooks/usePost";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setPostId } from "../../state/postSlice";
 import { useTheme } from "components/contexts/ThemeContext";
 import PostActions from "./PostActions";
+import { RiArrowLeftFill } from "react-icons/ri";
 import { GoComment } from "react-icons/go";
 import PostVotes from "./PostVotes";
 
 const PostDetail = ({ postId }) => {
   const token = useSelector((state) => state.auth.token);
   const { data: post } = usePost(token, postId);
+  const dispatch = useDispatch();
   const { theme } = useTheme();
 
-  useEffect(() => {
-    console.log(postId);
-    console.log(post);
-  }, [postId]);
+  const handleGoBack = () => {
+    dispatch(setPostId(null));
+  };
 
   return (
-    <div className="relative flex py-2 justify-center w-full gap-3">
+    <div className="relative flex py-2 justify-center w-full gap-2">
+      <div
+        className={`flex items-center justify-center w-8 h-8 rounded-full ${theme.secondaryBackground}   cursor-pointer`}
+        onClick={() => {
+          handleGoBack();
+        }}
+      >
+        <RiArrowLeftFill
+          className={`w-8 h-8 ${theme.hoverUpVote} rounded-full`}
+        />
+      </div>
       <div className="flex flex-col items-center max-w-[756px] w-full gap-y-2">
         <div
           key={post?._id}

@@ -34,11 +34,15 @@ const PostVotes = ({ post }) => {
           ? ` relative w-24 h-9 flex items-center rounded-full justify-between  ${theme.downVoteBackground} text-white`
           : ` relative w-24 h-9 flex items-center rounded-full justify-between ${theme.secondaryBackground}`
       }
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
     >
       <div
         className={`w-9 h-9 flex items-center`}
         onClick={(e) => {
           handleUpVote(post._id, user._id);
+          e.stopPropagation();
         }}
       >
         <PiArrowFatUp
@@ -52,8 +56,9 @@ const PostVotes = ({ post }) => {
       <PostVoteCount post={post} />
       <div
         className={` w-9 h-9 flex items-center`}
-        onClick={() => {
+        onClick={(e) => {
           handleDownVote(post._id, user._id);
+          e.stopPropagation();
         }}
       >
         <PiArrowFatDown
