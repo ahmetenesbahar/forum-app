@@ -18,6 +18,14 @@ const Posts = () => {
     dispatch(setPostId(postId));
   };
 
+  const timeSince = (date) => {
+    const now = new Date();
+    const createdAt = new Date(date);
+    const diffTime = Math.abs(now - createdAt);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return `${diffDays} day ago`;
+  };
+
   return (
     <div className="flex flex-col items-center max-w-[756px] w-full gap-y-2 ">
       {posts
@@ -41,7 +49,9 @@ const Posts = () => {
                   />
                   <p className="text-sm font-medium opacity-90">
                     f/{post?.community?.communityName}
-                    <span className="opacity-70 font-normal">• 1 day ago</span>
+                    <span className="opacity-70 font-normal text-center pl-1">
+                      • {timeSince(post.createdAt)}
+                    </span>
                   </p>
                 </div>
                 <PostActions post={post} />
