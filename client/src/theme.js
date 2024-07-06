@@ -19,6 +19,7 @@ export const getTheme = (mode) => {
       downVote: "hover:text-light-downVote",
       upVoteBackground: "bg-light-upVote",
       downVoteBackground: "bg-light-downVote",
+      hoverPrimary: "hover:bg-light-upVote",
       hoverDownVote: "hover:bg-light-hoverDownVote",
       hoverUpVote: "hover:bg-light-hoverUpVote",
       activeBackground: "active:bg-light-activeBackground",
@@ -56,6 +57,7 @@ export const getTheme = (mode) => {
       boxText: "text-dark-boxText",
       boxScrollbarThumb: "scrollbar-thumb-[#202020]",
       boxScrollbarTrack: "scrollbar-track-[#04090A]",
+      hoverPrimary: "hover:bg-light-upVote",
     };
   }
 };
