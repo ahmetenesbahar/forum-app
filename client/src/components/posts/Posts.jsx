@@ -79,7 +79,7 @@ const Posts = () => {
                     className={`w-full h-full flex items-center rounded-full justify-center gap-3 px-2 py-1 ${theme.secondaryHoverBackground} ${theme.activeBackground}`}
                   >
                     <GoComment className="w-5 h-5" />
-                    <p className="select-none*">31</p>
+                    <p className="select-none*">{post?.comments?.length}</p>
                   </div>
                 </div>
               </div>
