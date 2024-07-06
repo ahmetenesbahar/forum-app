@@ -1,16 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import usePost from "hooks/usePost";
 import { useSelector, useDispatch } from "react-redux";
 import { setPostId } from "../../state/postSlice";
 import { useTheme } from "components/contexts/ThemeContext";
+import useHandlePosts from "hooks/useHandlePosts";
 import PostActions from "./PostActions";
 import { RiArrowLeftFill } from "react-icons/ri";
-import { GoComment } from "react-icons/go";
+import Comments from "./Comments";
 import PostVotes from "./PostVotes";
 
 const PostDetail = ({ postId }) => {
   const token = useSelector((state) => state.auth.token);
+  const user = useSelector((state) => state.auth.user);
   const { data: post } = usePost(token, postId);
+  const { handleComment } = useHandlePosts(token, post, user?._id);
+  const [commentValue, setCommentValue] = useState(null);
   const dispatch = useDispatch();
   const { theme } = useTheme();
 
@@ -74,21 +78,35 @@ const PostDetail = ({ postId }) => {
           )}
           <div className="flex items-center gap-3 mt-3">
             <PostVotes post={post} />
-            <div
-              className={`w-24 h-9 rounded-full ${theme.secondaryBackground}`}
-            >
-              <div
-                className={`w-full h-full flex items-center rounded-full justify-center gap-3 px-2 py-1 ${theme.secondaryHoverBackground} ${theme.activeBackground}`}
+          </div>
+        </div>
+        <div className="flex flex-col w-full">
+          <div className={`relative border-2 ${theme.borderGray} rounded-xl `}>
+            <textarea
+              className={`w-full h-28 bg-transparent  rounded-lg focus:outline-none p-4`}
+              placeholder="Add Comment"
+              onChange={(e) => {
+                setCommentValue(e.target.value);
+              }}
+              value={commentValue}
+            />
+            <div className="flex justify-end items-end w-full px-1 py-1">
+              <button
+                className={` ${theme.primary} ${theme.hoverPrimary} rounded-xl px-2 py-1 text-white `}
+                onClick={() => {
+                  handleComment(postId, user._id, commentValue);
+                  setCommentValue("");
+                }}
               >
-                <GoComment className="w-5 h-5" />
-                <p className="select-none*">31</p>
-              </div>
+                Comment
+              </button>
             </div>
           </div>
+          <Comments post={post} />
         </div>
       </div>
     </div>
   );
 };
-
+PostDetail.displayName = "PostDetail";
 export default PostDetail;
