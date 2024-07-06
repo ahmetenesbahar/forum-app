@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import useHandlePosts from "hooks/useHandlePosts";
 import { PiArrowFatDown, PiArrowFatUp } from "react-icons/pi";
@@ -72,5 +72,5 @@ const PostVotes = ({ post }) => {
     </div>
   );
 };
-
+PostVotes.displayName = "PostVotes";
 export default PostVotes;

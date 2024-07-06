@@ -14,5 +14,5 @@ const PostVoteCount = ({ post }) => {
     </p>
   );
 };
-
+PostVoteCount.displayName = "PostVoteCount";
 export default PostVoteCount;
