@@ -50,7 +50,11 @@ export const getSinglePost = async (req, res) => {
     const { id } = req.params;
     const post = await Post.findById(id)
       .populate("author")
-      .populate("community");
+      .populate("community")
+      .populate({
+        path: "comments.author",
+        select: "profileName picturePath",
+      });
     res.status(200).json(post);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -104,7 +108,7 @@ export const comment = async (req, res) => {
     const post = await Post.findById(id);
     post.comments.push({ text: text, author: userId });
     await post.save();
-    const savedComment = post.comments[post.comments.length - 1]; //! buradan emin değilim
+    const savedComment = post.comments[post.comments.length - 1];
     const commentId = savedComment._id;
     await User.findByIdAndUpdate(userId, {
       $push: {
