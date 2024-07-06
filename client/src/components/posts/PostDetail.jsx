@@ -17,9 +17,20 @@ const PostDetail = ({ postId }) => {
   const [commentValue, setCommentValue] = useState(null);
   const dispatch = useDispatch();
   const { theme } = useTheme();
-
+  useEffect(() => {
+    console.log(post);
+    console.log(user);
+  }, [user, post]);
   const handleGoBack = () => {
     dispatch(setPostId(null));
+  };
+
+  const timeSince = (date) => {
+    const now = new Date();
+    const createdAt = new Date(date);
+    const diffTime = Math.abs(now - createdAt);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return `${diffDays} day ago`;
   };
 
   return (
@@ -48,7 +59,9 @@ const PostDetail = ({ postId }) => {
               />
               <p className="text-sm font-medium opacity-90">
                 f/{post?.community?.communityName}
-                <span className="opacity-70 font-normal">• 1 day ago</span>
+                <span className="opacity-70 font-normal text-center pl-1">
+                  • {timeSince(post?.createdAt)}
+                </span>
               </p>
             </div>
             <PostActions post={post} />
