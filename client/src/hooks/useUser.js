@@ -17,7 +17,7 @@ const fetcher = async (url, token) => {
 
 const useUser = (token, userId) => {
   const { data, error, isLoading, mutate, isValidating } = useSWR(
-    userId ? `http://localhost:3001/posts/${userId}/getSinglePost` : null,
+    userId ? `http://localhost:3001/users/${userId}` : null,
     (url) => fetcher(url, token)
   );
 

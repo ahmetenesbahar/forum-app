@@ -34,6 +34,8 @@ export const getUserCommunities = async (req, res) => {
   }
 };
 
+export const getUserPosts = async (req, res) => {};
+
 /* UPDATE */
 
 export const addRemoveCommunities = async (req, res) => {
