@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Switch } from "@headlessui/react";
 import { setMode, setLogout, setShowForm } from "../state/index";
 import { setShowCreateModal } from "state/modalSlice";
+import { setUserId } from "state/userSlice";
 
 import { FaPlus } from "react-icons/fa6";
 import { FaRegBell } from "react-icons/fa6";
@@ -18,8 +19,6 @@ import { useTheme } from "./contexts/ThemeContext";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const user = useSelector((state) => state.auth.user);
   const mode = useSelector((state) => state.auth.mode);
   const isRegistered = useSelector((state) => state.auth.isRegistered);
@@ -63,6 +62,10 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showActionMenu]);
+
+  const handleGoProfile = (userId) => {
+    dispatch(setUserId(userId));
+  };
 
   return (
     <div
@@ -119,6 +122,9 @@ const Navbar = () => {
       >
         <div
           className={`user-actions-item py-2 pr-6 pl-4 flex items-center gap-3 cursor-pointer ${theme.hoverBackground}`}
+          onClick={() => {
+            handleGoProfile(user._id);
+          }}
         >
           <div>
             <div
