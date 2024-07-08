@@ -1,5 +1,8 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import UserPosts from "./UserPosts";
+import UserUpVotes from "./UserUpVotes";
+import UserDownVotes from "./UserDownVotes";
 import useUser from "hooks/useUser";
 import { useTheme } from "components/contexts/ThemeContext";
 import { Tab } from "@headlessui/react";
@@ -72,8 +75,15 @@ const ProfilePage = ({ userId }) => {
               </Tab>
             </Tab.List>
             <Tab.Panels className="mt-3">
-              <Tab.Panel>{/* buraya */}</Tab.Panel>
-              <Tab.Panel>{/* buraya */}</Tab.Panel>
+              <Tab.Panel>
+                <UserPosts />
+              </Tab.Panel>
+              <Tab.Panel>
+                <UserUpVotes />
+              </Tab.Panel>
+              <Tab.Panel>
+                <UserDownVotes />
+              </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
         </div>

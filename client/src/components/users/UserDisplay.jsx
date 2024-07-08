@@ -40,4 +40,5 @@ const UserDisplay = ({ results }) => {
   );
 };
 
+UserDisplay.displayName = "UserDisplay";
 export default UserDisplay;
