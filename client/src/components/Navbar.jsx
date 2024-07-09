@@ -22,6 +22,7 @@ const Navbar = () => {
   const user = useSelector((state) => state.auth.user);
   const mode = useSelector((state) => state.auth.mode);
   const isRegistered = useSelector((state) => state.auth.isRegistered);
+  const navigate = useNavigate();
 
   const { theme } = useTheme();
 
@@ -71,7 +72,12 @@ const Navbar = () => {
     <div
       className={`justify-between items-center flex px-8 border-b w-full ${theme.borderGray} relative select-none`}
     >
-      <div className="logo">
+      <div
+        className="logo"
+        onClick={() => {
+          navigate("/");
+        }}
+      >
         <Logod20 className={`${theme.logo} cursor-pointer`} fill={theme.logo} />
       </div>
       <div className="searchbar w-2/5 ">
@@ -123,7 +129,7 @@ const Navbar = () => {
         <div
           className={`user-actions-item py-2 pr-6 pl-4 flex items-center gap-3 cursor-pointer ${theme.hoverBackground}`}
           onClick={() => {
-            handleGoProfile(user._id);
+            navigate(`/users/${user._id}`);
           }}
         >
           <div>
