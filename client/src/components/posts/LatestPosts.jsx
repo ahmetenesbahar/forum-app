@@ -1,19 +1,15 @@
 import React from "react";
 import { useTheme } from "components/contexts/ThemeContext";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import useLatestPosts from "hooks/useLatestPosts";
 import PostVoteCount from "./PostVoteCount";
-import { setPostId } from "../../state/postSlice";
 
 const LatestPosts = () => {
   const { theme } = useTheme();
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const token = useSelector((state) => state.auth.token);
   const { data: latestPosts } = useLatestPosts(token);
-
-  const handlePostClick = (postId) => {
-    dispatch(setPostId(postId));
-  };
 
   return (
     <>
@@ -33,8 +29,9 @@ const LatestPosts = () => {
             <div className="flex justify-between items-center   ">
               <p
                 className={`text-[14px] opacity-90 hover:underline cursor-pointer ${theme.boxText} first-letter:uppercase font-medium`}
-                onClick={() => {
-                  handlePostClick(post._id);
+                onClick={(e) => {
+                  navigate(`/posts/${post._id}`);
+                  e.stopPropagation();
                 }}
               >
                 {post.title}
