@@ -7,6 +7,7 @@ import Main from "components/Main";
 import { useTheme } from "components/contexts/ThemeContext";
 import ProfilePage from "components/users/ProfilePage";
 import PostDetail from "components/posts/PostDetail";
+import CommunityProfile from "components/communities/CommunityProfile";
 
 const App = () => {
   const { theme } = useTheme();
@@ -22,6 +23,10 @@ const App = () => {
             <Route path="/" element={<Main />} />
             <Route path="/users/:userId" element={<ProfilePage />} />
             <Route path="/posts/:postId" element={<PostDetail />} />
+            <Route
+              path="/communities/:communityId"
+              element={<CommunityProfile />}
+            />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>
