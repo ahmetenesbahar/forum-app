@@ -1,18 +1,12 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setPostId } from "../../state/postSlice";
+import { Link } from "react-router-dom";
 import { useTheme } from "components/contexts/ThemeContext";
 import PostActions from "./PostActions";
 import { GoComment } from "react-icons/go";
 import PostVotes from "./PostVotes";
 
 const Post = ({ post }) => {
-  const dispatch = useDispatch();
   const { theme } = useTheme();
-
-  const handlePostClick = (postId) => {
-    dispatch(setPostId(postId));
-  };
 
   const timeSince = (date) => {
     const now = new Date();
@@ -22,13 +16,10 @@ const Post = ({ post }) => {
     return `${diffDays} day ago`;
   };
   return (
-    <>
+    <Link to={`/posts/${post._id}`} className="w-full">
       <div
         key={post._id}
         className={`w-full  px-3 py-1  ${theme.hoverBackground} cursor-pointer rounded-lg `}
-        onClick={() => {
-          handlePostClick(post._id);
-        }}
       >
         <div className="flex items-center justify-between">
           <div className={`flex items-center gap-1 `}>
@@ -86,7 +77,7 @@ const Post = ({ post }) => {
       </div>
 
       <div className={`w-full h-px ${theme.grayBackground}`} />
-    </>
+    </Link>
   );
 };
 
