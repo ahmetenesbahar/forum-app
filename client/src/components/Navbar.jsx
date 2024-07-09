@@ -64,10 +64,6 @@ const Navbar = () => {
     };
   }, [showActionMenu]);
 
-  const handleGoProfile = (userId) => {
-    dispatch(setUserId(userId));
-  };
-
   return (
     <div
       className={`justify-between items-center flex px-8 border-b w-full ${theme.borderGray} relative select-none`}
