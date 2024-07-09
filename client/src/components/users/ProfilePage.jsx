@@ -1,5 +1,6 @@
-import React, { useEffect, useState, Fragment } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import UserPosts from "./UserPosts";
 import UserUpVotes from "./UserUpVotes";
@@ -7,13 +8,12 @@ import UserDownVotes from "./UserDownVotes";
 import useUser from "hooks/useUser";
 import { useTheme } from "components/contexts/ThemeContext";
 import { Tab } from "@headlessui/react";
-import { RiArrowLeftFill } from "react-icons/ri";
 
-const ProfilePage = ({ userId, handleGoBack }) => {
+const ProfilePage = () => {
   const token = useSelector((state) => state.auth.token);
+  const { userId } = useParams();
   const { data: user } = useUser(token, userId);
   const { theme } = useTheme();
-  const dispatch = useDispatch();
 
   const formatDate = (dateString) => {
     if (!dateString) return "";
@@ -23,16 +23,6 @@ const ProfilePage = ({ userId, handleGoBack }) => {
 
   return (
     <div className="relative flex py-2 justify-center w-full">
-      <div
-        className={`flex items-center justify-center w-8 h-8 rounded-full ${theme.secondaryBackground}   cursor-pointer absolute left-32`}
-        onClick={() => {
-          handleGoBack();
-        }}
-      >
-        <RiArrowLeftFill
-          className={`w-8 h-8 ${theme.hoverUpVote} rounded-full`}
-        />
-      </div>
       <div className="flex flex-col items-start max-w-[756px] w-full">
         <div className="flex justify-center items-center gap-3">
           <img
