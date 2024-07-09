@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import usePost from "hooks/usePost";
 import { useSelector } from "react-redux";
-
+import { useParams } from "react-router-dom";
 import { useTheme } from "components/contexts/ThemeContext";
 import useHandlePosts from "hooks/useHandlePosts";
 import PostActions from "./PostActions";
-import { RiArrowLeftFill } from "react-icons/ri";
 import Comments from "./Comments";
 import PostVotes from "./PostVotes";
 
-const PostDetail = ({ postId, handleGoBack }) => {
+const PostDetail = () => {
   const token = useSelector((state) => state.auth.token);
   const user = useSelector((state) => state.auth.user);
+  const { postId } = useParams();
   const { data: post } = usePost(token, postId);
   const { handleComment } = useHandlePosts(token, post, user?._id);
   const [commentValue, setCommentValue] = useState(null);
@@ -27,16 +27,6 @@ const PostDetail = ({ postId, handleGoBack }) => {
 
   return (
     <div className="relative flex py-2 justify-center w-full gap-2">
-      <div
-        className={`flex absolute left-32 items-center justify-center w-8 h-8 rounded-full ${theme.secondaryBackground}   cursor-pointer`}
-        onClick={() => {
-          handleGoBack();
-        }}
-      >
-        <RiArrowLeftFill
-          className={`w-8 h-8 ${theme.hoverUpVote} rounded-full`}
-        />
-      </div>
       <div className="flex flex-col items-center max-w-[756px] w-full gap-y-2">
         <div
           key={post?._id}
