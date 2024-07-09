@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import usePost from "hooks/usePost";
-import { useSelector, useDispatch } from "react-redux";
-import { setPostId } from "../../state/postSlice";
+import { useSelector } from "react-redux";
+
 import { useTheme } from "components/contexts/ThemeContext";
 import useHandlePosts from "hooks/useHandlePosts";
 import PostActions from "./PostActions";
@@ -9,18 +9,13 @@ import { RiArrowLeftFill } from "react-icons/ri";
 import Comments from "./Comments";
 import PostVotes from "./PostVotes";
 
-const PostDetail = ({ postId }) => {
+const PostDetail = ({ postId, handleGoBack }) => {
   const token = useSelector((state) => state.auth.token);
   const user = useSelector((state) => state.auth.user);
   const { data: post } = usePost(token, postId);
   const { handleComment } = useHandlePosts(token, post, user?._id);
   const [commentValue, setCommentValue] = useState(null);
-  const dispatch = useDispatch();
   const { theme } = useTheme();
-
-  const handleGoBack = () => {
-    dispatch(setPostId(null));
-  };
 
   const timeSince = (date) => {
     const now = new Date();

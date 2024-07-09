@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setUserId } from "state/userSlice";
+
 import UserPosts from "./UserPosts";
 import UserUpVotes from "./UserUpVotes";
 import UserDownVotes from "./UserDownVotes";
@@ -9,7 +9,7 @@ import { useTheme } from "components/contexts/ThemeContext";
 import { Tab } from "@headlessui/react";
 import { RiArrowLeftFill } from "react-icons/ri";
 
-const ProfilePage = ({ userId }) => {
+const ProfilePage = ({ userId, handleGoBack }) => {
   const token = useSelector((state) => state.auth.token);
   const { data: user } = useUser(token, userId);
   const { theme } = useTheme();
@@ -19,9 +19,6 @@ const ProfilePage = ({ userId }) => {
     if (!dateString) return "";
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString("tr-TR", options);
-  };
-  const handleGoBack = () => {
-    dispatch(setUserId(null));
   };
 
   return (
@@ -96,10 +93,10 @@ const ProfilePage = ({ userId }) => {
                 <UserPosts userId={userId} />
               </Tab.Panel>
               <Tab.Panel>
-                <UserUpVotes />
+                <UserUpVotes userId={userId} />
               </Tab.Panel>
               <Tab.Panel>
-                <UserDownVotes />
+                <UserDownVotes userId={userId} />
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>

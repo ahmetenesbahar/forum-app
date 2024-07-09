@@ -49,8 +49,45 @@ export const getUserPosts = async (req, res) => {
   }
 };
 
-export const getUserUpVotes = async (req, res) => {};
-export const getUserDownVotes = async (req, res) => {};
+export const getUserUpVotes = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const userUpVotes = user.votes.filter((vote) => vote.type === "upvote");
+
+    const upvotedPosts = await Post.find({
+      _id: { $in: userUpVotes.map((vote) => vote.postId) },
+    }).populate("community");
+
+    res.status(200).json(upvotedPosts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const getUserDownVotes = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const userDownVotes = user.votes.filter((vote) => vote.type === "downvote");
+
+    const downvotedPosts = await Post.find({
+      _id: { $in: userDownVotes.map((vote) => vote.postId) },
+    }).populate("community");
+
+    res.status(200).json(downvotedPosts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 /* UPDATE */
 
