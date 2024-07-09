@@ -33,7 +33,7 @@ const PostDetail = ({ postId }) => {
   return (
     <div className="relative flex py-2 justify-center w-full gap-2">
       <div
-        className={`flex items-center justify-center w-8 h-8 rounded-full ${theme.secondaryBackground}   cursor-pointer`}
+        className={`flex absolute left-32 items-center justify-center w-8 h-8 rounded-full ${theme.secondaryBackground}   cursor-pointer`}
         onClick={() => {
           handleGoBack();
         }}
