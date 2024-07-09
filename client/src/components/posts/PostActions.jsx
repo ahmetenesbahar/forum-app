@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useRef, useEffect } from "react";
 import { RiMoreFill, RiEyeOffFill, RiDeleteBin6Line } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "components/contexts/ThemeContext";
 import { useSelector } from "react-redux";
 import useHandlePosts from "hooks/useHandlePosts";
@@ -8,6 +9,7 @@ const PostActions = ({ post }) => {
   const { theme } = useTheme();
   const user = useSelector((state) => state.auth.user);
   const token = useSelector((state) => state.auth.token);
+  const navigate = useNavigate();
   const [showActions, setShowActions] = useState(false);
   const menu = useRef(null);
   const [isHidden, setIsHidden] = useState(false);
@@ -64,6 +66,7 @@ const PostActions = ({ post }) => {
               onClick={(e) => {
                 e.stopPropagation();
                 handleDelete(post._id);
+                navigate("/");
               }}
             >
               <RiDeleteBin6Line className="text-red-500 w-5 h-5" />
