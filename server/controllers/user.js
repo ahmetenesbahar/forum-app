@@ -1,5 +1,6 @@
 import Community from "../models/Community.js";
 import User from "../models/User.js";
+import Post from "../models/Post.js";
 
 /* READ */
 
@@ -34,7 +35,22 @@ export const getUserCommunities = async (req, res) => {
   }
 };
 
-export const getUserPosts = async (req, res) => {};
+export const getUserPosts = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    const userPosts = await Post.find({ _id: { $in: user.posts } }).populate(
+      "community"
+    );
+
+    res.status(200).json(userPosts);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
+export const getUserUpVotes = async (req, res) => {};
+export const getUserDownVotes = async (req, res) => {};
 
 /* UPDATE */
 
