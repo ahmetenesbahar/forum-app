@@ -10,10 +10,6 @@ const Post = ({ post }) => {
   const dispatch = useDispatch();
   const { theme } = useTheme();
 
-  useEffect(() => {
-    console.log(post);
-  });
-
   const handlePostClick = (postId) => {
     dispatch(setPostId(postId));
   };
