@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import { useTheme } from "components/contexts/ThemeContext";
 import PostActions from "./PostActions";
 import { GoComment } from "react-icons/go";
 import PostVotes from "./PostVotes";
+import { useNavigate } from "react-router-dom";
 
 const Post = ({ post }) => {
   const { theme } = useTheme();
+  const navigate = useNavigate();
 
   const timeSince = (date) => {
     const now = new Date();
@@ -16,10 +17,14 @@ const Post = ({ post }) => {
     return `${diffDays} day ago`;
   };
   return (
-    <Link to={`/posts/${post._id}`} className="w-full">
+    <>
       <div
         key={post._id}
         className={`w-full  px-3 py-1  ${theme.hoverBackground} cursor-pointer rounded-lg `}
+        onClick={(e) => {
+          navigate(`/posts/${post._id}`);
+          e.stopPropagation();
+        }}
       >
         <div className="flex items-center justify-between">
           <div className={`flex items-center gap-1 `}>
@@ -28,11 +33,17 @@ const Post = ({ post }) => {
               alt=""
               className="w-7 h-7 rounded-full"
             />
-            <p className="text-sm font-medium opacity-90">
+            <p
+              className="text-sm font-medium opacity-90 hover:underline"
+              onClick={(e) => {
+                navigate(`/communities/${post._id}`);
+                e.stopPropagation();
+              }}
+            >
               f/{post?.community?.communityName}
-              <span className="opacity-70 font-normal text-center pl-1">
-                • {timeSince(post.createdAt)}
-              </span>
+            </p>
+            <p className=" text-sm opacity-70 font-normal text-center pl-1">
+              • {timeSince(post.createdAt)}
             </p>
           </div>
           <PostActions post={post} />
@@ -77,7 +88,7 @@ const Post = ({ post }) => {
       </div>
 
       <div className={`w-full h-px ${theme.grayBackground}`} />
-    </Link>
+    </>
   );
 };
 
