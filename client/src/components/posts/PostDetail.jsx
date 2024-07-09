@@ -17,10 +17,7 @@ const PostDetail = ({ postId }) => {
   const [commentValue, setCommentValue] = useState(null);
   const dispatch = useDispatch();
   const { theme } = useTheme();
-  useEffect(() => {
-    console.log(post);
-    console.log(user);
-  }, [user, post]);
+
   const handleGoBack = () => {
     dispatch(setPostId(null));
   };
