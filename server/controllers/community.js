@@ -1,5 +1,6 @@
 import Community from "../models/Community.js";
 import User from "../models/User.js";
+import Post from "../models/Post.js";
 
 /* READ */
 
@@ -16,6 +17,25 @@ export const getUserCommunities = async (req, res) => {
 export const getCommunities = async (req, res) => {
   try {
     const community = await Community.find();
+    res.status(200).json(community);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
+export const getCommunity = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const community = await Community.findById(id)
+      .populate("posts")
+      .populate("interestedUsers")
+      .populate({
+        path: "posts",
+        populate: [
+          { path: "author", select: "userName profileName picturePath" },
+          { path: "community", select: "communityName picturePath" },
+        ],
+      });
     res.status(200).json(community);
   } catch (err) {
     res.status(404).json({ message: err.message });
