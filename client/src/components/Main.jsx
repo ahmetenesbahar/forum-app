@@ -29,10 +29,10 @@ const Main = () => {
       className={`w-full py-4 h-[calc(100vh-80px)] overflow-auto scrollbar ${theme.scrollbarThumb} ${theme.scrollbarTrack}  scrollbar-thin`}
     >
       {createTab & !(user === null) ? <ModalCenter type={"createTab"} /> : " "}
-      {selectedPost ? (
-        <PostDetail postId={postId} />
-      ) : selectedProfile ? (
+      {selectedProfile ? (
         <ProfilePage userId={userId} />
+      ) : selectedPost ? (
+        <PostDetail postId={postId} />
       ) : (
         <Flow />
       )}
