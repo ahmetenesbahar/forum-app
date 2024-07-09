@@ -1,12 +1,15 @@
 import axios from "axios";
 import usePosts from "./usePosts";
 import useLatestPosts from "./useLatestPosts";
+import useUserPosts from "./useUserPosts";
+import useCommunity from "./useCommunity";
 import usePost from "./usePost";
 import { useCallback, useMemo } from "react";
 
 const useHandlePosts = (token, post, userId) => {
   const { mutate: mutatePosts } = usePosts(token);
   const { mutate: mutateLatestPosts } = useLatestPosts(token);
+  const { mutate: mutateUserPosts } = useUserPosts(token, userId);
   const { data: singlePost, mutate: mutatePost } = usePost(token, post?._id);
 
   const hasVoted = useMemo(() => {
@@ -68,6 +71,7 @@ const useHandlePosts = (token, post, userId) => {
           mutatePost();
           mutatePosts();
           mutateLatestPosts();
+          mutateUserPosts();
         }
 
         return response.data;
@@ -97,6 +101,7 @@ const useHandlePosts = (token, post, userId) => {
           mutatePost();
           mutatePosts();
           mutateLatestPosts();
+          mutateUserPosts();
         }
 
         return response.data;
@@ -125,6 +130,7 @@ const useHandlePosts = (token, post, userId) => {
           mutatePost();
           mutatePosts();
           mutateLatestPosts();
+          mutateUserPosts();
         }
 
         return response.data;
