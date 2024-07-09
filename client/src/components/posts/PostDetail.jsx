@@ -3,6 +3,7 @@ import usePost from "hooks/usePost";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useTheme } from "components/contexts/ThemeContext";
+import { useNavigate } from "react-router-dom";
 import useHandlePosts from "hooks/useHandlePosts";
 import PostActions from "./PostActions";
 import Comments from "./Comments";
@@ -16,6 +17,7 @@ const PostDetail = () => {
   const { handleComment } = useHandlePosts(token, post, user?._id);
   const [commentValue, setCommentValue] = useState(null);
   const { theme } = useTheme();
+  const navigate = useNavigate();
 
   const timeSince = (date) => {
     const now = new Date();
@@ -41,11 +43,17 @@ const PostDetail = () => {
                 alt=""
                 className="w-7 h-7 rounded-full"
               />
-              <p className="text-sm font-medium opacity-90">
+              <p
+                className="text-sm font-medium opacity-90 hover:underline cursor-pointer"
+                onClick={(e) => {
+                  navigate(`/communities/${post?.community._id}`);
+                  e.stopPropagation();
+                }}
+              >
                 f/{post?.community?.communityName}
-                <span className="opacity-70 font-normal text-center pl-1">
-                  • {timeSince(post?.createdAt)}
-                </span>
+              </p>
+              <p className=" text-sm opacity-70 font-normal text-center pl-1">
+                • {timeSince(post?.createdAt)}
               </p>
             </div>
             <PostActions post={post} />
