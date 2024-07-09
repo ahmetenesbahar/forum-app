@@ -1,11 +1,10 @@
 import React from "react";
 import { useTheme } from "components/contexts/ThemeContext";
-import { useDispatch } from "react-redux";
-import { setUserId } from "state/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Comments = ({ post }) => {
   const { theme } = useTheme();
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const timeSince = (date) => {
     const now = new Date();
@@ -13,10 +12,6 @@ const Comments = ({ post }) => {
     const diffTime = Math.abs(now - createdAt);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return `${diffDays} day ago`;
-  };
-
-  const handleGoProfile = (userId) => {
-    dispatch(setUserId(userId));
   };
 
   return (
@@ -32,7 +27,7 @@ const Comments = ({ post }) => {
             <p
               className=" text-sm font-medium opacity-90 cursor-pointer hover:underline "
               onClick={() => {
-                handleGoProfile(comment?.author._id);
+                navigate(`/users/${comment?.author._id}`);
               }}
             >
               {comment?.author.profileName}
