@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import HomePage from "components/HomePage";
-import PostDetail from "components/posts/PostDetail";
 import { useTheme } from "components/contexts/ThemeContext";
 
 const App = () => {
