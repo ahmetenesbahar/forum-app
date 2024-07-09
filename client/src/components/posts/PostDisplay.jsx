@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import { useTheme } from "components/contexts/ThemeContext";
+import { useDispatch } from "react-redux";
+import { setPostId } from "../../state/postSlice";
 import { RiArrowUpSLine } from "react-icons/ri";
 
 const PostDisplay = ({ results }) => {
   const { theme } = useTheme();
+  const dispatch = useDispatch();
   const [isShowing, setIsShowing] = useState(true);
+
+  const handlePostClick = (postId) => {
+    dispatch(setPostId(postId));
+  };
+
   return (
     <div>
       <div
@@ -27,6 +35,9 @@ const PostDisplay = ({ results }) => {
         results?.posts?.map((post) => (
           <div
             className={`flex items-center gap-3 cursor-pointer py-1 px-4 w-full justify-between ${theme.secondaryHoverBackground}`}
+            onClick={() => {
+              handlePostClick(post._id);
+            }}
           >
             <div className="flex flex-col justify-between">
               <p className=" font-semibold text-base">{post?.title}</p>

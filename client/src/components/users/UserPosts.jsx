@@ -8,7 +8,7 @@ const UserPosts = ({ userId }) => {
   const { data: posts } = useUserPosts(token, userId);
 
   return (
-    <div className="flex flex-col items-center  w-full gap-y-2 ">
+    <div className="flex flex-col items-center max-w-[756px] w-full gap-y-2">
       {posts
         ?.slice()
         .reverse()

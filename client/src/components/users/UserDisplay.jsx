@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { useTheme } from "components/contexts/ThemeContext";
+import { useDispatch } from "react-redux";
 import { RiArrowUpSLine } from "react-icons/ri";
+import { setUserId } from "state/userSlice";
 
 const UserDisplay = ({ results }) => {
   const { theme } = useTheme();
+  const dispatch = useDispatch();
   const [isShowing, setIsShowing] = useState(true);
+
+  const handleGoProfile = (userId) => {
+    dispatch(setUserId(userId));
+  };
   return (
     <div>
       <div
@@ -27,6 +34,9 @@ const UserDisplay = ({ results }) => {
         results?.users?.map((user) => (
           <div
             className={`flex items-center gap-3 cursor-pointer py-1 px-4 ${theme.secondaryHoverBackground}`}
+            onClick={() => {
+              handleGoProfile(user._id);
+            }}
           >
             <img
               src={`http://localhost:3001/assets/${user?.picturePath}`}

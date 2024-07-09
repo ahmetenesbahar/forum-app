@@ -33,7 +33,7 @@ const ProfilePage = ({ userId, handleGoBack }) => {
           className={`w-8 h-8 ${theme.hoverUpVote} rounded-full`}
         />
       </div>
-      <div className="flex flex-col items-start max-w-[850px] w-full">
+      <div className="flex flex-col items-start max-w-[756px] w-full">
         <div className="flex justify-center items-center gap-3">
           <img
             src={`http://localhost:3001/assets/${user?.picturePath}`}
@@ -46,7 +46,7 @@ const ProfilePage = ({ userId, handleGoBack }) => {
         </div>
         <div className="flex flex-col w-full justify-center items-center mt-10 p-5">
           <Tab.Group>
-            <Tab.List className={"flex gap-32"}>
+            <Tab.List className={"flex gap-16"}>
               <Tab as={Fragment}>
                 {({ selected }) => (
                   <button
