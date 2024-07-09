@@ -47,7 +47,7 @@ const ProfilePage = ({ userId }) => {
             <p className="text-sm">{formatDate(user?.createdAt)}</p>
           </div>
         </div>
-        <div className="flex w-full justify-center items-center mt-10 p-5">
+        <div className="flex flex-col w-full justify-center items-center mt-10 p-5">
           <Tab.Group>
             <Tab.List className={"flex gap-32"}>
               <Tab as={Fragment}>
@@ -90,9 +90,10 @@ const ProfilePage = ({ userId }) => {
                 )}
               </Tab>
             </Tab.List>
-            <Tab.Panels className="mt-3">
+            <div className={`w-full h-px mt-5 ${theme.grayBackground}`} />
+            <Tab.Panels className="mt-3 w-full">
               <Tab.Panel>
-                <UserPosts />
+                <UserPosts userId={userId} />
               </Tab.Panel>
               <Tab.Panel>
                 <UserUpVotes />
@@ -103,7 +104,6 @@ const ProfilePage = ({ userId }) => {
             </Tab.Panels>
           </Tab.Group>
         </div>
-        <div className={`w-full h-px ${theme.grayBackground}`} />
       </div>
     </div>
   );
