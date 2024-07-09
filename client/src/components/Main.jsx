@@ -20,7 +20,6 @@ const Main = () => {
   }, [postId]);
 
   useEffect(() => {
-    console.log(userId);
     setSelectedProfile(userId);
   }, [userId]);
 
