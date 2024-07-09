@@ -34,6 +34,10 @@ const CommunitySchema = new mongoose.Schema({
       ref: "Post",
     },
   ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Community = mongoose.model("Community", CommunitySchema);
