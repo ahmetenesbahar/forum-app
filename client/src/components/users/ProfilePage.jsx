@@ -22,7 +22,9 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="relative flex py-2 justify-center w-full">
+    <div
+      className={`relative flex py-2 justify-center w-full h-[calc(100vh-80px)] overflow-auto scrollbar ${theme.scrollbarThumb} ${theme.scrollbarTrack} scrollbar-thin`}
+    >
       <div className="flex flex-col items-start max-w-[756px] w-full">
         <div className="flex justify-center items-center gap-3">
           <img

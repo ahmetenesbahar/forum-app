@@ -26,7 +26,9 @@ const PostDetail = () => {
   };
 
   return (
-    <div className="relative flex py-2 justify-center w-full gap-2">
+    <div
+      className={`relative flex py-2 justify-center w-full gap-2 h-[calc(100vh-80px)] overflow-auto scrollbar ${theme.scrollbarThumb} ${theme.scrollbarTrack} scrollbar-thin`}
+    >
       <div className="flex flex-col items-center max-w-[756px] w-full gap-y-2">
         <div
           key={post?._id}
