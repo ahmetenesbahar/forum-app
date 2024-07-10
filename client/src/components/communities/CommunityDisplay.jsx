@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useTheme } from "components/contexts/ThemeContext";
 import { RiArrowUpSLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const CommunityDisplay = ({ results }) => {
   const { theme } = useTheme();
   const [isShowing, setIsShowing] = useState(true);
+  const navigate = useNavigate();
+
   return (
     <div>
       <div
@@ -27,6 +30,9 @@ const CommunityDisplay = ({ results }) => {
         results?.communities?.map((community) => (
           <div
             className={`flex items-center gap-3 cursor-pointer py-1 px-4 ${theme.secondaryHoverBackground}`}
+            onClick={() => {
+              navigate(`/communities/${community._id}`);
+            }}
           >
             <img
               src={`http://localhost:3001/assets/${community?.picturePath}`}

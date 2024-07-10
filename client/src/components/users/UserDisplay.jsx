@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import { useTheme } from "components/contexts/ThemeContext";
-import { useDispatch } from "react-redux";
 import { RiArrowUpSLine } from "react-icons/ri";
-import { setUserId } from "state/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const UserDisplay = ({ results }) => {
   const { theme } = useTheme();
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [isShowing, setIsShowing] = useState(true);
 
-  const handleGoProfile = (userId) => {
-    dispatch(setUserId(userId));
-  };
   return (
     <div>
       <div
@@ -35,7 +32,7 @@ const UserDisplay = ({ results }) => {
           <div
             className={`flex items-center gap-3 cursor-pointer py-1 px-4 ${theme.secondaryHoverBackground}`}
             onClick={() => {
-              handleGoProfile(user._id);
+              navigate(`users/${user._id}`);
             }}
           >
             <img

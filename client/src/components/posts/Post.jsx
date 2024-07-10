@@ -36,7 +36,7 @@ const Post = ({ post }) => {
             <p
               className="text-sm font-medium opacity-90 hover:underline"
               onClick={(e) => {
-                navigate(`/communities/${post._id}`);
+                navigate(`/communities/${post?.community?._id}`);
                 e.stopPropagation();
               }}
             >
