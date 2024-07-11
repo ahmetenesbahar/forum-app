@@ -2,10 +2,12 @@ import React, { useEffect, useState, Fragment } from "react";
 import { useTheme } from "./contexts/ThemeContext";
 import { Transition } from "@headlessui/react";
 import { RiArrowUpSLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 import useCommunities from "hooks/useCommunities";
 
 const Sidebar = () => {
   const { theme } = useTheme();
+  const navigate = useNavigate();
   const [isShowing, setIsShowing] = useState(true);
   const { data: communities } = useCommunities();
 
@@ -44,6 +46,9 @@ const Sidebar = () => {
               <li
                 key={community._id}
                 className={`${theme.text} min-h-[40px] px-2 py-1 rounded-md   ${theme.hoverBackground}  hover:cursor-pointer select-none`}
+                onClick={() => {
+                  navigate(`/communities/${community._id}`);
+                }}
               >
                 <div className="flex gap-2 items-center ">
                   <img
