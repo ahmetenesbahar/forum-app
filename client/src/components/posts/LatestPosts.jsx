@@ -21,7 +21,12 @@ const LatestPosts = () => {
               alt="community"
               className="w-6 h-6 rounded-full"
             />
-            <p className={`text-xs  ${theme.boxText}`}>
+            <p
+              className={`text-xs  ${theme.boxText}`}
+              onClick={() => {
+                navigate(`/communities/${post?.community._id}`);
+              }}
+            >
               f/{post?.community?.communityName}
             </p>
           </div>
